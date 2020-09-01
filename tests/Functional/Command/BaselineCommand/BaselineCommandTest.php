@@ -30,8 +30,6 @@ class BaselineCommandTest extends TestCase
      */
     public function testBaselineCommand(): void
     {
-        // baseline coverage.xml --baseDir /home/jenkins/build/workspace/0_TP_DRCore_code_coverage_checks/
-
         // prepare data files
         $coveragePath = __DIR__ . '/Data/coverage.xml';
         $expected     = str_replace("\r", "", file_get_contents(__DIR__ . '/Data/phpcci.xml'));
