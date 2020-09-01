@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Tests\Unit\Lib\IO;
+namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\IO;
 
 use DOMDocument;
-use DR\CodeCoverageInspection\Lib\IO\MetricsFactory;
+use DigitalRevolution\CodeCoverageInspection\Lib\IO\MetricsFactory;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \DR\CodeCoverageInspection\Lib\IO\MetricsFactory
+ * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\IO\MetricsFactory
  */
 class MetricsFactoryTest extends TestCase
 {

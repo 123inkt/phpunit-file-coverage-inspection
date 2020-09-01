@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Lib\IO;
+namespace DigitalRevolution\CodeCoverageInspection\Lib\IO;
 
 use DOMDocument;
 use DOMXPath;
-use DR\CodeCoverageInspection\Lib\Utility\XMLUtil;
-use DR\CodeCoverageInspection\Model\Config\FileInspectionConfig;
-use DR\CodeCoverageInspection\Model\Config\InspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Lib\Utility\XMLUtil;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\FileInspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use RuntimeException;
 
 class InspectionConfigFactory

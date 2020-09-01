@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Tests\Unit\Model\Config;
+namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Model\Config;
 
 use DigitalRevolution\AccessorPairConstraint\AccessorPairAsserter;
-use DR\CodeCoverageInspection\Model\Config\FileInspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\FileInspectionConfig;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \DR\CodeCoverageInspection\Model\Config\FileInspectionConfig
+ * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Model\Config\FileInspectionConfig
  */
 class FileInspectionConfigTest extends TestCase
 {

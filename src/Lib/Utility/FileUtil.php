@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Lib\Utility;
+namespace DigitalRevolution\CodeCoverageInspection\Lib\Utility;
 
 use RuntimeException;
 use SplFileInfo;

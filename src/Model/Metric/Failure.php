@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Model\Metric;
+namespace DigitalRevolution\CodeCoverageInspection\Model\Metric;
 
 class Failure
 {

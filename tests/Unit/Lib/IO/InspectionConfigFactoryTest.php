@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Tests\Unit\Lib\IO;
+namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\IO;
 
 use DOMDocument;
-use DR\CodeCoverageInspection\Lib\IO\InspectionConfigFactory;
+use DigitalRevolution\CodeCoverageInspection\Lib\IO\InspectionConfigFactory;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
 /**
- * @coversDefaultClass \DR\CodeCoverageInspection\Lib\IO\InspectionConfigFactory
+ * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\IO\InspectionConfigFactory
  */
 class InspectionConfigFactoryTest extends TestCase
 {

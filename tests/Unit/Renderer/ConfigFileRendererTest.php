@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Tests\Unit\Renderer;
+namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Renderer;
 
-use DR\CodeCoverageInspection\Model\Config\InspectionConfig;
-use DR\CodeCoverageInspection\Model\Metric\Failure;
-use DR\CodeCoverageInspection\Model\Metric\Metric;
-use DR\CodeCoverageInspection\Renderer\ConfigFileRenderer;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\Metric;
+use DigitalRevolution\CodeCoverageInspection\Renderer\ConfigFileRenderer;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \DR\CodeCoverageInspection\Renderer\ConfigFileRenderer
+ * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Renderer\ConfigFileRenderer
  */
 class ConfigFileRendererTest extends TestCase
 {

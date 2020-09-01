@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Lib\IO;
+namespace DigitalRevolution\CodeCoverageInspection\Lib\IO;
 
 use DOMDocument;
 use DOMNode;
 use DOMXPath;
-use DR\CodeCoverageInspection\Lib\Utility\XMLUtil;
-use DR\CodeCoverageInspection\Model\Metric\Metric;
+use DigitalRevolution\CodeCoverageInspection\Lib\Utility\XMLUtil;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\Metric;
 
 class MetricsFactory
 {

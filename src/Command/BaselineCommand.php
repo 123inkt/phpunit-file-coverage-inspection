@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Command;
+namespace DigitalRevolution\CodeCoverageInspection\Command;
 
-use DR\CodeCoverageInspection\Lib\IO\DOMDocumentFactory;
-use DR\CodeCoverageInspection\Lib\IO\MetricsFactory;
-use DR\CodeCoverageInspection\Lib\Metrics\MetricsAnalyzer;
-use DR\CodeCoverageInspection\Lib\Utility\FileUtil;
-use DR\CodeCoverageInspection\Model\Config\InspectionConfig;
-use DR\CodeCoverageInspection\Renderer\ConfigFileRenderer;
+use DigitalRevolution\CodeCoverageInspection\Lib\IO\DOMDocumentFactory;
+use DigitalRevolution\CodeCoverageInspection\Lib\IO\MetricsFactory;
+use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\MetricsAnalyzer;
+use DigitalRevolution\CodeCoverageInspection\Lib\Utility\FileUtil;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Renderer\ConfigFileRenderer;
 use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

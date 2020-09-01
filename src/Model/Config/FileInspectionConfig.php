@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Model\Config;
+namespace DigitalRevolution\CodeCoverageInspection\Model\Config;
 
 class FileInspectionConfig
 {

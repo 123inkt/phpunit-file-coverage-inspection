@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Renderer;
+namespace DigitalRevolution\CodeCoverageInspection\Renderer;
 
-use DR\CodeCoverageInspection\Lib\Utility\FileUtil;
-use DR\CodeCoverageInspection\Model\Config\InspectionConfig;
-use DR\CodeCoverageInspection\Model\Metric\Failure;
+use DigitalRevolution\CodeCoverageInspection\Lib\Utility\FileUtil;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use XMLWriter;
 
 class ConfigFileRenderer

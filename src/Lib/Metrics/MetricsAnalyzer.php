@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Lib\Metrics;
+namespace DigitalRevolution\CodeCoverageInspection\Lib\Metrics;
 
-use DR\CodeCoverageInspection\Lib\Utility\FileUtil;
-use DR\CodeCoverageInspection\Model\Config\InspectionConfig;
-use DR\CodeCoverageInspection\Model\Metric\Failure;
-use DR\CodeCoverageInspection\Model\Metric\Metric;
+use DigitalRevolution\CodeCoverageInspection\Lib\Utility\FileUtil;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\Metric;
 
 class MetricsAnalyzer
 {

@@ -6,13 +6,13 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "DR\\CodeCoverageInspection\\": "src/"
+            "DigitalRevolution\\CodeCoverageInspection\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "DR\\CodeCoverageInspection\\Tests\\Unit\\": "tests/Unit/",
-            "DR\\CodeCoverageInspection\\Tests\\": "tests/"
+            "DigitalRevolution\\CodeCoverageInspection\\Tests\\Unit\\": "tests/Unit/",
+            "DigitalRevolution\\CodeCoverageInspection\\Tests\\": "tests/"
         }
     },
     "bin": ["bin/phpcci"],

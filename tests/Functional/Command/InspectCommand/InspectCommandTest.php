@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Tests\Functional\Command\InspectCommand;
+namespace DigitalRevolution\CodeCoverageInspection\Tests\Functional\Command\InspectCommand;
 
-use DR\CodeCoverageInspection\Command\InspectCommand;
+use DigitalRevolution\CodeCoverageInspection\Command\InspectCommand;
 use Exception;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;

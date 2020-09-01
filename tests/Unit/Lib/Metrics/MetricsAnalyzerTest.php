@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Tests\Unit\Lib\Metrics;
+namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Metrics;
 
-use DR\CodeCoverageInspection\Lib\Metrics\MetricsAnalyzer;
-use DR\CodeCoverageInspection\Model\Config\FileInspectionConfig;
-use DR\CodeCoverageInspection\Model\Config\InspectionConfig;
-use DR\CodeCoverageInspection\Model\Metric\Failure;
-use DR\CodeCoverageInspection\Model\Metric\Metric;
+use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\MetricsAnalyzer;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\FileInspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\Metric;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \DR\CodeCoverageInspection\Lib\Metrics\MetricsAnalyzer
+ * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\Metrics\MetricsAnalyzer
  * @covers ::__construct
  */
 class MetricsAnalyzerTest extends TestCase

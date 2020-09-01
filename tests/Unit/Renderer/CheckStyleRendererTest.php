@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Tests\Unit\Renderer;
+namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Renderer;
 
-use DR\CodeCoverageInspection\Model\Config\InspectionConfig;
-use DR\CodeCoverageInspection\Model\Metric\Failure;
-use DR\CodeCoverageInspection\Model\Metric\Metric;
-use DR\CodeCoverageInspection\Renderer\CheckStyleRenderer;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\Metric;
+use DigitalRevolution\CodeCoverageInspection\Renderer\CheckStyleRenderer;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
 /**
- * @coversDefaultClass \DR\CodeCoverageInspection\Renderer\CheckStyleRenderer
+ * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Renderer\CheckStyleRenderer
  */
 class CheckStyleRendererTest extends TestCase
 {

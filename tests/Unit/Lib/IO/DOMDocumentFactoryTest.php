@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Tests\Unit\Lib\IO;
+namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\IO;
 
-use DR\CodeCoverageInspection\Lib\IO\DOMDocumentFactory;
+use DigitalRevolution\CodeCoverageInspection\Lib\IO\DOMDocumentFactory;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use SplFileInfo;
 
 /**
- * @coversDefaultClass \DR\CodeCoverageInspection\Lib\IO\DOMDocumentFactory
+ * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\IO\DOMDocumentFactory
  */
 class DOMDocumentFactoryTest extends TestCase
 {

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Tests\Unit\Lib\Utility;
+namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Utility;
 
-use DR\CodeCoverageInspection\Lib\Utility\FileUtil;
+use DigitalRevolution\CodeCoverageInspection\Lib\Utility\FileUtil;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamFile;
@@ -12,7 +12,7 @@ use RuntimeException;
 use SplFileInfo;
 
 /**
- * @coversDefaultClass \DR\CodeCoverageInspection\Lib\Utility\FileUtil
+ * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\Utility\FileUtil
  */
 class FileUtilTest extends TestCase
 {

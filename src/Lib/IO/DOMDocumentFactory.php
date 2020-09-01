@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Lib\IO;
+namespace DigitalRevolution\CodeCoverageInspection\Lib\IO;
 
 use DOMDocument;
 use LibXMLError;

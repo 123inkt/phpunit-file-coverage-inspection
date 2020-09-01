@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Tests\Functional\Command\BaselineCommand;
+namespace DigitalRevolution\CodeCoverageInspection\Tests\Functional\Command\BaselineCommand;
 
-use DR\CodeCoverageInspection\Command\BaselineCommand;
-use DR\CodeCoverageInspection\Command\InspectCommand;
+use DigitalRevolution\CodeCoverageInspection\Command\BaselineCommand;
+use DigitalRevolution\CodeCoverageInspection\Command\InspectCommand;
 use Exception;
 use Hoa\Iterator\Buffer;
 use org\bovigo\vfs\vfsStream;

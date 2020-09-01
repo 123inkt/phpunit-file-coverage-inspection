@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace DR\CodeCoverageInspection\Tests\Unit\Lib\Utility;
+namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Utility;
 
 use DOMDocument;
-use DR\CodeCoverageInspection\Lib\Utility\XMLUtil;
+use DigitalRevolution\CodeCoverageInspection\Lib\Utility\XMLUtil;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \DR\CodeCoverageInspection\Lib\Utility\XMLUtil
+ * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\Utility\XMLUtil
  */
 class XMLUtilTest extends TestCase
 {
