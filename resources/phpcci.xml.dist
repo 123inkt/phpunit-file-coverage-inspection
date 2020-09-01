@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpcci xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="phpcci.xsd"
+        min-coverage="100"
+>
+    <custom-coverage>
+        <file path="a/b/c" min="80"/>
+    </custom-coverage>
+</phpcci>

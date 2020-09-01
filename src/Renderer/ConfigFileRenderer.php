@@ -1,0 +1,46 @@
+<?php
+declare(strict_types=1);
+
+namespace DR\CodeCoverageInspection\Renderer;
+
+use DR\CodeCoverageInspection\Lib\Utility\FileUtil;
+use DR\CodeCoverageInspection\Model\Config\InspectionConfig;
+use DR\CodeCoverageInspection\Model\Metric\Failure;
+use XMLWriter;
+
+class ConfigFileRenderer
+{
+    /**
+     * @param Failure[] $failures
+     */
+    public function render(array $failures, InspectionConfig $config): string
+    {
+        $out = new XMLWriter();
+        $out->openMemory();
+        $out->startDocument("1.0", "UTF-8");
+        $out->setIndent(true);
+        $out->setIndentString("    ");
+        $out->startElement('phpcci');
+        $out->writeAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
+        $out->writeAttribute('xsi:noNamespaceSchemaLocation', 'vendor/digitalrevolution/phpunit-coverage-inspection/resources/phpcci.xsd');
+        $out->writeAttribute('min-coverage', (string)$config->getMinimumCoverage());
+
+        if (count($failures) > 0) {
+            $out->startElement('custom-coverage');
+
+            foreach ($failures as $failure) {
+                $filepath = FileUtil::getRelativePath($failure->getMetric()->getFilepath(), $config->getBasePath());
+
+                $out->startElement('file');
+                $out->writeAttribute('path', $filepath);
+                $out->writeAttribute('min', (string)floor($failure->getMetric()->getCoverage()));
+                $out->endElement(/* file */);
+            }
+            $out->endElement(/* custom-coverage>*/);
+        }
+
+        $out->endElement(/* phpcci */);
+
+        return $out->flush();
+    }
+}

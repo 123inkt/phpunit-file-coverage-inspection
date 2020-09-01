@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1598702199">
+    <project timestamp="1598702199">
+        <!-- coverage 90% -->
+        <file name="/home/workspace/test/case/standard-above-threshold.php">
+            <metrics loc="11"
+                     ncloc="11"
+                     classes="0"
+                     methods="0"
+                     coveredmethods="0"
+                     conditionals="0"
+                     coveredconditionals="0"
+                     statements="100"
+                     coveredstatements="90"
+                     elements="0"
+                     coveredelements="0"/>
+        </file>
+        <!-- coverage 70% -->
+        <file name="/home/workspace/test/case/standard-below-threshold.php">
+            <metrics loc="11"
+                     ncloc="11"
+                     classes="0"
+                     methods="0"
+                     coveredmethods="0"
+                     conditionals="0"
+                     coveredconditionals="0"
+                     statements="100"
+                     coveredstatements="70"
+                     elements="0"
+                     coveredelements="0"/>
+        </file>
+
+        <!-- custom configured files -->
+        <!-- coverage 60% -->
+        <file name="/home/workspace/test/case/above-threshold.php">
+            <metrics loc="11"
+                     ncloc="11"
+                     classes="0"
+                     methods="0"
+                     coveredmethods="0"
+                     conditionals="0"
+                     coveredconditionals="0"
+                     statements="100"
+                     coveredstatements="60"
+                     elements="0"
+                     coveredelements="0"/>
+        </file>
+        <!-- coverage 50% -->
+        <file name="/home/workspace/test/case/below-threshold.php">
+            <metrics loc="11"
+                     ncloc="11"
+                     classes="0"
+                     methods="0"
+                     coveredmethods="0"
+                     conditionals="0"
+                     coveredconditionals="0"
+                     statements="100"
+                     coveredstatements="50"
+                     elements="0"
+                     coveredelements="0"/>
+        </file>
+
+        <!-- coverage 90% -->
+        <file name="/home/workspace/test/case/unnecessary-custom-rule.php">
+            <metrics loc="11"
+                     ncloc="11"
+                     classes="0"
+                     methods="0"
+                     coveredmethods="0"
+                     conditionals="0"
+                     coveredconditionals="0"
+                     statements="100"
+                     coveredstatements="90"
+                     elements="0"
+                     coveredelements="0"/>
+        </file>
+    </project>
+</coverage>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1598702199">
+    <project timestamp="1598702199">
+        <file name="/home/workspace/test/case/file-a.php">
+            <metrics loc="11"
+                     ncloc="11"
+                     classes="0"
+                     methods="0"
+                     coveredmethods="0"
+                     conditionals="0"
+                     coveredconditionals="0"
+                     statements="78"
+                     coveredstatements="35"
+                     elements="0"
+                     coveredelements="0"/>
+        </file>
+        <file name="/home/workspace/test/case/file-b.php">
+            <metrics loc="11"
+                     ncloc="11"
+                     classes="0"
+                     methods="0"
+                     coveredmethods="0"
+                     conditionals="0"
+                     coveredconditionals="0"
+                     statements="100"
+                     coveredstatements="50"
+                     elements="0"
+                     coveredelements="0"/>
+        </file>
+    </project>
+</coverage>

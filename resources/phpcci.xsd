@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:simpleType name="percentage">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="custom-coverage">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="file" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="file">
+        <xs:complexType>
+            <xs:attribute name="path" type="xs:string"/>
+            <xs:attribute name="min" type="percentage"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- definition of root element -->
+    <xs:element name="phpcci">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="custom-coverage" maxOccurs="1" minOccurs="0"/>
+            </xs:sequence>
+            <xs:attribute name="min-coverage" type="percentage"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

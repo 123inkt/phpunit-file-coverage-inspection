@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpcci xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/digitalrevolution/phpunit-coverage-inspection/resources/phpcci.xsd" min-coverage="100">
+    <custom-coverage>
+        <file path="test/case/file-a.php" min="44"/>
+        <file path="test/case/file-b.php" min="50"/>
+    </custom-coverage>
+</phpcci>
