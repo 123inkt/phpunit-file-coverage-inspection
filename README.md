@@ -44,7 +44,7 @@ The base directory will be subtracted from the filepaths in coverage.xml
 ## Usage
 
 ```shell script
-php bin/phpcci inspect coverage.xml reports/checkstyle.xml
+php vendor/bin/phpcci inspect coverage.xml reports/checkstyle.xml
 ```
  
 
