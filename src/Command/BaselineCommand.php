@@ -39,17 +39,17 @@ class BaselineCommand extends Command
         }
 
         $outputPath       = new SplFileInfo($configArgument);
-        $basePath         = $input->getOption('baseDir') ?? $outputPath->getPath() . '/';
+        $baseDir          = $input->getOption('baseDir') ?? $outputPath->getPath() . '/';
         $coverageFilePath = FileUtil::getExistingFile($input->getArgument('coverage'), 'coverage.xml filepath');
 
-        if (is_string($basePath) === false) {
-            $output->writeln("Base path is not valid");
+        if (is_string($baseDir) === false) {
+            $output->writeln("--baseDir argument is not valid. Expecting string argument");
 
             return Command::FAILURE;
         }
 
         // default to 100% coverage
-        $config  = new InspectionConfig($basePath, 100);
+        $config  = new InspectionConfig($baseDir, 100);
         $metrics = MetricsFactory::getMetrics(DOMDocumentFactory::getDOMDocument($coverageFilePath));
 
         // analyzer

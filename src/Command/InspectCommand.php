@@ -40,20 +40,20 @@ class InspectCommand extends Command
             }
         }
         $configPath       = FileUtil::getExistingFile($input->getOption('config') ?? $configPath, 'config filepath');
-        $basePath         = $input->getOption('baseDir') ?? $configPath->getPath() . '/';
+        $baseDir          = $input->getOption('baseDir') ?? $configPath->getPath() . '/';
         $coverageFilePath = FileUtil::getExistingFile($input->getArgument('coverage'), 'coverage.xml filepath');
         $outputFilePath   = FileUtil::getFile($input->getArgument('output'), 'output filepath');
         $schema           = dirname(__DIR__, 2) . '/resources/phpcci.xsd';
 
-        if (is_string($basePath) === false) {
-            $output->writeln("Base path is not valid");
+        if (is_string($baseDir) === false) {
+            $output->writeln("--baseDir argument is not valid. Expecting string argument");
 
             return Command::FAILURE;
         }
 
         // gather data
         $domConfig = DOMDocumentFactory::getValidatedDOMDocument($configPath, $schema);
-        $config    = InspectionConfigFactory::fromDOMDocument($basePath, $domConfig);
+        $config    = InspectionConfigFactory::fromDOMDocument($baseDir, $domConfig);
         $metrics   = MetricsFactory::getMetrics(DOMDocumentFactory::getDOMDocument($coverageFilePath));
 
         if (count($metrics) === 0) {
