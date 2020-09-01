@@ -11,6 +11,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "DigitalRevolution\\CodeCoverageInspection\\Tests\\Functional\\": "tests/Functional/",
             "DigitalRevolution\\CodeCoverageInspection\\Tests\\Unit\\": "tests/Unit/",
             "DigitalRevolution\\CodeCoverageInspection\\Tests\\": "tests/"
         }
