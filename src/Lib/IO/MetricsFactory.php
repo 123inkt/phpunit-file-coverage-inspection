@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace DigitalRevolution\CodeCoverageInspection\Lib\IO;
 
+use DigitalRevolution\CodeCoverageInspection\Lib\Utility\XMLUtil;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\Metric;
 use DOMDocument;
 use DOMNode;
 use DOMXPath;
-use DigitalRevolution\CodeCoverageInspection\Lib\Utility\XMLUtil;
-use DigitalRevolution\CodeCoverageInspection\Model\Metric\Metric;
 
 class MetricsFactory
 {

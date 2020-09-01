@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace DigitalRevolution\CodeCoverageInspection\Lib\IO;
 
-use DOMDocument;
-use DOMXPath;
 use DigitalRevolution\CodeCoverageInspection\Lib\Utility\XMLUtil;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\FileInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
+use DOMDocument;
+use DOMXPath;
 use RuntimeException;
 
 class InspectionConfigFactory

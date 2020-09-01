@@ -4,9 +4,7 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Tests\Functional\Command\BaselineCommand;
 
 use DigitalRevolution\CodeCoverageInspection\Command\BaselineCommand;
-use DigitalRevolution\CodeCoverageInspection\Command\InspectCommand;
 use Exception;
-use Hoa\Iterator\Buffer;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamFile;
@@ -14,7 +12,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Console\Output\ConsoleOutput;
 
 class BaselineCommandTest extends TestCase
 {

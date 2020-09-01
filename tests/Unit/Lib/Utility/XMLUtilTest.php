@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Utility;
 
-use DOMDocument;
 use DigitalRevolution\CodeCoverageInspection\Lib\Utility\XMLUtil;
+use DOMDocument;
 use PHPUnit\Framework\TestCase;
 
 /**
