@@ -9,6 +9,7 @@ use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\MetricsAnalyzer;
 use DigitalRevolution\CodeCoverageInspection\Lib\Utility\FileUtil;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Renderer\ConfigFileRenderer;
+use RuntimeException;
 use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -32,7 +33,10 @@ class BaselineCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $configArgument = $input->getArgument('config');
-        if (is_array($configArgument) && count($configArgument) > 0) {
+        if (is_array($configArgument)) {
+            if (count($configArgument) === 0) {
+                throw new RuntimeException('Missing config argument');
+            }
             $configArgument = reset($configArgument);
         }
 
