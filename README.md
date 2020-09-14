@@ -8,7 +8,8 @@ Inspection failure will be output in checkstyle format, allowing it to be import
 
 ## Use case
 Standard coverage calculation is calculated over the whole codebase. If for example the threshold is 80% and one file drops
-below 80% you never notice this because the overall coverage went from 87.6% to 87.4%. 
+below 80% you never notice this because the overall coverage went from 87.6% to 87.4%.
+This package makes sure that that doesn't happen anymore and coverage is calculated on a per-file basis. 
 
 ## Installation
 Include the library as dependency in your own project via: 
