@@ -17,17 +17,11 @@ class FileInspectionConfig
         $this->minimumCoverage = $minimumCoverage;
     }
 
-    /**
-     * @return string
-     */
     public function getPath(): string
     {
         return $this->path;
     }
 
-    /**
-     * @return int
-     */
     public function getMinimumCoverage(): int
     {
         return $this->minimumCoverage;
