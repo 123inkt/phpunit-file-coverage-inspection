@@ -11,6 +11,8 @@ use DOMXPath;
 
 class MetricsFactory
 {
+    private const COVERAGE_PERCENTAGE_PRECISION = 2;
+
     /**
      * Get metrics information from coverage.xml file
      *
@@ -35,11 +37,11 @@ class MetricsFactory
             $filename   = (string)XMLUtil::getAttribute($parentNode, 'name');
 
             // calculate coverage
-            $statements        = (int)XMLUtil::getAttribute($domMetric, 'statements');
-            $coveredStatements = (int)XMLUtil::getAttribute($domMetric, 'coveredstatements');
-            $coverage          = $statements === 0 ? 100 : round($coveredStatements / $statements * 100, 2);
+            $statements         = (int)XMLUtil::getAttribute($domMetric, 'statements');
+            $coveredStatements  = (int)XMLUtil::getAttribute($domMetric, 'coveredstatements');
+            $coveragePercentage = $statements === 0 ? 100 : round($coveredStatements / $statements * 100, self::COVERAGE_PERCENTAGE_PRECISION);
 
-            $metrics[] = new Metric($filename, $coverage);
+            $metrics[] = new Metric($filename, $coveragePercentage);
         }
 
         return $metrics;
