@@ -25,7 +25,7 @@ class BaselineCommand extends Command
         $this->setName("baseline")
             ->setDescription("Generate phpcci.xml based on a given coverage.xml")
             ->addArgument('coverage', InputOption::VALUE_REQUIRED, 'Path to phpunit\'s coverage.xml')
-            ->addArgument('config', InputOption::VALUE_OPTIONAL, 'Path to write the configuration file. Defaults to phpcci.xml')
+            ->addArgument('config', InputOption::VALUE_REQUIRED, 'Path to write the configuration file')
             ->addOption('baseDir', '', InputOption::VALUE_REQUIRED, 'Base directory from where to determine the relative config paths');
     }
 
@@ -34,8 +34,6 @@ class BaselineCommand extends Command
         $configArgument = $input->getArgument('config');
         if (is_array($configArgument) && count($configArgument) > 0) {
             $configArgument = reset($configArgument);
-        } else {
-            $configArgument = getcwd() . '/phpcci.xml';
         }
 
         $outputPath       = new SplFileInfo($configArgument);
