@@ -31,8 +31,8 @@ class FileUtilTest extends TestCase
     public function testGetFileMissingThrowsException(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('File path is not configured or no default');
-        FileUtil::getFile(false, 'test');
+        $this->expectExceptionMessage('File path is missing');
+        FileUtil::getFile(false);
     }
 
     /**
@@ -41,7 +41,7 @@ class FileUtilTest extends TestCase
     public function testGetFileShouldPass(): void
     {
         $path = '/a/b/c.txt';
-        $file = FileUtil::getFile($path, 'test');
+        $file = FileUtil::getFile($path);
 
         static::assertSame($path, $file->getPathname());
     }
@@ -53,7 +53,7 @@ class FileUtilTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('File is missing or is a directory');
-        FileUtil::getExistingFile($this->fileSystem->url() . 'missing-file.txt', 'test');
+        FileUtil::getExistingFile($this->fileSystem->url() . 'missing-file.txt');
     }
 
     /**
@@ -64,7 +64,7 @@ class FileUtilTest extends TestCase
         $filepath = $this->fileSystem->url() . '/existing-file.txt';
         touch($filepath);
 
-        $file = FileUtil::getExistingFile($filepath, 'test');
+        $file = FileUtil::getExistingFile($filepath);
         static::assertSame($filepath, $file->getPathname());
     }
 
