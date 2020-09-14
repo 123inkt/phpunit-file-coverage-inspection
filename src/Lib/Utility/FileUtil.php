@@ -47,7 +47,7 @@ class FileUtil
         $concurrentDirectory = $file->getPath();
         if (!is_dir($concurrentDirectory) && !mkdir($concurrentDirectory, 0777, true) && !is_dir($concurrentDirectory)) {
             // @codeCoverageIgnoreStart
-            throw new RuntimeException(sprintf('Failed to created directory "%s".', $concurrentDirectory));
+            throw new RuntimeException(sprintf('Failed to create directory "%s".', $concurrentDirectory));
             // @codeCoverageIgnoreEnd
         }
 
