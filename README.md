@@ -3,7 +3,7 @@
 
 # PHPUnit coverage inspection
 A tool to allow code coverage rules be defined per file. Set a minimum coverage threshold for every file and configure
-custom minimum coverage for existing files. In the event the current test coverage is not up to standards yet.
+custom minimum coverage for existing files if the current test coverage is not up to standards yet. 
 Inspection failure will be output in checkstyle format, allowing it to be imported in ci/cd tools.
 
 ## Use case
@@ -36,7 +36,7 @@ File: `phpcci.xml`
 or generate a config file based on existing coverage results
 
 ```shell script
-php bin/phpcci baseline --baseDir /home/jenkins/workspace coverage.xml 
+php bin/phpcci baseline --baseDir /home/ci/workspace coverage.xml 
 ```
 
 The base directory will be subtracted from the filepaths in coverage.xml

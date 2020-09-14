@@ -40,7 +40,7 @@ class BaselineCommand extends Command
 
         $outputPath       = new SplFileInfo($configArgument);
         $baseDir          = $input->getOption('baseDir') ?? $outputPath->getPath() . '/';
-        $coverageFilePath = FileUtil::getExistingFile($input->getArgument('coverage'), 'coverage.xml filepath');
+        $coverageFilePath = FileUtil::getExistingFile($input->getArgument('coverage'));
 
         if (is_string($baseDir) === false) {
             $output->writeln("--baseDir argument is not valid. Expecting string argument");

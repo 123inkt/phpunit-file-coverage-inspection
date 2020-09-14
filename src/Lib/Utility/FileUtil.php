@@ -20,10 +20,10 @@ class FileUtil
     /**
      * @param mixed|null $path
      */
-    public static function getFile($path, string $expectation): SplFileInfo
+    public static function getFile($path): SplFileInfo
     {
         if (is_string($path) === false) {
-            throw new RuntimeException('File path is not configured or no default file path is set for ' . $expectation);
+            throw new RuntimeException('File path is missing');
         }
 
         return new SplFileInfo($path);
@@ -32,9 +32,9 @@ class FileUtil
     /**
      * @param mixed|null $path
      */
-    public static function getExistingFile($path, string $expectation): SplFileInfo
+    public static function getExistingFile($path): SplFileInfo
     {
-        $fileInfo = self::getFile($path, $expectation);
+        $fileInfo = self::getFile($path);
         if ($fileInfo->isFile() === false) {
             throw new RuntimeException('File is missing or is a directory: ' . $path);
         }

@@ -14,9 +14,7 @@ foreach ([__DIR__ . '/../autoload.php', __DIR__ . '/../../../autoload.php', __DI
 }
 
 error_reporting(E_ALL);
-ini_set('memory_limit', '2048M');
 ini_set('display_errors', '1');
-set_time_limit(600);
 
 $application = new Application();
 $application->add(new InspectCommand());

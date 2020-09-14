@@ -39,10 +39,10 @@ class InspectCommand extends Command
                 break;
             }
         }
-        $configPath       = FileUtil::getExistingFile($input->getOption('config') ?? $configPath, 'config filepath');
+        $configPath       = FileUtil::getExistingFile($input->getOption('config') ?? $configPath);
         $baseDir          = $input->getOption('baseDir') ?? $configPath->getPath() . '/';
-        $coverageFilePath = FileUtil::getExistingFile($input->getArgument('coverage'), 'coverage.xml filepath');
-        $outputFilePath   = FileUtil::getFile($input->getArgument('output'), 'output filepath');
+        $coverageFilePath = FileUtil::getExistingFile($input->getArgument('coverage'));
+        $outputFilePath   = FileUtil::getFile($input->getArgument('output'));
         $schema           = dirname(__DIR__, 2) . '/resources/phpcci.xsd';
 
         if (is_string($baseDir) === false) {
