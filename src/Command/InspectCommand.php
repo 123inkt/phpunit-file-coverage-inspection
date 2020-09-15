@@ -28,7 +28,7 @@ class InspectCommand extends Command
             ->addArgument('coverage', InputOption::VALUE_REQUIRED, 'Path to phpunit\'s coverage.xml')
             ->addArgument('output', InputOption::VALUE_REQUIRED, 'Path to write inspections report file to')
             ->addOption('config', 'c', InputOption::VALUE_REQUIRED, 'Path to configuration file. Optional')
-            ->addOption('baseDir', '', InputOption::VALUE_REQUIRED, 'Base directory from where to measure relative config paths');
+            ->addOption('baseDir', '', InputOption::VALUE_REQUIRED, 'Base directory from where to determine the relative config paths');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
