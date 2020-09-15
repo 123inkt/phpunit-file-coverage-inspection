@@ -8,6 +8,27 @@ use SplFileInfo;
 
 class FileUtil
 {
+    /**
+     * Find the first file occurrence in the given path
+     *
+     * @param string[] $fileNames
+     */
+    public static function findFilePath(string $path, array $fileNames): ?string
+    {
+        if (is_dir($path) === false) {
+            return null;
+        }
+
+        foreach ($fileNames as $fileName) {
+            $filepath = $path . '/' . $fileName;
+            if (is_file($filepath)) {
+                return $filepath;
+            }
+        }
+
+        return null;
+    }
+
     public static function getRelativePath(string $filepath, string $basePath): string
     {
         if (strpos($filepath, $basePath) === 0) {

@@ -26,6 +26,37 @@ class FileUtilTest extends TestCase
     }
 
     /**
+     * @covers ::findFilePath
+     */
+    public function testFindFilePathMissingDirectory(): void
+    {
+        static::assertNull(FileUtil::findFilePath('/non-existing-file-path/', []));
+    }
+
+    /**
+     * @covers ::findFilePath
+     */
+    public function testFindFilePathMissingFile(): void
+    {
+        static::assertNull(FileUtil::findFilePath($this->fileSystem->url(), ['non-existing-file']));
+    }
+
+    /**
+     * @covers ::findFilePath
+     */
+    public function testFindFilePathForExistingFile(): void
+    {
+        $path = $this->fileSystem->url();
+        $file = 'existing-file.txt';
+        $filepath = $path . '/' . $file;
+
+        // create file
+        touch($filepath);
+
+        static::assertSame($filepath, FileUtil::findFilePath($path, ['non-existing-file', $file]));
+    }
+
+    /**
      * @covers ::getFile
      */
     public function testGetFileMissingThrowsException(): void

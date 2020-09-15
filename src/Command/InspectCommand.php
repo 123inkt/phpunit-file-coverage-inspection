@@ -19,6 +19,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class InspectCommand extends Command
 {
+    private const CONFIG_FILES = ['phpfci.xml', 'phpfci.xml.dist'];
+
     protected function configure(): void
     {
         $this->setName("inspect")
@@ -31,15 +33,7 @@ class InspectCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // determine config path
-        $configPath = null;
-        foreach ([getcwd() . '/phpfci.xml', getcwd() . '/phpfci.xml.dist'] as $path) {
-            if (file_exists($path)) {
-                $configPath = $path;
-                break;
-            }
-        }
-        $configPath       = FileUtil::getExistingFile($input->getOption('config') ?? $configPath);
+        $configPath       = FileUtil::getExistingFile($input->getOption('config') ?? FileUtil::findFilePath(getcwd(), self::CONFIG_FILES));
         $baseDir          = $input->getOption('baseDir') ?? $configPath->getPath() . '/';
         $coverageFilePath = FileUtil::getExistingFile($input->getArgument('coverage'));
         $outputFilePath   = FileUtil::getFile($input->getArgument('output'));
