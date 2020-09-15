@@ -29,7 +29,8 @@ class ConfigFileRendererTest extends TestCase
         static::assertSame(
             '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
             '<phpfci xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' .
-            'xsi:noNamespaceSchemaLocation="vendor/digitalrevolution/phpunit-file-coverage-inspection/resources/phpfci.xsd" min-coverage="100">' . "\n" .
+            'xsi:noNamespaceSchemaLocation="vendor/digitalrevolution/phpunit-file-coverage-inspection/resources/phpfci.xsd" ' .
+            'min-coverage="100">' . "\n" .
             '    <custom-coverage>' . "\n" .
             '        <file path="bar/file.php" min="48"/>' . "\n" .
             '    </custom-coverage>' . "\n" .
