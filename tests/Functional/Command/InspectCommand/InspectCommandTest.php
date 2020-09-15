@@ -30,7 +30,7 @@ class InspectCommandTest extends TestCase
     public function testInspectCommand(): void
     {
         // prepare data files
-        $configPath   = __DIR__ . '/Data/phpcci.xml';
+        $configPath   = __DIR__ . '/Data/phpfci.xml';
         $coveragePath = __DIR__ . '/Data/coverage.xml';
         $expected     = str_replace("\r", "", file_get_contents(__DIR__ . '/Data/checkstyle.xml'));
         $output       = $this->fileSystem->url() . '/checkstyle.xml';
@@ -38,7 +38,7 @@ class InspectCommandTest extends TestCase
 
         // prepare command
         $command = new InspectCommand();
-        $input   = new ArgvInput(['phpcci', '--config', $configPath, '--baseDir', $baseDir, $coveragePath, $output]);
+        $input   = new ArgvInput(['phpfci', '--config', $configPath, '--baseDir', $baseDir, $coveragePath, $output]);
         $output  = new ConsoleOutput();
 
         // run test case

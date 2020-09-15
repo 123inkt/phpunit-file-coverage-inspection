@@ -24,7 +24,7 @@ class BaselineCommand extends Command
     protected function configure(): void
     {
         $this->setName("baseline")
-            ->setDescription("Generate phpcci.xml based on a given coverage.xml")
+            ->setDescription("Generate phpfci.xml based on a given coverage.xml")
             ->addArgument('coverage', InputOption::VALUE_REQUIRED, 'Path to phpunit\'s coverage.xml')
             ->addArgument('config', InputOption::VALUE_REQUIRED, 'Path to write the configuration file')
             ->addOption('baseDir', '', InputOption::VALUE_REQUIRED, 'Base directory from where to determine the relative config paths');

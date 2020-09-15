@@ -33,7 +33,7 @@ class CheckStyleRendererTest extends TestCase
             "<checkstyle version=\"3.5.5\">\n" .
             " <file name=\"/foo/bar/file.php\">\n" .
             "  <error line=\"1\" column=\"0\" severity=\"error\" message=\"Project per file coverage is configured at 80%. Current coverage is" .
-            " at 48.3%. Improve coverage for this class.\" source=\"phpunit-coverage-inspection\"/>\n" .
+            " at 48.3%. Improve coverage for this class.\" source=\"phpunit-file-coverage-inspection\"/>\n" .
             " </file>\n" .
             "</checkstyle>\n",
             $result
@@ -58,7 +58,7 @@ class CheckStyleRendererTest extends TestCase
             '<checkstyle version="3.5.5">' . "\n" .
             ' <file name="/foo/bar/file.php">' . "\n" .
             '  <error line="1" column="0" severity="error" message="Custom file coverage is configured at 60%. Current coverage is' .
-            ' at 48.3%. Improve coverage for this class." source="phpunit-coverage-inspection"/>' . "\n" .
+            ' at 48.3%. Improve coverage for this class." source="phpunit-file-coverage-inspection"/>' . "\n" .
             ' </file>' . "\n" .
             '</checkstyle>' . "\n",
             $result
@@ -83,8 +83,8 @@ class CheckStyleRendererTest extends TestCase
             "<checkstyle version=\"3.5.5\">\n" .
             " <file name=\"/foo/bar/file.php\">\n" .
             "  <error line=\"1\" column=\"0\" severity=\"error\" message=\"A custom file coverage is configured at 60%, but the current file" .
-            " coverage 85.3% exceeds the project coverage 80%. Remove `/foo/bar/file.php` from phpcci.xml custom-coverage rules.\"" .
-            " source=\"phpunit-coverage-inspection\"/>\n" .
+            " coverage 85.3% exceeds the project coverage 80%. Remove `/foo/bar/file.php` from phpfci.xml custom-coverage rules.\"" .
+            " source=\"phpunit-file-coverage-inspection\"/>\n" .
             " </file>\n" .
             "</checkstyle>\n",
             $result

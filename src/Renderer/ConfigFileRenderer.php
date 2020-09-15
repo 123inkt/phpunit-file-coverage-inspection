@@ -20,9 +20,9 @@ class ConfigFileRenderer
         $out->startDocument("1.0", "UTF-8");
         $out->setIndent(true);
         $out->setIndentString("    ");
-        $out->startElement('phpcci');
+        $out->startElement('phpfci');
         $out->writeAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
-        $out->writeAttribute('xsi:noNamespaceSchemaLocation', 'vendor/digitalrevolution/phpunit-coverage-inspection/resources/phpcci.xsd');
+        $out->writeAttribute('xsi:noNamespaceSchemaLocation', 'vendor/digitalrevolution/phpunit-file-coverage-inspection/resources/phpfci.xsd');
         $out->writeAttribute('min-coverage', (string)$config->getMinimumCoverage());
 
         if (count($failures) > 0) {
@@ -39,7 +39,7 @@ class ConfigFileRenderer
             $out->endElement(/* custom-coverage>*/);
         }
 
-        $out->endElement(/* phpcci */);
+        $out->endElement(/* phpfci */);
 
         return $out->flush();
     }

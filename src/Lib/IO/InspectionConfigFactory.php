@@ -19,7 +19,7 @@ class InspectionConfigFactory
 
         // find all custom coverage files
         $files     = [];
-        $fileNodes = $xpath->query("/phpcci/custom-coverage/file");
+        $fileNodes = $xpath->query("/phpfci/custom-coverage/file");
         if ($fileNodes !== false) {
             foreach ($fileNodes as $item) {
                 $path            = (string)XMLUtil::getAttribute($item, 'path');
@@ -34,15 +34,15 @@ class InspectionConfigFactory
     private static function getMinimumCoverage(DOMXpath $xpath): int
     {
         // find global minimum coverage setting
-        $nodes = $xpath->query("/phpcci");
+        $nodes = $xpath->query("/phpfci");
         if ($nodes === false || $nodes->count() === 0) {
-            throw new RuntimeException('Missing `phpcci` in configuration file');
+            throw new RuntimeException('Missing `phpfci` in configuration file');
         }
 
         $node = $nodes->item(0);
         if ($node === null) {
             // @codeCoverageIgnoreStart
-            throw new RuntimeException('Missing attributes on `phpcci`');
+            throw new RuntimeException('Missing attributes on `phpfci`');
             // @codeCoverageIgnoreEnd
         }
 

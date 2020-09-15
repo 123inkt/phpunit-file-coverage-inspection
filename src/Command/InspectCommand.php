@@ -33,7 +33,7 @@ class InspectCommand extends Command
     {
         // determine config path
         $configPath = null;
-        foreach ([getcwd() . '/phpcci.xml', getcwd() . '/phpcci.xml.dist'] as $path) {
+        foreach ([getcwd() . '/phpfci.xml', getcwd() . '/phpfci.xml.dist'] as $path) {
             if (file_exists($path)) {
                 $configPath = $path;
                 break;
@@ -43,7 +43,7 @@ class InspectCommand extends Command
         $baseDir          = $input->getOption('baseDir') ?? $configPath->getPath() . '/';
         $coverageFilePath = FileUtil::getExistingFile($input->getArgument('coverage'));
         $outputFilePath   = FileUtil::getFile($input->getArgument('output'));
-        $schema           = dirname(__DIR__, 2) . '/resources/phpcci.xsd';
+        $schema           = dirname(__DIR__, 2) . '/resources/phpfci.xsd';
 
         if (is_string($baseDir) === false) {
             $output->writeln("--baseDir argument is not valid. Expecting string argument");

@@ -17,7 +17,7 @@ class XMLUtilTest extends TestCase
      */
     public function testGetAttribute(): void
     {
-        $xml = '<?xml version="1.0" encoding="UTF-8"?><phpcci min-coverage="85"></phpcci>';
+        $xml = '<?xml version="1.0" encoding="UTF-8"?><phpfci min-coverage="85"></phpfci>';
         $dom = new DOMDocument();
         $dom->loadXML($xml);
         static::assertNotNull($dom->firstChild);
@@ -34,7 +34,7 @@ class XMLUtilTest extends TestCase
      */
     public function testGetAttributeNodeWithoutAttributesShouldReturnNull(): void
     {
-        $xml = '<?xml version="1.0" encoding="UTF-8"?><phpcci>text</phpcci>';
+        $xml = '<?xml version="1.0" encoding="UTF-8"?><phpfci>text</phpfci>';
         $dom = new DOMDocument();
         $dom->loadXML($xml);
         static::assertNotNull($dom->firstChild);

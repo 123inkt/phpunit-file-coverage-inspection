@@ -24,7 +24,7 @@
     </xs:element>
 
     <!-- definition of root element -->
-    <xs:element name="phpcci">
+    <xs:element name="phpfci">
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="custom-coverage" maxOccurs="1" minOccurs="0"/>

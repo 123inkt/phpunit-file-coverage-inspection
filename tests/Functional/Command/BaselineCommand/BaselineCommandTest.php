@@ -32,22 +32,22 @@ class BaselineCommandTest extends TestCase
     {
         // prepare data files
         $coveragePath = __DIR__ . '/Data/coverage.xml';
-        $expected     = str_replace("\r", "", file_get_contents(__DIR__ . '/Data/phpcci.xml'));
-        $output       = $this->fileSystem->url() . '/phpcci.xml';
+        $expected     = str_replace("\r", "", file_get_contents(__DIR__ . '/Data/phpfci.xml'));
+        $output       = $this->fileSystem->url() . '/phpfci.xml';
         $baseDir      = '/home/workspace/';
 
         // prepare command
         $command = new BaselineCommand();
-        $input   = new ArgvInput(['phpcci', '--baseDir', $baseDir, $coveragePath, $output]);
+        $input   = new ArgvInput(['phpfci', '--baseDir', $baseDir, $coveragePath, $output]);
         $output  = new BufferedOutput();
 
         // run test case
         static::assertSame(Command::SUCCESS, $command->run($input, $output));
-        static::assertTrue($this->fileSystem->hasChild('phpcci.xml'));
+        static::assertTrue($this->fileSystem->hasChild('phpfci.xml'));
 
         // check output
         /** @var vfsStreamFile $resultFile */
-        $resultFile = $this->fileSystem->getChild('phpcci.xml');
+        $resultFile = $this->fileSystem->getChild('phpfci.xml');
         $result     = $resultFile->getContent();
 
         static::assertSame($expected, $result);

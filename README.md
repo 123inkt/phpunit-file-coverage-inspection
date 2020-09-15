@@ -1,5 +1,5 @@
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.2-8892BF)](https://php.net/)
-![Run tests](https://github.com/123inkt/phpunit-coverage-inspection/workflows/Run%20tests/badge.svg)
+![Run tests](https://github.com/123inkt/phpunit-file-coverage-inspection/workflows/Run%20tests/badge.svg)
 
 # PHPUnit coverage inspection
 A tool to allow code coverage rules be defined per file. Set a minimum coverage threshold for every file and configure
@@ -14,30 +14,30 @@ This package makes sure that that doesn't happen anymore and coverage is calcula
 ## Installation
 Include the library as dependency in your own project via: 
 ```
-composer require "digitalrevolution/phpunit-coverage-inspection" --dev
+composer require "digitalrevolution/phpunit-file-coverage-inspection" --dev
 ```
 
 ## Configuration
 
-File: `phpcci.xml`
+File: `phpfci.xml`
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<phpcci xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="vendor/digitalrevolution/phpunit-coverage-inspection/resources/phpcci.xsd"
+<phpfci xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="vendor/digitalrevolution/phpunit-file-coverage-inspection/resources/phpfci.xsd"
         min-coverage="100"
 >
     <custom-coverage>
         <file path="src/FileA.php" min="80"/>
         <file path="src/FileB.php" min="60"/>
     </custom-coverage>
-</phpcci>
+</phpfci>
 ```
 
 or generate a config file based on existing coverage results
 
 ```shell script
-php bin/phpcci baseline --baseDir /home/ci/workspace coverage.xml 
+php bin/phpfci baseline --baseDir /home/ci/workspace coverage.xml 
 ```
 
 The base directory will be subtracted from the filepaths in coverage.xml
@@ -45,7 +45,7 @@ The base directory will be subtracted from the filepaths in coverage.xml
 ## Usage
 
 ```shell script
-php vendor/bin/phpcci inspect coverage.xml reports/checkstyle.xml
+php vendor/bin/phpfci inspect coverage.xml reports/checkstyle.xml
 ```
  
 

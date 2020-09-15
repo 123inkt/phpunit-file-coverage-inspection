@@ -1,6 +1,6 @@
 {
-    "name": "digitalrevolution/phpunit-coverage-inspection",
-    "description": "Configurable phpunit coverage inspection",
+    "name": "digitalrevolution/phpunit-file-coverage-inspection",
+    "description": "Configurable phpunit file coverage inspection",
     "type": "library",
     "license": "MIT",
     "minimum-stability": "stable",
@@ -16,7 +16,7 @@
             "DigitalRevolution\\CodeCoverageInspection\\Tests\\": "tests/"
         }
     },
-    "bin": ["bin/phpcci"],
+    "bin": ["bin/phpfci"],
     "require": {
         "php": "7.2.* || 7.3.* || 7.4.*",
         "ext-dom": "*",

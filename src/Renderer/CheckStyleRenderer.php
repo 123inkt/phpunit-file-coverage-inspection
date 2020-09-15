@@ -34,7 +34,7 @@ class CheckStyleRenderer
             $out->writeAttribute('column', (string)0);
             $out->writeAttribute('severity', 'error');
             $out->writeAttribute('message', $message);
-            $out->writeAttribute('source', 'phpunit-coverage-inspection');
+            $out->writeAttribute('source', 'phpunit-file-coverage-inspection');
             $out->endElement();
 
             $out->endElement(/* file */);
@@ -60,7 +60,7 @@ class CheckStyleRenderer
 
             case Failure::UNNECESSARY_CUSTOM_COVERAGE:
                 $message = "A custom file coverage is configured at %s%%, but the current file coverage %s%% exceeds the project coverage %s%%. ";
-                $message .= "Remove `%s` from phpcci.xml custom-coverage rules.";
+                $message .= "Remove `%s` from phpfci.xml custom-coverage rules.";
 
                 return sprintf(
                     $message,

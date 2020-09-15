@@ -27,7 +27,7 @@ class DOMDocumentFactoryTest extends TestCase
         parent::setUp();
         $this->file       = tmpfile();
         $this->fileInfo   = new SplFileInfo(stream_get_meta_data($this->file)['uri']);
-        $this->schemaPath = dirname(__DIR__, 4) . '/resources/phpcci.xsd';
+        $this->schemaPath = dirname(__DIR__, 4) . '/resources/phpfci.xsd';
     }
 
     /**
@@ -48,11 +48,11 @@ class DOMDocumentFactoryTest extends TestCase
     public function testGetDOMDocumentShouldPass(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
-            <phpcci min-coverage="85">
+            <phpfci min-coverage="85">
                 <custom-coverage>
                     <file path="a/b/c" min="80"/>
                 </custom-coverage>
-            </phpcci>
+            </phpfci>
         ';
         fwrite($this->file, $xml);
         $dom = DOMDocumentFactory::getValidatedDOMDocument($this->fileInfo, $this->schemaPath);
@@ -66,8 +66,8 @@ class DOMDocumentFactoryTest extends TestCase
     public function testGetDOMDocumentWithoutCustomCoverageShouldPass(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
-            <phpcci min-coverage="85">
-            </phpcci>
+            <phpfci min-coverage="85">
+            </phpfci>
         ';
         fwrite($this->file, $xml);
         $dom = DOMDocumentFactory::getValidatedDOMDocument($this->fileInfo, $this->schemaPath);
@@ -81,8 +81,8 @@ class DOMDocumentFactoryTest extends TestCase
     public function testGetDOMDocumentWithInvalidCoverageShouldFail(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
-            <phpcci min-coverage="200">
-            </phpcci>
+            <phpfci min-coverage="200">
+            </phpfci>
         ';
         fwrite($this->file, $xml);
 
@@ -98,10 +98,10 @@ class DOMDocumentFactoryTest extends TestCase
     public function testGetDOMDocumentWithInvalidCoverage(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
-            <phpcci min-coverage="200">
+            <phpfci min-coverage="200">
                 <custom-coverage>
                 </custom-coverage>
-            </phpcci>
+            </phpfci>
         ';
         fwrite($this->file, $xml);
 

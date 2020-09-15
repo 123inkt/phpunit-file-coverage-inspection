@@ -20,11 +20,11 @@ class InspectionConfigFactoryTest extends TestCase
     public function testFromDOMDocument(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
-            <phpcci min-coverage="85">
+            <phpfci min-coverage="85">
                 <custom-coverage>
                     <file path="a/b/c" min="80"/>
                 </custom-coverage>
-            </phpcci>
+            </phpfci>
         ';
 
         $dom = new DOMDocument();
@@ -53,7 +53,7 @@ class InspectionConfigFactoryTest extends TestCase
         $dom->loadXML($xml);
 
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Missing `phpcci` in configuration file');
+        $this->expectExceptionMessage('Missing `phpfci` in configuration file');
         InspectionConfigFactory::fromDOMDocument('/tmp/test', $dom);
     }
 }
