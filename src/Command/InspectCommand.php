@@ -33,7 +33,7 @@ class InspectCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $configPath       = FileUtil::getExistingFile($input->getOption('config') ?? FileUtil::findFilePath(getcwd(), self::CONFIG_FILES));
+        $configPath       = FileUtil::getExistingFile($input->getOption('config') ?? FileUtil::findFilePath((string)getcwd(), self::CONFIG_FILES));
         $baseDir          = $input->getOption('baseDir') ?? $configPath->getPath() . '/';
         $coverageFilePath = FileUtil::getExistingFile($input->getArgument('coverage'));
         $outputFilePath   = FileUtil::getFile($input->getArgument('output'));
