@@ -11,6 +11,10 @@ Standard coverage calculation is calculated over the whole codebase. If for exam
 below 80% you never notice this because the overall coverage went from 87.6% to 87.4%.
 This package makes sure that that doesn't happen anymore and coverage is calculated on a per-file basis. 
 
+## Supported formats
+* Input: clover coverage.xml
+* Output: checkstyle
+
 ## Installation
 Include the library as dependency in your own project via: 
 ```
