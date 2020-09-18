@@ -1,0 +1,29 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+use DigitalRevolution\CodeCoverageInspection\Command\BaselineCommand;
+use DigitalRevolution\CodeCoverageInspection\Command\InspectCommand;
+use Symfony\Component\Console\Application;
+
+foreach ([__DIR__ . '/../autoload.php', __DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php'] as $file) {
+    if (file_exists($file)) {
+        require_once $file;
+        break;
+    }
+}
+
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
+$application = new Application();
+$application->add(new InspectCommand());
+$application->add(new BaselineCommand());
+
+try {
+    exit($application->run());
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage() . "\n";
+    echo "File: " . $e->getFile() . ":" . $e->getLine() . "\n";
+    exit(1);
+}
