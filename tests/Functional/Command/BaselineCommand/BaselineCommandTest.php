@@ -26,6 +26,7 @@ class BaselineCommandTest extends TestCase
     }
 
     /**
+     * @coversNothing
      * @throws Exception
      */
     public function testBaselineCommand(): void

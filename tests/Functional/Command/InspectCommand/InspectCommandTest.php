@@ -25,6 +25,7 @@ class InspectCommandTest extends TestCase
     }
 
     /**
+     * @coversNothing
      * @throws Exception
      */
     public function testInspectCommand(): void
