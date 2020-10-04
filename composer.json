@@ -33,7 +33,7 @@
         "phpstan/phpstan-strict-rules": "0.12.*",
         "phpstan/extension-installer": "1.0.*",
         "digitalrevolution/accessorpair-constraint": "^2.1",
-        "mikey179/vfsstream": "^1.6"
+        "mikey179/vfsstream": "^1.6.7"
     },
     "scripts": {
         "check": ["@check:phpstan", "@check:phpmd", "@check:phpcs"],
