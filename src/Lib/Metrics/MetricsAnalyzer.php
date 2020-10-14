@@ -30,9 +30,9 @@ class MetricsAnalyzer
      */
     public function analyze(): array
     {
-        $failures              = [];
-        $minimumCoverage       = $this->config->getMinimumCoverage();
-        $allowUncoveredMethods = $this->config->isAllowUncoveredMethods();
+        $failures           = [];
+        $minimumCoverage    = $this->config->getMinimumCoverage();
+        $isUncoveredAllowed = $this->config->isUncoveredAllowed();
 
         foreach ($this->metrics as $metric) {
             $filepath        = FileUtil::getRelativePath($metric->getFilepath(), $this->config->getBasePath());
@@ -52,7 +52,7 @@ class MetricsAnalyzer
             }
 
             // no custom coverage, and file has a method without any code coverage
-            if ($fileConfig === null && $allowUncoveredMethods === false && $uncoveredMethod !== null) {
+            if ($fileConfig === null && $isUncoveredAllowed === false && $uncoveredMethod !== null) {
                 $failures[] = new Failure($metric, $minimumCoverage, Failure::MISSING_METHOD_COVERAGE, $uncoveredMethod->getLineNumber());
                 continue;
             }

@@ -15,7 +15,7 @@ class InspectionConfigFactory
     public static function fromDOMDocument(string $basePath, DOMDocument $doc): InspectionConfig
     {
         $xpath = new DOMXpath($doc);
-        [$minCoverage, $allowUncoveredMethods] = self::getConfiguration($xpath);
+        [$minCoverage, $isUncoveredAllowed] = self::getConfiguration($xpath);
 
         // find all custom coverage files
         $files     = [];
@@ -28,9 +28,12 @@ class InspectionConfigFactory
             }
         }
 
-        return new InspectionConfig($basePath, $minCoverage, $allowUncoveredMethods, $files);
+        return new InspectionConfig($basePath, $minCoverage, $isUncoveredAllowed, $files);
     }
 
+    /**
+     * @return array{int, bool}
+     */
     private static function getConfiguration(DOMXpath $xpath): array
     {
         // find global coverage settings
@@ -46,9 +49,9 @@ class InspectionConfigFactory
             // @codeCoverageIgnoreEnd
         }
 
-        $minCoverage           = (int)XMLUtil::getAttribute($node, 'min-coverage');
-        $allowUncoveredMethods = XMLUtil::getAttribute($node, 'allow-uncovered-methods') === "true";
+        $minCoverage        = (int)XMLUtil::getAttribute($node, 'min-coverage');
+        $isUncoveredAllowed = XMLUtil::getAttribute($node, 'allow-uncovered-methods') === "true";
 
-        return [$minCoverage, $allowUncoveredMethods];
+        return [$minCoverage, $isUncoveredAllowed];
     }
 }

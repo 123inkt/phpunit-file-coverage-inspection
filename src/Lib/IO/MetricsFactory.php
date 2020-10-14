@@ -64,7 +64,7 @@ class MetricsFactory
 
         $metrics = [];
         foreach ($methodNodes as $methodNode) {
-            $methodName = XMLUtil::getAttribute($methodNode, 'name');
+            $methodName = XMLUtil::getAttribute($methodNode, 'name') ?? '';
             $lineNumber = (int)XMLUtil::getAttribute($methodNode, 'num');
             $count      = (int)XMLUtil::getAttribute($methodNode, 'count');
 

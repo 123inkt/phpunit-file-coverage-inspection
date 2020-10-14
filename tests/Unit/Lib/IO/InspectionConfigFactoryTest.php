@@ -33,7 +33,7 @@ class InspectionConfigFactoryTest extends TestCase
         $config = InspectionConfigFactory::fromDOMDocument('/tmp/test', $dom);
         static::assertSame('/tmp/test', $config->getBasePath());
         static::assertSame(85, $config->getMinimumCoverage());
-        static::assertFalse($config->isAllowUncoveredMethods());
+        static::assertFalse($config->isUncoveredAllowed());
 
         $file = $config->getFileInspection('a/b/c');
         static::assertNotNull($file);
@@ -55,7 +55,7 @@ class InspectionConfigFactoryTest extends TestCase
         $dom->loadXML($xml);
 
         $config = InspectionConfigFactory::fromDOMDocument('/tmp/test', $dom);
-        static::assertTrue($config->isAllowUncoveredMethods());
+        static::assertTrue($config->isUncoveredAllowed());
     }
 
     /**
@@ -72,7 +72,7 @@ class InspectionConfigFactoryTest extends TestCase
         $dom->loadXML($xml);
 
         $config = InspectionConfigFactory::fromDOMDocument('/tmp/test', $dom);
-        static::assertFalse($config->isAllowUncoveredMethods());
+        static::assertFalse($config->isUncoveredAllowed());
     }
 
     /**
