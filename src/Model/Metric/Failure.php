@@ -8,6 +8,7 @@ class Failure
     public const GLOBAL_COVERAGE_TOO_LOW     = 1;
     public const CUSTOM_COVERAGE_TOO_LOW     = 2;
     public const UNNECESSARY_CUSTOM_COVERAGE = 3;
+    public const MISSING_METHOD_COVERAGE     = 4;
 
     /** @var FileMetric */
     private $metric;
@@ -18,11 +19,15 @@ class Failure
     /** @var int */
     private $reason;
 
-    public function __construct(FileMetric $metric, int $minimumCoverage, int $reason)
+    /** @var int */
+    private $lineNumber;
+
+    public function __construct(FileMetric $metric, int $minimumCoverage, int $reason, int $lineNumber = 1)
     {
         $this->metric          = $metric;
         $this->minimumCoverage = $minimumCoverage;
         $this->reason          = $reason;
+        $this->lineNumber      = $lineNumber;
     }
 
     public function getMetric(): FileMetric
@@ -38,5 +43,10 @@ class Failure
     public function getReason(): int
     {
         return $this->reason;
+    }
+
+    public function getLineNumber(): int
+    {
+        return $this->lineNumber;
     }
 }

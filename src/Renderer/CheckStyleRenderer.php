@@ -30,7 +30,7 @@ class CheckStyleRenderer
             $out->writeAttribute('name', $failure->getMetric()->getFilepath());
 
             $out->startElement('error');
-            $out->writeAttribute('line', (string)1);
+            $out->writeAttribute('line', (string)$failure->getLineNumber());
             $out->writeAttribute('column', (string)0);
             $out->writeAttribute('severity', 'error');
             $out->writeAttribute('message', $message);

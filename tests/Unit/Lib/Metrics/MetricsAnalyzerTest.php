@@ -8,6 +8,7 @@ use DigitalRevolution\CodeCoverageInspection\Model\Config\FileInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\MethodMetric;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -85,5 +86,46 @@ class MetricsAnalyzerTest extends TestCase
         $result   = $analyzer->analyze();
         static::assertCount(1, $result);
         static::assertEquals([new Failure($metric, 50, Failure::UNNECESSARY_CUSTOM_COVERAGE)], $result);
+    }
+
+    /**
+     * @covers ::analyze
+     */
+    public function testAnalyzeFileWithUncoveredMethodsShouldFail(): void
+    {
+        $metric    = new FileMetric('/a/b/c/test.php', 80, [new MethodMetric('foobar', 10, 0)]);
+        $metrics[] = $metric;
+        $config    = new InspectionConfig('/a/', 80, false);
+
+        $analyzer = new MetricsAnalyzer($metrics, $config);
+        $result   = $analyzer->analyze();
+        static::assertCount(1, $result);
+        static::assertEquals([new Failure($metric, 80, Failure::MISSING_METHOD_COVERAGE, 10)], $result);
+    }
+
+    /**
+     * @covers ::analyze
+     */
+    public function testAnalyzeFileWithoutAnyUncoveredMethodsShouldPass(): void
+    {
+        $metric    = new FileMetric('/a/b/c/test.php', 80, [new MethodMetric('foobar', 10, 20)]);
+        $metrics[] = $metric;
+        $config    = new InspectionConfig('/a/', 80, false);
+
+        $analyzer = new MetricsAnalyzer($metrics, $config);
+        static::assertEmpty($analyzer->analyze());
+    }
+
+    /**
+     * @covers ::analyze
+     */
+    public function testAnalyzeFileWithUncoveredMethodsButAllowedShouldPass(): void
+    {
+        $metric    = new FileMetric('/a/b/c/test.php', 80, [new MethodMetric('foobar', 10, 0)]);
+        $metrics[] = $metric;
+        $config    = new InspectionConfig('/a/', 80, true);
+
+        $analyzer = new MetricsAnalyzer($metrics, $config);
+        static::assertEmpty($analyzer->analyze());
     }
 }

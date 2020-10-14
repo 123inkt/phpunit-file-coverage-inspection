@@ -30,12 +30,14 @@ class MetricsAnalyzer
      */
     public function analyze(): array
     {
-        $failures        = [];
-        $minimumCoverage = $this->config->getMinimumCoverage();
+        $failures              = [];
+        $minimumCoverage       = $this->config->getMinimumCoverage();
+        $allowUncoveredMethods = $this->config->isAllowUncoveredMethods();
 
         foreach ($this->metrics as $metric) {
-            $filepath   = FileUtil::getRelativePath($metric->getFilepath(), $this->config->getBasePath());
-            $fileConfig = $this->config->getFileInspection($filepath);
+            $filepath        = FileUtil::getRelativePath($metric->getFilepath(), $this->config->getBasePath());
+            $fileConfig      = $this->config->getFileInspection($filepath);
+            $uncoveredMethod = FileMetricAnalyzer::getUncoveredMethodMetric($metric);
 
             // file is below custom coverage
             if ($fileConfig !== null && $metric->getCoverage() < $fileConfig->getMinimumCoverage()) {
@@ -49,8 +51,14 @@ class MetricsAnalyzer
                 continue;
             }
 
+            // no custom coverage, and file has a method without any code coverage
+            if ($fileConfig === null && $allowUncoveredMethods === false && $uncoveredMethod !== null) {
+                $failures[] = new Failure($metric, $minimumCoverage, Failure::MISSING_METHOD_COVERAGE, $uncoveredMethod->getLineNumber());
+                continue;
+            }
+
             // custom coverage, but file is already above global coverage
-            if ($fileConfig !== null && $metric->getCoverage() >= $minimumCoverage) {
+            if ($fileConfig !== null && $uncoveredMethod === null && $metric->getCoverage() >= $minimumCoverage) {
                 $failures[] = new Failure($metric, $fileConfig->getMinimumCoverage(), Failure::UNNECESSARY_CUSTOM_COVERAGE);
                 continue;
             }
