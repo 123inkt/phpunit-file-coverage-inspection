@@ -9,7 +9,7 @@ class Failure
     public const CUSTOM_COVERAGE_TOO_LOW     = 2;
     public const UNNECESSARY_CUSTOM_COVERAGE = 3;
 
-    /** @var Metric */
+    /** @var FileMetric */
     private $metric;
 
     /** @var int */
@@ -18,14 +18,14 @@ class Failure
     /** @var int */
     private $reason;
 
-    public function __construct(Metric $metric, int $minimumCoverage, int $reason)
+    public function __construct(FileMetric $metric, int $minimumCoverage, int $reason)
     {
         $this->metric          = $metric;
         $this->minimumCoverage = $minimumCoverage;
         $this->reason          = $reason;
     }
 
-    public function getMetric(): Metric
+    public function getMetric(): FileMetric
     {
         return $this->metric;
     }

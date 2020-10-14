@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Lib\IO;
 
 use DigitalRevolution\CodeCoverageInspection\Lib\Utility\XMLUtil;
-use DigitalRevolution\CodeCoverageInspection\Model\Metric\Metric;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\MethodMetric;
 use DOMDocument;
 use DOMNode;
 use DOMXPath;
@@ -16,9 +17,9 @@ class MetricsFactory
     /**
      * Get metrics information from coverage.xml file
      *
-     * @return Metric[]
+     * @return FileMetric[]
      */
-    public static function getMetrics(DOMDocument $document): array
+    public static function getFileMetrics(DOMDocument $document): array
     {
         $metrics = [];
         $xpath   = new DOMXPath($document);
@@ -41,7 +42,33 @@ class MetricsFactory
             $coveredStatements  = (int)XMLUtil::getAttribute($domMetric, 'coveredstatements');
             $coveragePercentage = $statements === 0 ? 100 : round($coveredStatements / $statements * 100, self::COVERAGE_PERCENTAGE_PRECISION);
 
-            $metrics[] = new Metric($filename, $coveragePercentage);
+            // gather metrics per method
+            $methodMetrics = self::getMethodMetrics($xpath, $parentNode);
+
+            $metrics[] = new FileMetric($filename, $coveragePercentage, $methodMetrics);
+        }
+
+        return $metrics;
+    }
+
+    /**
+     * @return MethodMetric[]
+     */
+    public static function getMethodMetrics(DOMXPath $xpath, DOMNode $fileNode): array
+    {
+        // get all line entries
+        $methodNodes = $xpath->query('line[@type="method"]', $fileNode);
+        if ($methodNodes === false || count($methodNodes) === 0) {
+            return [];
+        }
+
+        $metrics = [];
+        foreach ($methodNodes as $methodNode) {
+            $methodName = XMLUtil::getAttribute($methodNode, 'name');
+            $lineNumber = (int)XMLUtil::getAttribute($methodNode, 'num');
+            $count      = (int)XMLUtil::getAttribute($methodNode, 'count');
+
+            $metrics[] = new MethodMetric($methodName, $lineNumber, $count);
         }
 
         return $metrics;

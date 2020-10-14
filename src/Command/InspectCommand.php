@@ -48,7 +48,7 @@ class InspectCommand extends Command
         // gather data
         $domConfig = DOMDocumentFactory::getValidatedDOMDocument($configPath, $schema);
         $config    = InspectionConfigFactory::fromDOMDocument($baseDir, $domConfig);
-        $metrics   = MetricsFactory::getMetrics(DOMDocumentFactory::getDOMDocument($coverageFilePath));
+        $metrics   = MetricsFactory::getFileMetrics(DOMDocumentFactory::getDOMDocument($coverageFilePath));
 
         if (count($metrics) === 0) {
             $output->writeln("No metrics found in coverage file: " . $coverageFilePath->getPathname());

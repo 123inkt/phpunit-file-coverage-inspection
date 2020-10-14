@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace DigitalRevolution\CodeCoverageInspection\Model\Metric;
 
-class Metric
+class FileMetric
 {
     /** @var string */
     private $filepath;
@@ -11,10 +11,17 @@ class Metric
     /** @var float */
     private $coverage;
 
-    public function __construct(string $filepath, float $coverage)
+    /** @var MethodMetric[] */
+    private $methods;
+
+    /**
+     * @param MethodMetric[] $methods
+     */
+    public function __construct(string $filepath, float $coverage, array $methods)
     {
         $this->filepath = $filepath;
         $this->coverage = $coverage;
+        $this->methods  = $methods;
     }
 
     public function getFilepath(): string
@@ -25,5 +32,13 @@ class Metric
     public function getCoverage(): float
     {
         return $this->coverage;
+    }
+
+    /**
+     * @return  MethodMetric[]
+     */
+    public function getMethods(): array
+    {
+        return $this->methods;
     }
 }

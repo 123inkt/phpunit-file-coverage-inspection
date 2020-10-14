@@ -52,7 +52,7 @@ class BaselineCommand extends Command
 
         // default to 100% coverage
         $config  = new InspectionConfig($baseDir, 100);
-        $metrics = MetricsFactory::getMetrics(DOMDocumentFactory::getDOMDocument($coverageFilePath));
+        $metrics = MetricsFactory::getFileMetrics(DOMDocumentFactory::getDOMDocument($coverageFilePath));
 
         // analyzer
         $failures = (new MetricsAnalyzer($metrics, $config))->analyze();

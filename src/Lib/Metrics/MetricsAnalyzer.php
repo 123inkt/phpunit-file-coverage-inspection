@@ -6,18 +6,18 @@ namespace DigitalRevolution\CodeCoverageInspection\Lib\Metrics;
 use DigitalRevolution\CodeCoverageInspection\Lib\Utility\FileUtil;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
-use DigitalRevolution\CodeCoverageInspection\Model\Metric\Metric;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 
 class MetricsAnalyzer
 {
-    /** @var Metric[] */
+    /** @var FileMetric[] */
     private $metrics;
 
     /** @var InspectionConfig */
     private $config;
 
     /**
-     * @param Metric[] $metrics
+     * @param FileMetric[] $metrics
      */
     public function __construct(array $metrics, InspectionConfig $config)
     {

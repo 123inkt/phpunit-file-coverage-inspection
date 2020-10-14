@@ -5,7 +5,7 @@ namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Renderer;
 
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
-use DigitalRevolution\CodeCoverageInspection\Model\Metric\Metric;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 use DigitalRevolution\CodeCoverageInspection\Renderer\ConfigFileRenderer;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class ConfigFileRendererTest extends TestCase
     public function testWrite(): void
     {
         $config  = new InspectionConfig('/foo/', 100);
-        $metric  = new Metric('/foo/bar/file.php', 48.3);
+        $metric  = new FileMetric('/foo/bar/file.php', 48.3, []);
         $failure = new Failure($metric, 60, Failure::GLOBAL_COVERAGE_TOO_LOW);
 
         $checkStyle = new ConfigFileRenderer();

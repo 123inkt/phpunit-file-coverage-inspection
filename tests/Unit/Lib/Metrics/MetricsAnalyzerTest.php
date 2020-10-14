@@ -7,7 +7,7 @@ use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\MetricsAnalyzer;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\FileInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
-use DigitalRevolution\CodeCoverageInspection\Model\Metric\Metric;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -21,7 +21,7 @@ class MetricsAnalyzerTest extends TestCase
      */
     public function testAnalyzeFileAboveMinimumShouldPass(): void
     {
-        $metrics[] = new Metric('/a/b/c/test.php', 80);
+        $metrics[] = new FileMetric('/a/b/c/test.php', 80, []);
         $config    = new InspectionConfig('/a/', 80);
 
         $analyzer = new MetricsAnalyzer($metrics, $config);
@@ -34,7 +34,7 @@ class MetricsAnalyzerTest extends TestCase
      */
     public function testAnalyzeFileBelowMinimumShouldFail(): void
     {
-        $metric  = new Metric('/a/b/c/test.php', 79.4);
+        $metric  = new FileMetric('/a/b/c/test.php', 79.4, []);
         $metrics = [$metric];
         $config  = new InspectionConfig('/a/', 80);
 
@@ -49,7 +49,7 @@ class MetricsAnalyzerTest extends TestCase
      */
     public function testAnalyzeFileWithCustomCoverageRuleShouldPass(): void
     {
-        $metrics[] = new Metric('/a/b/c/test.php', 45);
+        $metrics[] = new FileMetric('/a/b/c/test.php', 45, []);
         $config    = new InspectionConfig('/a/', 80, ['b/c/test.php' => new FileInspectionConfig('b/c/test.php', 40)]);
 
         $analyzer = new MetricsAnalyzer($metrics, $config);
@@ -62,7 +62,7 @@ class MetricsAnalyzerTest extends TestCase
      */
     public function testAnalyzeFileWithCustomCoverageRuleShouldFail(): void
     {
-        $metric  = new Metric('/a/b/c/test.php', 45);
+        $metric  = new FileMetric('/a/b/c/test.php', 45, []);
         $metrics = [$metric];
         $config  = new InspectionConfig('/a/', 80, ['b/c/test.php' => new FileInspectionConfig('b/c/test.php', 50)]);
 
@@ -77,7 +77,7 @@ class MetricsAnalyzerTest extends TestCase
      */
     public function testAnalyzeFileWithCustomCoverageAboveGlobalCoverageShouldFail(): void
     {
-        $metric  = new Metric('/a/b/c/test.php', 90);
+        $metric  = new FileMetric('/a/b/c/test.php', 90, []);
         $metrics = [$metric];
         $config  = new InspectionConfig('/a/', 80, ['b/c/test.php' => new FileInspectionConfig('b/c/test.php', 50)]);
 
