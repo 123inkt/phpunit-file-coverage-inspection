@@ -38,10 +38,16 @@ File: `phpfci.xml`
 </phpfci>
 ```
 
+| Option                  | Required | Default  | Description                                   |
+|-------------------------|----------|----------|-----------------------------------------------|
+| min-coverage            | yes      | -        | The minimum global coverage                   |
+| allow-uncovered-methods | no       | false    | All methods should have atleast some coverage | 
+
+
 or generate a config file based on existing coverage results
 
 ```shell script
-php bin/phpfci baseline --baseDir /home/ci/workspace coverage.xml 
+php bin/phpfci baseline --baseDir /home/ci/workspace coverage.xml ./phpfci.xml
 ```
 
 The base directory will be subtracted from the filepaths in coverage.xml

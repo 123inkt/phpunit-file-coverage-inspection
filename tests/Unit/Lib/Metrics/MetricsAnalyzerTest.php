@@ -50,7 +50,7 @@ class MetricsAnalyzerTest extends TestCase
     public function testAnalyzeFileWithCustomCoverageRuleShouldPass(): void
     {
         $metrics[] = new FileMetric('/a/b/c/test.php', 45, []);
-        $config    = new InspectionConfig('/a/', 80, ['b/c/test.php' => new FileInspectionConfig('b/c/test.php', 40)]);
+        $config    = new InspectionConfig('/a/', 80, false, ['b/c/test.php' => new FileInspectionConfig('b/c/test.php', 40)]);
 
         $analyzer = new MetricsAnalyzer($metrics, $config);
         $result   = $analyzer->analyze();
@@ -64,7 +64,7 @@ class MetricsAnalyzerTest extends TestCase
     {
         $metric  = new FileMetric('/a/b/c/test.php', 45, []);
         $metrics = [$metric];
-        $config  = new InspectionConfig('/a/', 80, ['b/c/test.php' => new FileInspectionConfig('b/c/test.php', 50)]);
+        $config  = new InspectionConfig('/a/', 80, false, ['b/c/test.php' => new FileInspectionConfig('b/c/test.php', 50)]);
 
         $analyzer = new MetricsAnalyzer($metrics, $config);
         $result   = $analyzer->analyze();
@@ -79,7 +79,7 @@ class MetricsAnalyzerTest extends TestCase
     {
         $metric  = new FileMetric('/a/b/c/test.php', 90, []);
         $metrics = [$metric];
-        $config  = new InspectionConfig('/a/', 80, ['b/c/test.php' => new FileInspectionConfig('b/c/test.php', 50)]);
+        $config  = new InspectionConfig('/a/', 80, false, ['b/c/test.php' => new FileInspectionConfig('b/c/test.php', 50)]);
 
         $analyzer = new MetricsAnalyzer($metrics, $config);
         $result   = $analyzer->analyze();
