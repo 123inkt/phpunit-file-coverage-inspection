@@ -3,6 +3,11 @@ declare(strict_types=1);
 
 namespace DigitalRevolution\CodeCoverageInspection\Lib\Metrics;
 
+use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\AbstractInspection;
+use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\BelowCustomCoverageInspection;
+use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\BelowGlobalCoverageInspection;
+use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\CustomCoverageAboveGlobalInspection;
+use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\UncoveredMethodsInspection;
 use DigitalRevolution\CodeCoverageInspection\Lib\Utility\FileUtil;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
@@ -16,6 +21,9 @@ class MetricsAnalyzer
     /** @var InspectionConfig */
     private $config;
 
+    /** @var AbstractInspection[] */
+    private $inspections;
+
     /**
      * @param FileMetric[] $metrics
      */
@@ -23,6 +31,13 @@ class MetricsAnalyzer
     {
         $this->metrics = $metrics;
         $this->config  = $config;
+
+        $this->inspections = [
+            new BelowCustomCoverageInspection($config),
+            new BelowGlobalCoverageInspection($config),
+            new UncoveredMethodsInspection($config),
+            new CustomCoverageAboveGlobalInspection($config)
+        ];
     }
 
     /**
@@ -30,37 +45,18 @@ class MetricsAnalyzer
      */
     public function analyze(): array
     {
-        $failures           = [];
-        $minimumCoverage    = $this->config->getMinimumCoverage();
-        $isUncoveredAllowed = $this->config->isUncoveredAllowed();
+        $failures = [];
 
         foreach ($this->metrics as $metric) {
-            $filepath        = FileUtil::getRelativePath($metric->getFilepath(), $this->config->getBasePath());
-            $fileConfig      = $this->config->getFileInspection($filepath);
-            $uncoveredMethod = FileMetricAnalyzer::getUncoveredMethodMetric($metric);
+            $filepath   = FileUtil::getRelativePath($metric->getFilepath(), $this->config->getBasePath());
+            $fileConfig = $this->config->getFileInspection($filepath);
 
-            // file is below custom coverage
-            if ($fileConfig !== null && $metric->getCoverage() < $fileConfig->getMinimumCoverage()) {
-                $failures[] = new Failure($metric, $fileConfig->getMinimumCoverage(), Failure::CUSTOM_COVERAGE_TOO_LOW);
-                continue;
-            }
-
-            // no custom coverage, and file is below global minimum coverage
-            if ($fileConfig === null && $metric->getCoverage() < $minimumCoverage) {
-                $failures[] = new Failure($metric, $minimumCoverage, Failure::GLOBAL_COVERAGE_TOO_LOW);
-                continue;
-            }
-
-            // no custom coverage, and file has a method without any code coverage
-            if ($fileConfig === null && $isUncoveredAllowed === false && $uncoveredMethod !== null) {
-                $failures[] = new Failure($metric, $minimumCoverage, Failure::MISSING_METHOD_COVERAGE, $uncoveredMethod->getLineNumber());
-                continue;
-            }
-
-            // custom coverage, but file is already above global coverage
-            if ($fileConfig !== null && $uncoveredMethod === null && $metric->getCoverage() >= $minimumCoverage) {
-                $failures[] = new Failure($metric, $fileConfig->getMinimumCoverage(), Failure::UNNECESSARY_CUSTOM_COVERAGE);
-                continue;
+            foreach ($this->inspections as $inspection) {
+                $failure = $inspection->inspect($fileConfig, $metric);
+                if ($failure !== null) {
+                    $failures[] = $failure;
+                    continue;
+                }
             }
         }
 
