@@ -9,7 +9,7 @@ class InspectionConfig
     private $minimumCoverage;
 
     /** @var bool */
-    private $isUncoveredAllowed;
+    private $uncoveredAllowed;
 
     /** @var FileInspectionConfig[] */
     private $customCoverage;
@@ -20,12 +20,12 @@ class InspectionConfig
     /**
      * @param FileInspectionConfig[] $customCoverage
      */
-    public function __construct(string $basePath, int $minimumCoverage, bool $isUncoveredAllowed = false, array $customCoverage = [])
+    public function __construct(string $basePath, int $minimumCoverage, bool $uncoveredAllowed = false, array $customCoverage = [])
     {
         $this->basePath           = $basePath;
         $this->minimumCoverage    = $minimumCoverage;
         $this->customCoverage     = $customCoverage;
-        $this->isUncoveredAllowed = $isUncoveredAllowed;
+        $this->uncoveredAllowed = $uncoveredAllowed;
     }
 
     public function getBasePath(): string
@@ -40,7 +40,7 @@ class InspectionConfig
 
     public function isUncoveredAllowed(): bool
     {
-        return $this->isUncoveredAllowed;
+        return $this->uncoveredAllowed;
     }
 
     public function getFileInspection(string $path): ?FileInspectionConfig
