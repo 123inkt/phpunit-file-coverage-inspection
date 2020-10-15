@@ -55,7 +55,7 @@ class MetricsAnalyzer
                 $failure = $inspection->inspect($fileConfig, $metric);
                 if ($failure !== null) {
                     $failures[] = $failure;
-                    continue;
+                    break;
                 }
             }
         }
