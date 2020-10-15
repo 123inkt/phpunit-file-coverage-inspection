@@ -66,7 +66,10 @@ class FileUtil
     public static function writeFile(SplFileInfo $file, string $content): void
     {
         $concurrentDirectory = $file->getPath();
-        if (!is_dir($concurrentDirectory) && !mkdir($concurrentDirectory, 0777, true) && !is_dir($concurrentDirectory)) {
+        if ($concurrentDirectory !== ''
+            && !is_dir($concurrentDirectory)
+            && !mkdir($concurrentDirectory, 0777, true)
+            && !is_dir($concurrentDirectory)) {
             // @codeCoverageIgnoreStart
             throw new RuntimeException(sprintf('Failed to create directory "%s".', $concurrentDirectory));
             // @codeCoverageIgnoreEnd
