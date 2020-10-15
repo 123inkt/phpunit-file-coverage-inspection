@@ -22,7 +22,7 @@ class BelowCustomCoverageInspectionTest extends TestCase
 
     protected function setUp(): void
     {
-        $config     = new InspectionConfig('/tmp/b', 80);
+        $config     = new InspectionConfig('/tmp/', 80);
         $this->inspection = new BelowCustomCoverageInspection($config);
     }
 
