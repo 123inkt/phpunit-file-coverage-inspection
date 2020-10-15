@@ -69,6 +69,32 @@ class CheckStyleRendererTest extends TestCase
      * @covers ::render
      * @covers ::formatReason
      */
+    public function testRenderMissingMethodCoverage(): void
+    {
+        $config  = new InspectionConfig('', 80);
+        $metric  = new FileMetric('/foo/bar/file.php', 85.3, []);
+        $failure = new Failure($metric, 60, Failure::UNNECESSARY_CUSTOM_COVERAGE, 20);
+
+        $checkStyle = new CheckStyleRenderer();
+        $result     = $checkStyle->render($config, [$failure]);
+
+        static::assertSame(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" .
+            "<checkstyle version=\"3.5.5\">\n" .
+            " <file name=\"/foo/bar/file.php\">\n" .
+            "  <error line=\"20\" column=\"0\" severity=\"error\" message=\"A custom file coverage is configured at 60%, but the current " .
+            "file coverage 85.3% exceeds the project coverage 80%. Remove `/foo/bar/file.php` from phpfci.xml custom-coverage rules.\"" .
+            " source=\"phpunit-file-coverage-inspection\"/>\n" .
+            " </file>\n" .
+            "</checkstyle>\n",
+            $result
+        );
+    }
+
+    /**
+     * @covers ::render
+     * @covers ::formatReason
+     */
     public function testRenderUnnecessaryFileCoverage(): void
     {
         $config  = new InspectionConfig('', 80);
