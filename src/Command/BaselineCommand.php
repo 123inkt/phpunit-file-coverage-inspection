@@ -27,7 +27,7 @@ class BaselineCommand extends Command
             ->setDescription("Generate phpfci.xml based on a given coverage.xml")
             ->addArgument('coverage', InputOption::VALUE_REQUIRED, 'Path to phpunit\'s coverage.xml')
             ->addArgument('config', InputOption::VALUE_REQUIRED, 'Path to write the configuration file')
-            ->addOption('coverage-threshold', '', InputOption::VALUE_REQUIRED, 'Minimum coverage threshold, defaults to 100', 100)
+            ->addOption('threshold', '', InputOption::VALUE_REQUIRED, 'Minimum coverage threshold, defaults to 100', 100)
             ->addOption('baseDir', '', InputOption::VALUE_REQUIRED, 'Base directory from where to determine the relative config paths');
     }
 
@@ -43,11 +43,17 @@ class BaselineCommand extends Command
 
         $outputPath       = new SplFileInfo((string)$configArgument);
         $baseDir          = $input->getOption('baseDir') ?? $outputPath->getRealPath() . '/';
-        $threshold        = (int)($input->getOption('coverage-threshold') ?? 100);
+        $threshold        = $input->getOption('threshold');
         $coverageFilePath = FileUtil::getExistingFile($input->getArgument('coverage'));
 
         if (is_string($baseDir) === false) {
             $output->writeln("--baseDir argument is not valid. Expecting string argument");
+
+            return Command::FAILURE;
+        }
+
+        if (is_int($threshold) === false && is_numeric($threshold) === false) {
+            $output->writeln("--threshold should be a numeric value");
 
             return Command::FAILURE;
         }
