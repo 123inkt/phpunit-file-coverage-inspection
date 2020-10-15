@@ -41,7 +41,7 @@ class BaselineCommand extends Command
         }
 
         $outputPath       = new SplFileInfo((string)$configArgument);
-        $baseDir          = $input->getOption('baseDir') ?? $outputPath->getPath() . '/';
+        $baseDir          = $input->getOption('baseDir') ?? $outputPath->getRealPath() . '/';
         $coverageFilePath = FileUtil::getExistingFile($input->getArgument('coverage'));
 
         if (is_string($baseDir) === false) {
