@@ -34,7 +34,7 @@ class InspectCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $configPath       = FileUtil::getExistingFile($input->getOption('config') ?? FileUtil::findFilePath((string)getcwd(), self::CONFIG_FILES));
-        $baseDir          = $input->getOption('baseDir') ?? $configPath->getRealPath() . '/';
+        $baseDir          = $input->getOption('baseDir') ?? $configPath->getPath() . '/';
         $coverageFilePath = FileUtil::getExistingFile($input->getArgument('coverage'));
         $outputFilePath   = FileUtil::getFile($input->getArgument('output'));
         $schema           = dirname(__DIR__, 2) . '/resources/phpfci.xsd';
