@@ -22,9 +22,9 @@ class InspectionConfig
      */
     public function __construct(string $basePath, int $minimumCoverage, bool $uncoveredAllowed = false, array $customCoverage = [])
     {
-        $this->basePath           = $basePath;
-        $this->minimumCoverage    = $minimumCoverage;
-        $this->customCoverage     = $customCoverage;
+        $this->basePath         = $basePath;
+        $this->minimumCoverage  = $minimumCoverage;
+        $this->customCoverage   = $customCoverage;
         $this->uncoveredAllowed = $uncoveredAllowed;
     }
 
