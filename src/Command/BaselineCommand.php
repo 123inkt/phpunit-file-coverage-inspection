@@ -52,14 +52,14 @@ class BaselineCommand extends Command
             return Command::FAILURE;
         }
 
-        if (is_int($threshold) === false && is_numeric($threshold) === false) {
+        if (is_numeric($threshold) === false) {
             $output->writeln("--threshold should be a numeric value");
 
             return Command::FAILURE;
         }
 
         // default to 100% coverage
-        $config  = new InspectionConfig($baseDir, $threshold, false);
+        $config  = new InspectionConfig($baseDir, (int)$threshold, false);
         $metrics = MetricsFactory::getFileMetrics(DOMDocumentFactory::getDOMDocument($coverageFilePath));
 
         // analyzer

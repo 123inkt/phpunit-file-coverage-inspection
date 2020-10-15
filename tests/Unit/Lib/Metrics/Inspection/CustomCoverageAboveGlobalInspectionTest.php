@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Metrics\Inspection;
 
-use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\BelowCustomCoverageInspection;
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\CustomCoverageAboveGlobalInspection;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\FileInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
@@ -17,7 +16,7 @@ use PHPUnit\Framework\TestCase;
  */
 class CustomCoverageAboveGlobalInspectionTest extends TestCase
 {
-    /** @var BelowCustomCoverageInspection */
+    /** @var CustomCoverageAboveGlobalInspection */
     private $inspection;
 
     protected function setUp(): void
