@@ -27,6 +27,7 @@ class BaselineCommand extends Command
             ->setDescription("Generate phpfci.xml based on a given coverage.xml")
             ->addArgument('coverage', InputOption::VALUE_REQUIRED, 'Path to phpunit\'s coverage.xml')
             ->addArgument('config', InputOption::VALUE_REQUIRED, 'Path to write the configuration file')
+            ->addOption('threshold', '', InputOption::VALUE_REQUIRED, 'Minimum coverage threshold, defaults to 100', 100)
             ->addOption('baseDir', '', InputOption::VALUE_REQUIRED, 'Base directory from where to determine the relative config paths');
     }
 
@@ -42,6 +43,7 @@ class BaselineCommand extends Command
 
         $outputPath       = new SplFileInfo((string)$configArgument);
         $baseDir          = $input->getOption('baseDir') ?? $outputPath->getPath() . '/';
+        $threshold        = $input->getOption('threshold');
         $coverageFilePath = FileUtil::getExistingFile($input->getArgument('coverage'));
 
         if (is_string($baseDir) === false) {
@@ -50,9 +52,15 @@ class BaselineCommand extends Command
             return Command::FAILURE;
         }
 
+        if (is_numeric($threshold) === false) {
+            $output->writeln("--threshold should be a numeric value");
+
+            return Command::FAILURE;
+        }
+
         // default to 100% coverage
-        $config  = new InspectionConfig($baseDir, 100);
-        $metrics = MetricsFactory::getMetrics(DOMDocumentFactory::getDOMDocument($coverageFilePath));
+        $config  = new InspectionConfig($baseDir, (int)$threshold, false);
+        $metrics = MetricsFactory::getFileMetrics(DOMDocumentFactory::getDOMDocument($coverageFilePath));
 
         // analyzer
         $failures = (new MetricsAnalyzer($metrics, $config))->analyze();

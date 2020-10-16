@@ -30,7 +30,7 @@ class InspectionConfigTest extends TestCase
     public function testGetFileInspection(): void
     {
         $fileConfig = new FileInspectionConfig('foobar', 50);
-        $config     = new InspectionConfig('/base/path', 20, ['foobar' => $fileConfig]);
+        $config     = new InspectionConfig('/base/path', 20, false, ['foobar' => $fileConfig]);
 
         static::assertNull($config->getFileInspection('invalid'));
         static::assertSame($fileConfig, $config->getFileInspection('foobar'));

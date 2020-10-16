@@ -14,8 +14,8 @@ class InspectionConfigFactory
 {
     public static function fromDOMDocument(string $basePath, DOMDocument $doc): InspectionConfig
     {
-        $xpath       = new DOMXpath($doc);
-        $minCoverage = self::getMinimumCoverage($xpath);
+        $xpath = new DOMXpath($doc);
+        [$minCoverage, $isUncoveredAllowed] = self::getConfiguration($xpath);
 
         // find all custom coverage files
         $files     = [];
@@ -28,12 +28,15 @@ class InspectionConfigFactory
             }
         }
 
-        return new InspectionConfig($basePath, $minCoverage, $files);
+        return new InspectionConfig($basePath, $minCoverage, $isUncoveredAllowed, $files);
     }
 
-    private static function getMinimumCoverage(DOMXpath $xpath): int
+    /**
+     * @return array{int, bool}
+     */
+    private static function getConfiguration(DOMXpath $xpath): array
     {
-        // find global minimum coverage setting
+        // find global coverage settings
         $nodes = $xpath->query("/phpfci");
         if ($nodes === false || $nodes->count() === 0) {
             throw new RuntimeException('Missing `phpfci` in configuration file');
@@ -46,6 +49,9 @@ class InspectionConfigFactory
             // @codeCoverageIgnoreEnd
         }
 
-        return (int)XMLUtil::getAttribute($node, 'min-coverage');
+        $minCoverage        = (int)XMLUtil::getAttribute($node, 'min-coverage');
+        $isUncoveredAllowed = XMLUtil::getAttribute($node, 'allow-uncovered-methods') === "true";
+
+        return [$minCoverage, $isUncoveredAllowed];
     }
 }

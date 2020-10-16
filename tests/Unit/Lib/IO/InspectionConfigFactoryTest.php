@@ -15,7 +15,7 @@ class InspectionConfigFactoryTest extends TestCase
 {
     /**
      * @covers ::fromDOMDocument
-     * @covers ::getMinimumCoverage
+     * @covers ::getConfiguration
      */
     public function testFromDOMDocument(): void
     {
@@ -33,6 +33,7 @@ class InspectionConfigFactoryTest extends TestCase
         $config = InspectionConfigFactory::fromDOMDocument('/tmp/test', $dom);
         static::assertSame('/tmp/test', $config->getBasePath());
         static::assertSame(85, $config->getMinimumCoverage());
+        static::assertFalse($config->isUncoveredAllowed());
 
         $file = $config->getFileInspection('a/b/c');
         static::assertNotNull($file);
@@ -42,7 +43,41 @@ class InspectionConfigFactoryTest extends TestCase
 
     /**
      * @covers ::fromDOMDocument
-     * @covers ::getMinimumCoverage
+     * @covers ::getConfiguration
+     */
+    public function testFromDOMDocumentWithUncoveredMethodsAllowed(): void
+    {
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>
+            <phpfci min-coverage="85" allow-uncovered-methods="true"></phpfci>
+        ';
+
+        $dom = new DOMDocument();
+        $dom->loadXML($xml);
+
+        $config = InspectionConfigFactory::fromDOMDocument('/tmp/test', $dom);
+        static::assertTrue($config->isUncoveredAllowed());
+    }
+
+    /**
+     * @covers ::fromDOMDocument
+     * @covers ::getConfiguration
+     */
+    public function testFromDOMDocumentWithUncoveredMethodsForcedDisallowed(): void
+    {
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>
+            <phpfci min-coverage="85" allow-uncovered-methods="false"></phpfci>
+        ';
+
+        $dom = new DOMDocument();
+        $dom->loadXML($xml);
+
+        $config = InspectionConfigFactory::fromDOMDocument('/tmp/test', $dom);
+        static::assertFalse($config->isUncoveredAllowed());
+    }
+
+    /**
+     * @covers ::fromDOMDocument
+     * @covers ::getConfiguration
      */
     public function testFromDOMDocumentInvalidFormatThrowsException(): void
     {
