@@ -1,7 +1,0 @@
-addAssignees: author
-addReviewers: true
-numberOfReviewers: 1
-reviewers:
-  - frankdekker
-  - bram123
-  - PrinsFrank
