@@ -13,7 +13,7 @@ This package makes sure that that doesn't happen anymore and coverage is calcula
 
 ## Supported formats
 * Input: clover coverage.xml
-* Output: checkstyle
+* Output: checkstyle or gitlab
 
 ## Installation
 Include the library as dependency in your own project via: 
@@ -54,10 +54,15 @@ The base directory will be subtracted from the filepaths in coverage.xml
 
 ## Usage
 
+Checkstyle format:
 ```shell script
-php vendor/bin/phpfci inspect coverage.xml reports/checkstyle.xml
+php vendor/bin/phpfci inspect coverage.xml reports/checkstyle.xml --report=checkstyle
 ```
- 
+
+Gitlab format:
+```shell script
+php vendor/bin/phpfci inspect coverage.xml reports/gitlab.errors.json --report=gitlab
+```
 
 ## About us
 
