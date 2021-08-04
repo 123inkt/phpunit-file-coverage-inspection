@@ -16,13 +16,12 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 class MetricsAnalyzer
 {
     /** @var FileMetric[] */
-    private $metrics;
+    private array $metrics;
 
-    /** @var InspectionConfig */
-    private $config;
+    private InspectionConfig $config;
 
     /** @var AbstractInspection[] */
-    private $inspections;
+    private array $inspections;
 
     /**
      * @param FileMetric[] $metrics

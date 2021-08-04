@@ -5,14 +5,9 @@ namespace DigitalRevolution\CodeCoverageInspection\Model\Metric;
 
 class MethodMetric
 {
-    /** @var string */
-    private $methodName;
-
-    /** @var int */
-    private $lineNumber;
-
-    /** @var int */
-    private $count;
+    private string $methodName;
+    private int    $lineNumber;
+    private int    $count;
 
     public function __construct(string $methodName, int $lineNumber, int $count)
     {

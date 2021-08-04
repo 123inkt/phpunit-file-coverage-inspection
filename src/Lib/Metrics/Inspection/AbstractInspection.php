@@ -10,8 +10,7 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 
 abstract class AbstractInspection
 {
-    /** @var InspectionConfig */
-    protected $config;
+    protected InspectionConfig $config;
 
     public function __construct(InspectionConfig $config)
     {

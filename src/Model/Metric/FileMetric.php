@@ -5,14 +5,10 @@ namespace DigitalRevolution\CodeCoverageInspection\Model\Metric;
 
 class FileMetric
 {
-    /** @var string */
-    private $filepath;
-
-    /** @var float */
-    private $coverage;
-
+    private string $filepath;
+    private float  $coverage;
     /** @var MethodMetric[] */
-    private $methods;
+    private array $methods;
 
     /**
      * @param MethodMetric[] $methods
