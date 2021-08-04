@@ -44,5 +44,4 @@ class CheckStyleRenderer
 
         return $out->flush();
     }
-
 }
