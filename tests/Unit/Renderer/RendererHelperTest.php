@@ -8,6 +8,7 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 use DigitalRevolution\CodeCoverageInspection\Renderer\RendererHelper;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 /**
  * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Renderer\RendererHelper
@@ -71,5 +72,17 @@ class RendererHelperTest extends TestCase
             'exceeds the project coverage 80%. Remove `foobar` from phpfci.xml custom-coverage rules.',
             $message
         );
+    }
+
+    /**
+     * @covers ::renderReason
+     */
+    public function testRenderReasonShouldThrowExceptionWhenInvalid(): void
+    {
+        $metric  = new FileMetric('foobar', 70, []);
+        $failure = new Failure($metric, 30, 9999, 5);
+
+        $this->expectException(RuntimeException::class);
+        RendererHelper::renderReason($this->config, $failure);
     }
 }
