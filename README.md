@@ -64,6 +64,17 @@ Gitlab format:
 php vendor/bin/phpfci inspect coverage.xml reports/gitlab.errors.json --report=gitlab
 ```
 
+## Command line arguments
+
+| Option                    | Values                 | Description                                           |
+|---------------------------|------------------------|-------------------------------------------------------| 
+| `argument 1`              | `inspect`, `baseline`  | the command to execute.                               |
+| `argument 2`              | `coverage.xml`         | the phpunit clover coverage input file.               |
+| `argument 3`              | `phpfci.xml`           | the output file to write to.                          |
+| `--report=<report-style>` | `gitlab`, `checkstyle` | the output format. If absent will default to console. |
+| `--config=<path-to-file>` | `phpfci.xml`           | the path to the config file.                          |
+| `--exit-code-on-failure`  | -                      | Set exit code to `1` when there are failures.         |
+
 ## About us
 
 At 123inkt (Part of Digital Revolution B.V.), every day more than 30 developers are working on improving our internal ERP and our several shops. Do you want to join us? [We are looking for developers](https://www.123inkt.nl/page/werken_ict.html).

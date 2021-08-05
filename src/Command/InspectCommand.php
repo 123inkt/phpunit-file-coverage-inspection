@@ -32,7 +32,8 @@ class InspectCommand extends Command
             ->addArgument('output', InputOption::VALUE_REQUIRED, 'Path to write inspections report file to')
             ->addOption('config', 'c', InputOption::VALUE_REQUIRED, 'Path to configuration file. Optional')
             ->addOption('baseDir', '', InputOption::VALUE_REQUIRED, 'Base directory from where to determine the relative config paths')
-            ->addOption('report', '', InputOption::VALUE_REQUIRED, 'output format, either checkstyle or gitlab', 'checkstyle');
+            ->addOption('report', '', InputOption::VALUE_REQUIRED, 'output format, either checkstyle or gitlab', 'checkstyle')
+            ->addOption('exit-code-on-failure', '', InputOption::VALUE_NONE, 'If failures, exit with failure exit code');
     }
 
     /**
@@ -76,6 +77,11 @@ class InspectCommand extends Command
                 break;
             default:
                 throw new InvalidArgumentException('Invalid report argument: ' . $input->getOption('report'));
+        }
+
+        // raise exit code on failure
+        if (count($failures) > 0 && $input->hasOption('exit-code-on-failure')) {
+            return Command::FAILURE;
         }
 
         return Command::SUCCESS;
