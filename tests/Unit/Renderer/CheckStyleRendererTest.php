@@ -17,7 +17,6 @@ class CheckStyleRendererTest extends TestCase
 {
     /**
      * @covers ::render
-     * @covers ::formatReason
      */
     public function testRenderGlobalCoverageTooLow(): void
     {
@@ -42,7 +41,6 @@ class CheckStyleRendererTest extends TestCase
 
     /**
      * @covers ::render
-     * @covers ::formatReason
      */
     public function testRenderFileCoverageTooLow(): void
     {
@@ -67,7 +65,6 @@ class CheckStyleRendererTest extends TestCase
 
     /**
      * @covers ::render
-     * @covers ::formatReason
      */
     public function testRenderMissingMethodCoverage(): void
     {
@@ -92,7 +89,6 @@ class CheckStyleRendererTest extends TestCase
 
     /**
      * @covers ::render
-     * @covers ::formatReason
      */
     public function testRenderUnnecessaryFileCoverage(): void
     {
@@ -118,7 +114,6 @@ class CheckStyleRendererTest extends TestCase
 
     /**
      * @covers ::render
-     * @covers ::formatReason
      */
     public function testRenderInvalidReasonThrowsException(): void
     {

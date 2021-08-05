@@ -5,11 +5,8 @@ namespace DigitalRevolution\CodeCoverageInspection\Model\Config;
 
 class FileInspectionConfig
 {
-    /** @var string */
-    private $path;
-
-    /** @var int */
-    private $minimumCoverage;
+    private string $path;
+    private int $minimumCoverage;
 
     public function __construct(string $path, int $minimumCoverage)
     {

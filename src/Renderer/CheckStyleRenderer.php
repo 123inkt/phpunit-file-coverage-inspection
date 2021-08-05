@@ -24,7 +24,7 @@ class CheckStyleRenderer
         $out->writeAttribute('version', '3.5.5');
 
         foreach ($failures as $failure) {
-            $message = $this->formatReason($config, $failure);
+            $message = RendererHelper::renderReason($config, $failure);
 
             $out->startElement('file');
             $out->writeAttribute('name', $failure->getMetric()->getFilepath());
@@ -43,36 +43,5 @@ class CheckStyleRenderer
         $out->endElement(/* checkstyle */);
 
         return $out->flush();
-    }
-
-    private function formatReason(InspectionConfig $config, Failure $failure): string
-    {
-        switch ($failure->getReason()) {
-            case Failure::GLOBAL_COVERAGE_TOO_LOW:
-                $message = "Project per file coverage is configured at %s%%. Current coverage is at %s%%. Improve coverage for this class.";
-
-                return sprintf($message, (string)$failure->getMinimumCoverage(), (string)$failure->getMetric()->getCoverage());
-            case Failure::CUSTOM_COVERAGE_TOO_LOW:
-                $message = "Custom file coverage is configured at %s%%. Current coverage is at %s%%. Improve coverage for this class.";
-
-                return sprintf($message, (string)$failure->getMinimumCoverage(), (string)$failure->getMetric()->getCoverage());
-            case Failure::MISSING_METHOD_COVERAGE:
-                $message = "File coverage is above %s%%, but method has no coverage at all.";
-
-                return sprintf($message, (string)$config->getMinimumCoverage());
-            case Failure::UNNECESSARY_CUSTOM_COVERAGE:
-                $message = "A custom file coverage is configured at %s%%, but the current file coverage %s%% exceeds the project coverage %s%%. ";
-                $message .= "Remove `%s` from phpfci.xml custom-coverage rules.";
-
-                return sprintf(
-                    $message,
-                    (string)$failure->getMinimumCoverage(),
-                    (string)$failure->getMetric()->getCoverage(),
-                    (string)$config->getMinimumCoverage(),
-                    $failure->getMetric()->getFilepath()
-                );
-            default:
-                throw new RuntimeException('Unknown failure reason: ' . $failure->getReason());
-        }
     }
 }

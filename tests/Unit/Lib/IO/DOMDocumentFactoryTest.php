@@ -16,11 +16,8 @@ class DOMDocumentFactoryTest extends TestCase
     /** @var resource */
     private $file;
 
-    /** @var SplFileInfo */
-    private $fileInfo;
-
-    /** @var string */
-    private $schemaPath;
+    private SplFileInfo $fileInfo;
+    private string $schemaPath;
 
     protected function setUp(): void
     {
@@ -87,7 +84,7 @@ class DOMDocumentFactoryTest extends TestCase
         fwrite($this->file, $xml);
 
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage("is not a valid value of the atomic");
+        $this->expectExceptionMessage("Xml doesn't have the correct format");
         DOMDocumentFactory::getValidatedDOMDocument($this->fileInfo, $this->schemaPath);
     }
 

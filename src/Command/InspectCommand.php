@@ -9,6 +9,9 @@ use DigitalRevolution\CodeCoverageInspection\Lib\IO\MetricsFactory;
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\MetricsAnalyzer;
 use DigitalRevolution\CodeCoverageInspection\Lib\Utility\FileUtil;
 use DigitalRevolution\CodeCoverageInspection\Renderer\CheckStyleRenderer;
+use DigitalRevolution\CodeCoverageInspection\Renderer\GitlabErrorRenderer;
+use InvalidArgumentException;
+use JsonException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -28,9 +31,13 @@ class InspectCommand extends Command
             ->addArgument('coverage', InputOption::VALUE_REQUIRED, 'Path to phpunit\'s coverage.xml')
             ->addArgument('output', InputOption::VALUE_REQUIRED, 'Path to write inspections report file to')
             ->addOption('config', 'c', InputOption::VALUE_REQUIRED, 'Path to configuration file. Optional')
-            ->addOption('baseDir', '', InputOption::VALUE_REQUIRED, 'Base directory from where to determine the relative config paths');
+            ->addOption('baseDir', '', InputOption::VALUE_REQUIRED, 'Base directory from where to determine the relative config paths')
+            ->addOption('report', '', InputOption::VALUE_REQUIRED, 'output format, either checkstyle or gitlab', 'checkstyle');
     }
 
+    /**
+     * @throws JsonException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $configPath       = FileUtil::getExistingFile($input->getOption('config') ?? FileUtil::findFilePath((string)getcwd(), self::CONFIG_FILES));
@@ -60,7 +67,16 @@ class InspectCommand extends Command
         $failures = (new MetricsAnalyzer($metrics, $config))->analyze();
 
         // write output
-        FileUtil::writeFile($outputFilePath, (new CheckStyleRenderer())->render($config, $failures));
+        switch ($input->getOption('report')) {
+            case 'checkstyle':
+                FileUtil::writeFile($outputFilePath, (new CheckStyleRenderer())->render($config, $failures));
+                break;
+            case 'gitlab':
+                FileUtil::writeFile($outputFilePath, (new GitlabErrorRenderer())->render($config, $failures));
+                break;
+            default:
+                throw new InvalidArgumentException('Invalid report argument: ' . $input->getOption('report'));
+        }
 
         return Command::SUCCESS;
     }

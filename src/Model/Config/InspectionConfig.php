@@ -5,17 +5,11 @@ namespace DigitalRevolution\CodeCoverageInspection\Model\Config;
 
 class InspectionConfig
 {
-    /** @var int */
-    private $minimumCoverage;
-
-    /** @var bool */
-    private $uncoveredAllowed;
-
+    private int $minimumCoverage;
+    private bool $uncoveredAllowed;
     /** @var FileInspectionConfig[] */
-    private $customCoverage;
-
-    /** @var string */
-    private $basePath;
+    private array $customCoverage;
+    private string $basePath;
 
     /**
      * @param FileInspectionConfig[] $customCoverage

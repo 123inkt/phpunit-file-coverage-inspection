@@ -10,17 +10,10 @@ class Failure
     public const UNNECESSARY_CUSTOM_COVERAGE = 3;
     public const MISSING_METHOD_COVERAGE     = 4;
 
-    /** @var FileMetric */
-    private $metric;
-
-    /** @var int */
-    private $minimumCoverage;
-
-    /** @var int */
-    private $reason;
-
-    /** @var int */
-    private $lineNumber;
+    private FileMetric $metric;
+    private int $minimumCoverage;
+    private int $reason;
+    private int $lineNumber;
 
     public function __construct(FileMetric $metric, int $minimumCoverage, int $reason, int $lineNumber = 1)
     {
