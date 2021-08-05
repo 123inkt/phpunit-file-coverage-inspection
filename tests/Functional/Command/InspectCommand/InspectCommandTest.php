@@ -15,8 +15,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 class InspectCommandTest extends TestCase
 {
-    /** @var vfsStreamDirectory */
-    private $fileSystem;
+    private vfsStreamDirectory $fileSystem;
 
     protected function setUp(): void
     {
@@ -26,9 +25,10 @@ class InspectCommandTest extends TestCase
 
     /**
      * @coversNothing
+     * @dataProvider dataProvider
      * @throws Exception
      */
-    public function testInspectCommand(): void
+    public function testInspectCommand(array $flags, int $exitStatus): void
     {
         // prepare data files
         $configPath   = __DIR__ . '/Data/phpfci.xml';
@@ -39,11 +39,11 @@ class InspectCommandTest extends TestCase
 
         // prepare command
         $command = new InspectCommand();
-        $input   = new ArgvInput(['phpfci', '--config', $configPath, '--baseDir', $baseDir, $coveragePath, $output]);
+        $input   = new ArgvInput(array_merge(['phpfci', '--config', $configPath, '--baseDir', $baseDir, $coveragePath, $output], $flags));
         $output  = new ConsoleOutput();
 
         // run test case
-        static::assertSame(Command::SUCCESS, $command->run($input, $output));
+        static::assertSame($exitStatus, $command->run($input, $output));
         static::assertTrue($this->fileSystem->hasChild('checkstyle.xml'));
 
         // check output
@@ -52,5 +52,13 @@ class InspectCommandTest extends TestCase
         $result     = $resultFile->getContent();
 
         static::assertSame($expected, $result);
+    }
+
+    public function dataProvider(): array
+    {
+        return [
+            'standard exit code'   => [[], Command::SUCCESS],
+            'exit code on failure' => [['--exit-code-on-failure'], Command::FAILURE]
+        ];
     }
 }

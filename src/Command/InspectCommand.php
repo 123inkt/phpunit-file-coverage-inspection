@@ -80,7 +80,7 @@ class InspectCommand extends Command
         }
 
         // raise exit code on failure
-        if (count($failures) > 0 && $input->hasOption('exit-code-on-failure')) {
+        if (count($failures) > 0 && $input->getOption('exit-code-on-failure')) {
             return Command::FAILURE;
         }
 
