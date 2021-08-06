@@ -5,7 +5,6 @@ namespace DigitalRevolution\CodeCoverageInspection\Renderer;
 
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
-use RuntimeException;
 use XMLWriter;
 
 class CheckStyleRenderer
