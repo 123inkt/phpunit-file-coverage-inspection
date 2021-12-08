@@ -1,4 +1,4 @@
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.2-8892BF)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF)](https://php.net/)
 ![Run tests](https://github.com/123inkt/phpunit-file-coverage-inspection/workflows/Run%20checks/badge.svg)
 
 # PHPUnit coverage inspection
