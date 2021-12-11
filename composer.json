@@ -23,7 +23,7 @@
         "ext-json": "*",
         "ext-libxml": "*",
         "ext-xmlwriter": "*",
-        "symfony/console": "^5.1"
+        "symfony/console": "^5.1 || ^6.0"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
