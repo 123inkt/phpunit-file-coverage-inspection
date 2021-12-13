@@ -4,6 +4,11 @@
     "type": "library",
     "license": "MIT",
     "minimum-stability": "stable",
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
+    },
     "autoload": {
         "psr-4": {
             "DigitalRevolution\\CodeCoverageInspection\\": "src/"
