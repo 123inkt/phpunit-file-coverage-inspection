@@ -5,14 +5,14 @@ namespace DigitalRevolution\CodeCoverageInspection\Model\Config;
 
 class InspectionConfig
 {
-    private int $minimumCoverage;
+    private int  $minimumCoverage;
     private bool $uncoveredAllowed;
-    /** @var FileInspectionConfig[] */
-    private array $customCoverage;
+    /** @var array<string, FileInspectionConfig> */
+    private array  $customCoverage;
     private string $basePath;
 
     /**
-     * @param FileInspectionConfig[] $customCoverage
+     * @param array<string, FileInspectionConfig> $customCoverage
      */
     public function __construct(string $basePath, int $minimumCoverage, bool $uncoveredAllowed = false, array $customCoverage = [])
     {
@@ -39,6 +39,12 @@ class InspectionConfig
 
     public function getFileInspection(string $path): ?FileInspectionConfig
     {
-        return $this->customCoverage[$path] ?? null;
+        foreach (array_keys($this->customCoverage) as $baselinePath) {
+            if (str_ends_with($path, $baselinePath)) {
+                return $this->customCoverage[$baselinePath];
+            }
+        }
+
+        return null;
     }
 }
