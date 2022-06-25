@@ -34,9 +34,9 @@ File: `phpfci.xml`
     <custom-coverage>
         <!-- directory based coverage rule -->
         <directory path="src/Lib/" min="90"/>
-        <!-- subdirectories will superseed a parent directory rule -->
+        <!-- subdirectories will superceed a parent directory rule -->
         <directory path="src/Lib/Config/" min="100"/>
-        <!-- file rule will always superseed a directory rule -->
+        <!-- file rule will always superceed a directory rule -->
         <file path="src/Lib/Config/File.php" min="80"/>
     </custom-coverage>
 </phpfci>
