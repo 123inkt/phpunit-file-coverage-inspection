@@ -35,7 +35,7 @@ class InspectCommandTest extends TestCase
         $coveragePath = __DIR__ . '/Data/coverage.xml';
         $expected     = str_replace("\r", "", (string)file_get_contents(__DIR__ . '/Data/checkstyle.xml'));
         $output       = $this->fileSystem->url() . '/checkstyle.xml';
-        $baseDir      = '/home/workspace/';
+        $baseDir      = '/home\workspace';
 
         // prepare command
         $command = new InspectCommand();

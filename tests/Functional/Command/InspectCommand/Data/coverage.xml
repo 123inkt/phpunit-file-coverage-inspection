@@ -2,7 +2,7 @@
 <coverage generated="1598702199">
     <project timestamp="1598702199">
         <!-- coverage 90% -->
-        <file name="/home/workspace/test/case/standard-above-threshold.php">
+        <file name="/home/workspace/test\case/standard-above-threshold.php">
             <metrics loc="11"
                      ncloc="11"
                      classes="0"
@@ -16,7 +16,7 @@
                      coveredelements="0"/>
         </file>
         <!-- coverage 70% -->
-        <file name="/home/workspace/test/case/standard-below-threshold.php">
+        <file name="/home\workspace/test/case/standard-below-threshold.php">
             <metrics loc="11"
                      ncloc="11"
                      classes="0"
@@ -46,7 +46,7 @@
                      coveredelements="0"/>
         </file>
         <!-- coverage 50% -->
-        <file name="/home/workspace/test/case/below-threshold.php">
+        <file name="/home\workspace/test/case\below-threshold.php">
             <metrics loc="11"
                      ncloc="11"
                      classes="0"
@@ -61,7 +61,7 @@
         </file>
 
         <!-- coverage 90% -->
-        <file name="/home/workspace/test/case/unnecessary-custom-rule.php">
+        <file name="\home/workspace/test/case\unnecessary-custom-rule.php">
             <metrics loc="11"
                      ncloc="11"
                      classes="0"

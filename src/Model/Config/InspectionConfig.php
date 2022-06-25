@@ -13,7 +13,7 @@ class InspectionConfig
 
     public function __construct(string $basePath, int $minimumCoverage, bool $uncoveredAllowed = false)
     {
-        $this->basePath         = $basePath;
+        $this->basePath         = rtrim(str_replace('\\', '/', $basePath), '/') . '/';
         $this->minimumCoverage  = $minimumCoverage;
         $this->uncoveredAllowed = $uncoveredAllowed;
     }
@@ -43,7 +43,7 @@ class InspectionConfig
     public function getPathInspection(string $path): ?PathInspectionConfig
     {
         // subtract basePath from path
-        $relativePath = (string)preg_replace('#^' . preg_quote($this->basePath, '#') . '/?#', '', $path);
+        $relativePath = (string)preg_replace('#^' . preg_quote($this->basePath, '#') . '#', '', $path);
 
         $bestConfig = null;
         foreach ($this->customCoverage as $config) {
@@ -57,6 +57,7 @@ class InspectionConfig
                 continue;
             }
 
+            // determine which rule has the highest priority
             if ($bestConfig === null || $config->compare($bestConfig) > 0) {
                 $bestConfig = $config;
             }

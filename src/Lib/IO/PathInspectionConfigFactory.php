@@ -19,6 +19,7 @@ class PathInspectionConfigFactory
         $type            = $item->nodeName;
         $path            = (string)XMLUtil::getAttribute($item, 'path');
         $minimumCoverage = (int)XMLUtil::getAttribute($item, 'min');
+
         return new PathInspectionConfig($type, $path, $minimumCoverage);
     }
 }

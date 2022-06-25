@@ -28,7 +28,7 @@ class InspectionConfigTest extends TestCase
      * @covers ::addPathInspection
      * @covers ::getPathInspection
      */
-    public function testGetPathInspection(): void
+    public function testGetPathInspectionWithFileInspection(): void
     {
         $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, 'foobar', 50);
         $config     = new InspectionConfig('/base/path', 20, false);
@@ -36,5 +36,22 @@ class InspectionConfigTest extends TestCase
 
         static::assertNull($config->getPathInspection('invalid'));
         static::assertSame($fileConfig, $config->getPathInspection('foobar'));
+        static::assertSame($fileConfig, $config->getPathInspection('/base/path/foobar'));
+    }
+
+    /**
+     * @covers ::addPathInspection
+     * @covers ::getPathInspection
+     */
+    public function testGetPathInspectionWithDirectoryInspection(): void
+    {
+        $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_DIR, 'foo/bar/', 50);
+        $config     = new InspectionConfig('/base\\path', 20, false);
+        $config->addPathInspection($fileConfig);
+
+        static::assertNull($config->getPathInspection('invalid'));
+        static::assertSame($fileConfig, $config->getPathInspection('foo/bar/file'));
+        static::assertSame($fileConfig, $config->getPathInspection('/base/path/foo/bar/file'));
+        static::assertSame($fileConfig, $config->getPathInspection('/base/path/foo/bar/path/to/file'));
     }
 }

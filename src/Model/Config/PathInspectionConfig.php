@@ -18,6 +18,12 @@ class PathInspectionConfig
      */
     public function __construct(string $type, string $path, int $minimumCoverage)
     {
+        // normalize slashes
+        $path = str_replace('\\', '/', $path);
+        // trim trailing and leading, and ensure end path has slash.
+        if ($type === self::TYPE_DIR) {
+            $path = trim($path, '/') . '/';
+        }
         $this->type            = $type;
         $this->path            = $path;
         $this->minimumCoverage = $minimumCoverage;
