@@ -30,7 +30,7 @@ class CheckStyleRenderer
 
             $out->startElement('error');
             $out->writeAttribute('line', (string)$failure->getLineNumber());
-            $out->writeAttribute('column', (string)0);
+            $out->writeAttribute('column', "0");
             $out->writeAttribute('severity', 'error');
             $out->writeAttribute('message', $message);
             $out->writeAttribute('source', 'phpunit-file-coverage-inspection');
@@ -41,6 +41,9 @@ class CheckStyleRenderer
 
         $out->endElement(/* checkstyle */);
 
-        return $out->flush();
+        /** @var int|string $result */
+        $result = $out->flush();
+
+        return (string)$result;
     }
 }
