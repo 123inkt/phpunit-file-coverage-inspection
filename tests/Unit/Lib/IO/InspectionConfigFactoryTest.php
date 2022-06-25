@@ -83,7 +83,7 @@ class InspectionConfigFactoryTest extends TestCase
 
     /**
      * @covers ::fromDOMDocument
-     * @covers ::getConfiguration
+     * @covers ::getInspectionConfig
      */
     public function testFromDOMDocumentInvalidFormatThrowsException(): void
     {

@@ -11,7 +11,6 @@ use RuntimeException;
 
 /**
  * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\IO\PathInspectionConfigFactory
- * @covers ::__construct
  */
 class PathInspectionConfigFactoryTest extends TestCase
 {
