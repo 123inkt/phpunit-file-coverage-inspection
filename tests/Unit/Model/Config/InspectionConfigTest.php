@@ -25,9 +25,10 @@ class InspectionConfigTest extends TestCase
     }
 
     /**
+     * @covers ::addPathInspection
      * @covers ::getPathInspection
      */
-    public function testGetFileInspection(): void
+    public function testGetPathInspection(): void
     {
         $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, 'foobar', 50);
         $config     = new InspectionConfig('/base/path', 20, false);

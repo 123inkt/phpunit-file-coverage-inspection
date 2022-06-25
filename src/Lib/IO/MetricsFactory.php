@@ -35,7 +35,7 @@ class MetricsFactory
         foreach ($domMetrics as $domMetric) {
             /** @var DOMNode $parentNode */
             $parentNode = $domMetric->parentNode;
-            $filename   = (string)XMLUtil::getAttribute($parentNode, 'name');
+            $filename   = str_replace('\\', '/', (string)XMLUtil::getAttribute($parentNode, 'name'));
 
             // calculate coverage
             $statements         = (int)XMLUtil::getAttribute($domMetric, 'statements');

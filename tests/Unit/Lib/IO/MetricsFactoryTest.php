@@ -22,7 +22,7 @@ class MetricsFactoryTest extends TestCase
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
     <coverage generated="1598702199">
         <project timestamp="1598702199">
-            <file name="/API/Example.php">
+            <file name="/API\\Example.php">
                 <metrics loc="11" ncloc="11" classes="0"
                     methods="0" coveredmethods="0"
                     conditionals="0" coveredconditionals="0"
@@ -53,7 +53,7 @@ class MetricsFactoryTest extends TestCase
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
     <coverage generated="1598702199">
         <project timestamp="1598702199">
-            <file name="/API/Example.php">
+            <file name="/API\\Example.php">
                 <metrics loc="11" ncloc="11" classes="0"
                     methods="0" coveredmethods="0"
                     conditionals="0" coveredconditionals="0"

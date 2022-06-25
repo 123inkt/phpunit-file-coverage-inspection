@@ -42,13 +42,26 @@ class InspectionConfig
 
     public function getPathInspection(string $path): ?PathInspectionConfig
     {
-        foreach ($this->customCoverage as $pathInspectionConfig) {
-            $baselinePath = $pathInspectionConfig->getPath();
-            if (str_ends_with($path, $baselinePath)) {
-                return $pathInspectionConfig;
+        // subtract basePath from path
+        $relativePath = (string)preg_replace('#^' . preg_quote($this->basePath, '#') . '/?#', '', $path);
+
+        $bestConfig = null;
+        foreach ($this->customCoverage as $config) {
+            $baselinePath = $config->getPath();
+
+            if ($config->isFile() && $relativePath !== $baselinePath) {
+                continue;
+            }
+
+            if ($config->isDirectory() && str_starts_with($relativePath, $baselinePath) === false) {
+                continue;
+            }
+
+            if ($bestConfig === null || $config->compare($bestConfig) > 0) {
+                $bestConfig = $config;
             }
         }
 
-        return null;
+        return $bestConfig;
     }
 }

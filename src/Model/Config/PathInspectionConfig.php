@@ -42,4 +42,23 @@ class PathInspectionConfig
     {
         return $this->minimumCoverage;
     }
+
+    public function compare(PathInspectionConfig $other): int
+    {
+        if ($this->isFile() && $other->isFile()) {
+            return 0;
+        }
+
+        // file takes precedence over directory match
+        if ($this->isFile() && $other->isDirectory()) {
+            return 1;
+        }
+
+        if ($this->isDirectory() && $other->isFile()) {
+            return -1;
+        }
+
+        // remaining: sides are directory. longest path is more specific, therefore wins.
+        return strlen($this->getPath()) - strlen($other->getPath());
+    }
 }
