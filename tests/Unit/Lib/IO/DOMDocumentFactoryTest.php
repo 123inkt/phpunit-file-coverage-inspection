@@ -53,7 +53,7 @@ class DOMDocumentFactoryTest extends TestCase
         ';
         fwrite($this->file, $xml);
         $dom = DOMDocumentFactory::getValidatedDOMDocument($this->fileInfo, $this->schemaPath);
-        static::assertSame('1.0', $dom->version);
+        static::assertSame('1.0', $dom->xmlVersion);
     }
 
     /**
@@ -68,7 +68,7 @@ class DOMDocumentFactoryTest extends TestCase
         ';
         fwrite($this->file, $xml);
         $dom = DOMDocumentFactory::getValidatedDOMDocument($this->fileInfo, $this->schemaPath);
-        static::assertSame('1.0', $dom->version);
+        static::assertSame('1.0', $dom->xmlVersion);
     }
 
     /**
@@ -103,7 +103,7 @@ class DOMDocumentFactoryTest extends TestCase
         fwrite($this->file, $xml);
 
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage("Missing child element(s)");
+        $this->expectExceptionMessage("The value '200' is greater than the maximum value allowed");
         DOMDocumentFactory::getValidatedDOMDocument($this->fileInfo, $this->schemaPath);
     }
 }
