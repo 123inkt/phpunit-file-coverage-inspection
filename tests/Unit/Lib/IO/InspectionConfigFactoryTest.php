@@ -32,7 +32,7 @@ class InspectionConfigFactoryTest extends TestCase
         $dom->loadXML($xml);
 
         $config = InspectionConfigFactory::fromDOMDocument('/tmp/test', $dom);
-        static::assertSame('/tmp/test', $config->getBasePath());
+        static::assertSame('/tmp/test/', $config->getBasePath());
         static::assertSame(85, $config->getMinimumCoverage());
         static::assertFalse($config->isUncoveredAllowed());
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Model\Config;
 
 use DigitalRevolution\AccessorPairConstraint\AccessorPairAsserter;
+use DigitalRevolution\AccessorPairConstraint\Constraint\ConstraintConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +22,19 @@ class InspectionConfigTest extends TestCase
      */
     public function testAccessors(): void
     {
-        static::assertAccessorPairs(InspectionConfig::class);
+        $config = new ConstraintConfig();
+        $config->setExcludedMethods(['getBasePath']);
+
+        static::assertAccessorPairs(InspectionConfig::class, $config);
+    }
+
+    /**
+     * @covers ::getBasePath
+     */
+    public function testGetBasePath(): void
+    {
+        $config = new InspectionConfig('/base\\path', 0, true);
+        static::assertSame('/base/path/', $config->getBasePath());
     }
 
     /**
@@ -80,7 +93,7 @@ class InspectionConfigTest extends TestCase
     {
         $directoryConfigA = new PathInspectionConfig(PathInspectionConfig::TYPE_DIR, 'foo/bar/', 60);
         $directoryConfigB = new PathInspectionConfig(PathInspectionConfig::TYPE_DIR, 'foo/bar/directory', 50);
-        $config          = new InspectionConfig('/base\\path', 20, false);
+        $config           = new InspectionConfig('/base\\path', 20, false);
         $config->addPathInspection($directoryConfigA);
         $config->addPathInspection($directoryConfigB);
 
