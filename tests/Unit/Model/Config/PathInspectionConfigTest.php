@@ -24,6 +24,26 @@ class PathInspectionConfigTest extends TestCase
     }
 
     /**
+     * @covers ::__construct
+     * @covers ::getPath
+     */
+    public function testGetPathNormalizeSlashes(): void
+    {
+        $config = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '\\path\\to\\file', 86);
+        static::assertSame('/path/to/file', $config->getPath());
+    }
+
+    /**
+     * @covers ::__construct
+     * @covers ::getPath
+     */
+    public function testGetPathNormalizeDirectory(): void
+    {
+        $config = new PathInspectionConfig(PathInspectionConfig::TYPE_DIR, '\\path\\to/directory', 86);
+        static::assertSame('path/to/directory/', $config->getPath());
+    }
+
+    /**
      * @covers ::compare
      */
     public function testCompareFileAndDirectory(): void
