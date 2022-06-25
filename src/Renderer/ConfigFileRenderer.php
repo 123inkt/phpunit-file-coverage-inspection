@@ -41,6 +41,9 @@ class ConfigFileRenderer
 
         $out->endElement(/* phpfci */);
 
-        return $out->flush();
+        /** @var int|string $result */
+        $result = $out->flush();
+
+        return (string)$result;
     }
 }
