@@ -39,7 +39,7 @@ class InspectionConfigFactoryTest extends TestCase
         $dir = $config->getPathInspection('dir/ectory/file');
         static::assertNotNull($dir);
         static::assertSame(60, $dir->getMinimumCoverage());
-        static::assertSame('dir/ectory', $dir->getPath());
+        static::assertSame('dir/ectory/', $dir->getPath());
 
         $file = $config->getPathInspection('a/b/c');
         static::assertNotNull($file);
