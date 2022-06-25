@@ -103,7 +103,7 @@ class DOMDocumentFactoryTest extends TestCase
         fwrite($this->file, $xml);
 
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage("The value '200' is greater than the maximum value allowed");
+        $this->expectExceptionMessage("Missing child element(s). Expected is one of ( directory, file )");
         DOMDocumentFactory::getValidatedDOMDocument($this->fileInfo, $this->schemaPath);
     }
 }
