@@ -42,7 +42,7 @@ jobs:
       - name: Run test suite
         run: php -dpcov.enabled=1 -dpcov.exclude="~vendor~" vendor/bin/phpunit --testsuite unit --coverage-clover ./.coverage/coverage.xml
       - name: Check coverage
-        run: php bin/phpfci inspect ./.coverage/coverage.xml ./.coverage/phpfci.xml --exit-code-on-failure || cat ./.coverage/phpfci.xml
+        run: php bin/phpfci inspect ./.coverage/coverage.xml ./.coverage/phpfci.xml --exit-code-on-failure
   quality:
     name: Quality checks
     runs-on: ubuntu-latest

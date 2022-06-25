@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Utility;
 
+use ArrayIterator;
 use DigitalRevolution\CodeCoverageInspection\Lib\Utility\XMLUtil;
 use DOMDocument;
+use DOMException;
+use DOMXPath;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -12,6 +15,31 @@ use PHPUnit\Framework\TestCase;
  */
 class XMLUtilTest extends TestCase
 {
+    /**
+     * @covers ::query
+     */
+    public function testQueryInvalidPath(): void
+    {
+        $xpath = $this->createMock(DOMXPath::class);
+        $xpath->expects(self::once())->method('query')->with('foobar')->willReturn(false);
+
+        static::assertSame([], XMLUtil::query($xpath, 'foobar'));
+    }
+
+    /**
+     * @covers ::query
+     * @throws DOMException
+     */
+    public function testQuerySuccessful(): void
+    {
+        $node = (new DOMDocument())->createElement('el');
+
+        $xpath = $this->createMock(DOMXPath::class);
+        $xpath->expects(self::once())->method('query')->with('foobar')->willReturn(new ArrayIterator([$node]));
+
+        static::assertSame([$node], XMLUtil::query($xpath, 'foobar'));
+    }
+
     /**
      * @covers ::getAttribute
      */
