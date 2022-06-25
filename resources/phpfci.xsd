@@ -16,7 +16,7 @@
 
     <xs:group name="pathGroup">
         <xs:sequence>
-            <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:choice maxOccurs="unbounded">
                 <xs:element name="directory" type="directory"/>
                 <xs:element name="file" type="file"/>
             </xs:choice>
