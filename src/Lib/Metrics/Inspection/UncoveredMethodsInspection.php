@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection;
 
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\FileMetricAnalyzer;
-use DigitalRevolution\CodeCoverageInspection\Model\Config\FileInspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 
@@ -13,7 +13,7 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
  */
 class UncoveredMethodsInspection extends AbstractInspection
 {
-    public function inspect(?FileInspectionConfig $fileConfig, FileMetric $metric): ?Failure
+    public function inspect(?PathInspectionConfig $fileConfig, FileMetric $metric): ?Failure
     {
         $uncoveredMethod = FileMetricAnalyzer::getUncoveredMethodMetric($metric);
 

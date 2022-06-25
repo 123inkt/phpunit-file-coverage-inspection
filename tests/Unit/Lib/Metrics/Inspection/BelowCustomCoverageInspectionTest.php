@@ -5,7 +5,7 @@ namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Metrics\Inspec
 
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\AbstractInspection;
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\BelowCustomCoverageInspection;
-use DigitalRevolution\CodeCoverageInspection\Model\Config\FileInspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
@@ -17,8 +17,7 @@ use PHPUnit\Framework\TestCase;
  */
 class BelowCustomCoverageInspectionTest extends TestCase
 {
-    /** @var BelowCustomCoverageInspection */
-    private $inspection;
+    private BelowCustomCoverageInspection $inspection;
 
     protected function setUp(): void
     {
@@ -40,7 +39,7 @@ class BelowCustomCoverageInspectionTest extends TestCase
      */
     public function testInspectCoverageBelowCustomCoverageShouldFail(): void
     {
-        $fileConfig = new FileInspectionConfig('/tmp/b', 40);
+        $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '/tmp/b', 40);
         $metric     = new FileMetric('/tmp/b', 20, []);
 
         $failure = $this->inspection->inspect($fileConfig, $metric);
@@ -54,7 +53,7 @@ class BelowCustomCoverageInspectionTest extends TestCase
      */
     public function testInspectCoverageAboveCustomCoverageShouldPass(): void
     {
-        $fileConfig = new FileInspectionConfig('/tmp/b', 40);
+        $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '/tmp/b', 40);
         $metric     = new FileMetric('/tmp/b', 60, []);
 
         static::assertNull($this->inspection->inspect($fileConfig, $metric));

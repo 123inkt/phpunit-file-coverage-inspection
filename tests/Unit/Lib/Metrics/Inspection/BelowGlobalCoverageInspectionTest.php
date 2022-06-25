@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Metrics\Inspection;
 
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\BelowGlobalCoverageInspection;
-use DigitalRevolution\CodeCoverageInspection\Model\Config\FileInspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
@@ -16,8 +16,7 @@ use PHPUnit\Framework\TestCase;
  */
 class BelowGlobalCoverageInspectionTest extends TestCase
 {
-    /** @var BelowGlobalCoverageInspection */
-    private $inspection;
+    private BelowGlobalCoverageInspection $inspection;
 
     protected function setUp(): void
     {
@@ -30,7 +29,7 @@ class BelowGlobalCoverageInspectionTest extends TestCase
      */
     public function testInspectCustomCoverageShouldPass(): void
     {
-        $fileConfig = new FileInspectionConfig('/tmp/a', 20);
+        $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '/tmp/a', 20);
         static::assertNull($this->inspection->inspect($fileConfig, new FileMetric('/tmp/a', 20, [])));
     }
 

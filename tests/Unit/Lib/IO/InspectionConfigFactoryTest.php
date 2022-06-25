@@ -35,7 +35,7 @@ class InspectionConfigFactoryTest extends TestCase
         static::assertSame(85, $config->getMinimumCoverage());
         static::assertFalse($config->isUncoveredAllowed());
 
-        $file = $config->getFileInspection('a/b/c');
+        $file = $config->getPathInspection('a/b/c');
         static::assertNotNull($file);
         static::assertSame(80, $file->getMinimumCoverage());
         static::assertSame('a/b/c', $file->getPath());

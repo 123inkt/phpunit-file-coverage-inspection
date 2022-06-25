@@ -4,9 +4,20 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Lib\Utility;
 
 use DOMNode;
+use DOMXPath;
 
 class XMLUtil
 {
+    /**
+     * @return DOMNode[]
+     */
+    public static function query(DOMXpath $xpath, string $query): array
+    {
+        $nodes = $xpath->query($query);
+
+        return $nodes === false ? [] : iterator_to_array($nodes, false);
+    }
+
     public static function getAttribute(DOMNode $node, string $attribute): ?string
     {
         if ($node->attributes === null) {

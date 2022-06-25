@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Metrics\Inspection;
 
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\UncoveredMethodsInspection;
-use DigitalRevolution\CodeCoverageInspection\Model\Config\FileInspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
@@ -17,8 +17,7 @@ use PHPUnit\Framework\TestCase;
  */
 class UncoveredMethodsInspectionTest extends TestCase
 {
-    /** @var UncoveredMethodsInspection */
-    private $inspection;
+    private UncoveredMethodsInspection $inspection;
 
     protected function setUp(): void
     {
@@ -31,7 +30,7 @@ class UncoveredMethodsInspectionTest extends TestCase
      */
     public function testInspectCustomCoverageShouldPass(): void
     {
-        $fileConfig = new FileInspectionConfig('/tmp/b', 40);
+        $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '/tmp/b', 40);
         $metric     = new FileMetric('/tmp/b', 20, []);
 
         static::assertNull($this->inspection->inspect($fileConfig, $metric));

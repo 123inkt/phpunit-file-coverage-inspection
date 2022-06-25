@@ -7,18 +7,14 @@ class InspectionConfig
 {
     private int  $minimumCoverage;
     private bool $uncoveredAllowed;
-    /** @var array<string, FileInspectionConfig> */
-    private array  $customCoverage;
+    /** @var PathInspectionConfig[] */
+    private array  $customCoverage = [];
     private string $basePath;
 
-    /**
-     * @param array<string, FileInspectionConfig> $customCoverage
-     */
-    public function __construct(string $basePath, int $minimumCoverage, bool $uncoveredAllowed = false, array $customCoverage = [])
+    public function __construct(string $basePath, int $minimumCoverage, bool $uncoveredAllowed = false)
     {
         $this->basePath         = $basePath;
         $this->minimumCoverage  = $minimumCoverage;
-        $this->customCoverage   = $customCoverage;
         $this->uncoveredAllowed = $uncoveredAllowed;
     }
 
@@ -37,11 +33,19 @@ class InspectionConfig
         return $this->uncoveredAllowed;
     }
 
-    public function getFileInspection(string $path): ?FileInspectionConfig
+    public function addPathInspection(PathInspectionConfig $inspectionConfig): self
     {
-        foreach (array_keys($this->customCoverage) as $baselinePath) {
+        $this->customCoverage[] = $inspectionConfig;
+
+        return $this;
+    }
+
+    public function getPathInspection(string $path): ?PathInspectionConfig
+    {
+        foreach ($this->customCoverage as $pathInspectionConfig) {
+            $baselinePath = $pathInspectionConfig->getPath();
             if (str_ends_with($path, $baselinePath)) {
-                return $this->customCoverage[$baselinePath];
+                return $pathInspectionConfig;
             }
         }
 

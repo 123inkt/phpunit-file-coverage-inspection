@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Metrics\Inspection;
 
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\CustomCoverageAboveGlobalInspection;
-use DigitalRevolution\CodeCoverageInspection\Model\Config\FileInspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
@@ -16,8 +16,7 @@ use PHPUnit\Framework\TestCase;
  */
 class CustomCoverageAboveGlobalInspectionTest extends TestCase
 {
-    /** @var CustomCoverageAboveGlobalInspection */
-    private $inspection;
+    private CustomCoverageAboveGlobalInspection $inspection;
 
     protected function setUp(): void
     {
@@ -38,7 +37,7 @@ class CustomCoverageAboveGlobalInspectionTest extends TestCase
      */
     public function testInspectCoverageBelowGlobalCoverageShouldPass(): void
     {
-        $fileConfig = new FileInspectionConfig('/tmp/b', 40);
+        $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '/tmp/b', 40);
         $metric     = new FileMetric('/tmp/b', 70, []);
 
         static::assertNull($this->inspection->inspect($fileConfig, $metric));
@@ -49,7 +48,7 @@ class CustomCoverageAboveGlobalInspectionTest extends TestCase
      */
     public function testInspectCoverageAboveGlobalCoverageShouldFail(): void
     {
-        $fileConfig = new FileInspectionConfig('/tmp/b', 40);
+        $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '/tmp/b', 40);
         $metric     = new FileMetric('/tmp/b', 90, []);
 
         $failure = $this->inspection->inspect($fileConfig, $metric);

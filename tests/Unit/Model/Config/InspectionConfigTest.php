@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Model\Config;
 
 use DigitalRevolution\AccessorPairConstraint\AccessorPairAsserter;
-use DigitalRevolution\CodeCoverageInspection\Model\Config\FileInspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use PHPUnit\Framework\TestCase;
 
@@ -25,14 +25,15 @@ class InspectionConfigTest extends TestCase
     }
 
     /**
-     * @covers ::getFileInspection
+     * @covers ::getPathInspection
      */
     public function testGetFileInspection(): void
     {
-        $fileConfig = new FileInspectionConfig('foobar', 50);
-        $config     = new InspectionConfig('/base/path', 20, false, ['foobar' => $fileConfig]);
+        $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, 'foobar', 50);
+        $config     = new InspectionConfig('/base/path', 20, false);
+        $config->addPathInspection($fileConfig);
 
-        static::assertNull($config->getFileInspection('invalid'));
-        static::assertSame($fileConfig, $config->getFileInspection('foobar'));
+        static::assertNull($config->getPathInspection('invalid'));
+        static::assertSame($fileConfig, $config->getPathInspection('foobar'));
     }
 }
