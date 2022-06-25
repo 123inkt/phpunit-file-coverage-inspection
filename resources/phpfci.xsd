@@ -10,24 +10,42 @@
 
     <xs:element name="custom-coverage">
         <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="file" maxOccurs="unbounded"/>
-            </xs:sequence>
+            <xs:group ref="pathGroup"/>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="file">
-        <xs:complexType>
-            <xs:attribute name="path" type="xs:string"/>
-            <xs:attribute name="min" type="percentage"/>
-        </xs:complexType>
-    </xs:element>
+    <xs:group name="pathGroup">
+        <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="directory" type="directory"/>
+                <xs:element name="file" type="file"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:complexType name="directory">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="path" type="xs:string"/>
+                <xs:attribute name="min" type="percentage"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="file">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="path" type="xs:string"/>
+                <xs:attribute name="min" type="percentage"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
 
     <!-- definition of root element -->
     <xs:element name="phpfci">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="custom-coverage" maxOccurs="1" minOccurs="0"/>
+                <xs:element ref="custom-coverage" minOccurs="0"/>
             </xs:sequence>
             <xs:attribute name="min-coverage" type="percentage"/>
             <xs:attribute name="allow-uncovered-methods" type="xs:boolean" default="false"/>
