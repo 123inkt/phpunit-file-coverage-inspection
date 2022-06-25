@@ -32,8 +32,12 @@ File: `phpfci.xml`
         min-coverage="100"
 >
     <custom-coverage>
-        <file path="src/FileA.php" min="80"/>
-        <file path="src/FileB.php" min="60"/>
+        <!-- directory based coverage rule -->
+        <directory path="src/Lib/" min="90"/>
+        <!-- subdirectories will superseed a parent directory rule -->
+        <directory path="src/Lib/Config/" min="100"/>
+        <!-- file rule will always superseed a directory rule -->
+        <file path="src/Lib/Config/File.php" min="80"/>
     </custom-coverage>
 </phpfci>
 ```
@@ -66,14 +70,15 @@ php vendor/bin/phpfci inspect coverage.xml reports/gitlab.errors.json --report=g
 
 ## Command line arguments
 
-| Option                    | Values                 | Description                                           |
-|---------------------------|------------------------|-------------------------------------------------------| 
-| `argument 1`              | `inspect`, `baseline`  | the command to execute.                               |
-| `argument 2`              | `coverage.xml`         | the phpunit clover coverage input file.               |
-| `argument 3`              | `phpfci.xml`           | the output file to write to.                          |
-| `--report=<report-style>` | `gitlab`, `checkstyle` | the output format. If absent will default to console. |
-| `--config=<path-to-file>` | `phpfci.xml`           | the path to the config file.                          |
-| `--exit-code-on-failure`  | -                      | Set exit code to `1` when there are failures.         |
+| Option                    | Values                                   | Description                                                             |
+|---------------------------|------------------------------------------|-------------------------------------------------------------------------| 
+| `argument 1`              | `inspect`, `baseline`                    | the command to execute.                                                 |
+| `argument 2`              | `coverage.xml`                           | the phpunit clover coverage input file.                                 |
+| `argument 3`              | `phpfci.xml`                             | the output file to write to.                                            |
+| `--report=<report-style>` | `gitlab`, `checkstyle`                   | the output format. If absent will default to console.                   |
+| `--config=<path-to-file>` | `phpfci.xml`                             | the path to the config file.                                            |
+| `--baseDir=<path>`        | defaults to directory of the output file | The root directory of the project, will be used to make paths relative. |
+| `--exit-code-on-failure`  | -                                        | Set exit code to `1` when there are failures.                           |
 
 ## About us
 
