@@ -3,6 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../../../resources/phpfci.xsd"
         min-coverage="80">
     <custom-coverage>
+        <directory path="test/directory/" min="90"/>
         <file path="test/case/above-threshold.php" min="60"/>
         <file path="test/case/below-threshold.php" min="55"/>
         <file path="test/case/unnecessary-custom-rule.php" min="75"/>

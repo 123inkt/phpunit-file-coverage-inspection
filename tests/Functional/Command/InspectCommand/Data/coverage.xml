@@ -30,6 +30,35 @@
                      coveredelements="0"/>
         </file>
 
+        <!-- coverage directory coverage below threshold -->
+        <file name="/home\workspace/test/directory/standard-below-threshold.php">
+            <metrics loc="11"
+                     ncloc="11"
+                     classes="0"
+                     methods="0"
+                     coveredmethods="0"
+                     conditionals="0"
+                     coveredconditionals="0"
+                     statements="100"
+                     coveredstatements="85"
+                     elements="0"
+                     coveredelements="0"/>
+        </file>
+        <!-- coverage directory coverage above threshold -->
+        <file name="/home\workspace/test/directory/standard-above-threshold.php">
+            <metrics loc="11"
+                     ncloc="11"
+                     classes="0"
+                     methods="0"
+                     coveredmethods="0"
+                     conditionals="0"
+                     coveredconditionals="0"
+                     statements="100"
+                     coveredstatements="95"
+                     elements="0"
+                     coveredelements="0"/>
+        </file>
+
         <!-- custom configured files -->
         <!-- coverage 60% -->
         <file name="/home/workspace/test/case/above-threshold.php">
