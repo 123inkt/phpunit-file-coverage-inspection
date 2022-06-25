@@ -15,13 +15,14 @@ class InspectionConfigFactoryTest extends TestCase
 {
     /**
      * @covers ::fromDOMDocument
-     * @covers ::getConfiguration
+     * @covers ::getInspectionConfig
      */
     public function testFromDOMDocument(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
             <phpfci min-coverage="85">
                 <custom-coverage>
+                    <directory path="dir/ectory" min="60"/>
                     <file path="a/b/c" min="80"/>
                 </custom-coverage>
             </phpfci>
@@ -35,6 +36,11 @@ class InspectionConfigFactoryTest extends TestCase
         static::assertSame(85, $config->getMinimumCoverage());
         static::assertFalse($config->isUncoveredAllowed());
 
+        $dir = $config->getPathInspection('dir/ectory/file');
+        static::assertNotNull($dir);
+        static::assertSame(60, $dir->getMinimumCoverage());
+        static::assertSame('dir/ectory', $dir->getPath());
+
         $file = $config->getPathInspection('a/b/c');
         static::assertNotNull($file);
         static::assertSame(80, $file->getMinimumCoverage());
@@ -43,7 +49,7 @@ class InspectionConfigFactoryTest extends TestCase
 
     /**
      * @covers ::fromDOMDocument
-     * @covers ::getConfiguration
+     * @covers ::getInspectionConfig
      */
     public function testFromDOMDocumentWithUncoveredMethodsAllowed(): void
     {
@@ -60,7 +66,7 @@ class InspectionConfigFactoryTest extends TestCase
 
     /**
      * @covers ::fromDOMDocument
-     * @covers ::getConfiguration
+     * @covers ::getInspectionConfig
      */
     public function testFromDOMDocumentWithUncoveredMethodsForcedDisallowed(): void
     {
