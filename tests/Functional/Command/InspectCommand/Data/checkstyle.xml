@@ -3,6 +3,9 @@
  <file name="/home/workspace/test/case/standard-below-threshold.php">
   <error line="1" column="0" severity="error" message="Project per file coverage is configured at 80%. Current coverage is at 70%. Improve coverage for this class." source="phpunit-file-coverage-inspection"/>
  </file>
+ <file name="/home/workspace/test/directory/standard-below-threshold.php">
+  <error line="1" column="0" severity="error" message="Custom file coverage is configured at 90%. Current coverage is at 85%. Improve coverage for this class." source="phpunit-file-coverage-inspection"/>
+ </file>
  <file name="/home/workspace/test/case/below-threshold.php">
   <error line="1" column="0" severity="error" message="Custom file coverage is configured at 55%. Current coverage is at 50%. Improve coverage for this class." source="phpunit-file-coverage-inspection"/>
  </file>

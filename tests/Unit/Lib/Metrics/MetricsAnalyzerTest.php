@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Metrics;
 
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\MetricsAnalyzer;
-use DigitalRevolution\CodeCoverageInspection\Model\Config\FileInspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
@@ -51,7 +51,8 @@ class MetricsAnalyzerTest extends TestCase
     public function testAnalyzeFileWithCustomCoverageRuleShouldPass(): void
     {
         $metrics[] = new FileMetric('/a/b/c/test.php', 45, []);
-        $config    = new InspectionConfig('/a/', 80, false, ['b/c/test.php' => new FileInspectionConfig('b/c/test.php', 40)]);
+        $config    = new InspectionConfig('/a/', 80, false);
+        $config->addPathInspection(new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, 'b/c/test.php', 40));
 
         $analyzer = new MetricsAnalyzer($metrics, $config);
         $result   = $analyzer->analyze();
@@ -65,7 +66,8 @@ class MetricsAnalyzerTest extends TestCase
     {
         $metric  = new FileMetric('/a/b/c/test.php', 45, []);
         $metrics = [$metric];
-        $config  = new InspectionConfig('/a/', 80, false, ['b/c/test.php' => new FileInspectionConfig('b/c/test.php', 50)]);
+        $config  = new InspectionConfig('/a/', 80, false);
+        $config->addPathInspection(new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, 'b/c/test.php', 50));
 
         $analyzer = new MetricsAnalyzer($metrics, $config);
         $result   = $analyzer->analyze();
@@ -80,7 +82,8 @@ class MetricsAnalyzerTest extends TestCase
     {
         $metric  = new FileMetric('/a/b/c/test.php', 90, []);
         $metrics = [$metric];
-        $config  = new InspectionConfig('/a/', 80, false, ['b/c/test.php' => new FileInspectionConfig('b/c/test.php', 50)]);
+        $config  = new InspectionConfig('/a/', 80, false);
+        $config->addPathInspection(new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, 'b/c/test.php', 50));
 
         $analyzer = new MetricsAnalyzer($metrics, $config);
         $result   = $analyzer->analyze();

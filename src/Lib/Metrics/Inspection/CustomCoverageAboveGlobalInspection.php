@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection;
 
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\FileMetricAnalyzer;
-use DigitalRevolution\CodeCoverageInspection\Model\Config\FileInspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 
@@ -13,12 +13,18 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
  */
 class CustomCoverageAboveGlobalInspection extends AbstractInspection
 {
-    public function inspect(?FileInspectionConfig $fileConfig, FileMetric $metric): ?Failure
+    public function inspect(?PathInspectionConfig $fileConfig, FileMetric $metric): ?Failure
     {
         $uncoveredMethod = FileMetricAnalyzer::getUncoveredMethodMetric($metric);
+        if ($fileConfig === null || $uncoveredMethod !== null) {
+            return null;
+        }
 
-        // custom coverage, but file is already above global coverage
-        if ($fileConfig !== null && $uncoveredMethod === null && $metric->getCoverage() >= $this->config->getMinimumCoverage()) {
+        $globalCoverage = $this->config->getMinimumCoverage();
+        $customCoverage = $fileConfig->getMinimumCoverage();
+
+        // custom coverage is lower than global coverage, and file is above global coverage
+        if ($customCoverage < $globalCoverage && $metric->getCoverage() >= $globalCoverage) {
             return new Failure($metric, $fileConfig->getMinimumCoverage(), Failure::UNNECESSARY_CUSTOM_COVERAGE);
         }
 

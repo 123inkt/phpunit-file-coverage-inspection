@@ -46,7 +46,7 @@ class MetricsAnalyzer
         $failures = [];
 
         foreach ($this->metrics as $metric) {
-            $fileConfig = $this->config->getFileInspection($metric->getFilepath());
+            $fileConfig = $this->config->getPathInspection($metric->getFilepath());
 
             foreach ($this->inspections as $inspection) {
                 $failure = $inspection->inspect($fileConfig, $metric);
