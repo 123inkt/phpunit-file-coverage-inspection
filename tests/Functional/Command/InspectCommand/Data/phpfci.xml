@@ -8,4 +8,7 @@
         <file path="test/case/below-threshold.php" min="55"/>
         <file path="test/case/unnecessary-custom-rule.php" min="75"/>
     </custom-coverage>
+    <ignore-uncovered-methods>
+        <file path="test/case/ignored-uncovered-method.php"/>
+    </ignore-uncovered-methods>
 </phpfci>
