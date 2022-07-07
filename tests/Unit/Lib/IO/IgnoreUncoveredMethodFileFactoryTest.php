@@ -11,7 +11,6 @@ use RuntimeException;
 
 /**
  * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\IO\IgnoreUncoveredMethodFileFactory
- * @covers ::__construct
  */
 class IgnoreUncoveredMethodFileFactoryTest extends TestCase
 {
