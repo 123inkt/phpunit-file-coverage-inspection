@@ -5,6 +5,7 @@ namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Model\Config;
 
 use DigitalRevolution\AccessorPairConstraint\AccessorPairAsserter;
 use DigitalRevolution\AccessorPairConstraint\Constraint\ConstraintConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\IgnoreUncoveredMethodFile;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use PHPUnit\Framework\TestCase;
@@ -102,5 +103,19 @@ class InspectionConfigTest extends TestCase
         static::assertSame($directoryConfigA, $config->getPathInspection('foo/bar/other/file'));
         static::assertSame($directoryConfigB, $config->getPathInspection('/base/path/foo/bar/directory/file'));
         static::assertSame($directoryConfigA, $config->getPathInspection('/base/path/foo/bar/other/file'));
+    }
+
+    /**
+     * @covers ::addIgnoreUncoveredMethodFile
+     * @covers ::hasIgnoreUncoveredMethodFile
+     */
+    public function testAddIgnoreUncoveredMethodFile(): void
+    {
+        $config = new InspectionConfig('/base/path', 20, false);
+        $config->addIgnoreUncoveredMethodFile(new IgnoreUncoveredMethodFile('test/case/file.php'));
+
+        static::assertFalse($config->hasIgnoreUncoveredMethodFile('foo/directory'));
+        static::assertTrue($config->hasIgnoreUncoveredMethodFile('test/case/file.php'));
+        static::assertTrue($config->hasIgnoreUncoveredMethodFile('/base/path/test/case/file.php'));
     }
 }
