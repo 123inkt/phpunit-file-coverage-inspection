@@ -17,6 +17,11 @@ class UncoveredMethodsInspection extends AbstractInspection
     {
         $uncoveredMethod = FileMetricAnalyzer::getUncoveredMethodMetric($metric);
 
+        // uncovered method is ignored
+        if ($this->config->hasIgnoreUncoveredMethodFile($metric->getFilepath())) {
+            return null;
+        }
+
         if ($fileConfig === null && $uncoveredMethod !== null && $this->config->isUncoveredAllowed() === false) {
             return new Failure($metric, $this->config->getMinimumCoverage(), Failure::MISSING_METHOD_COVERAGE, $uncoveredMethod->getLineNumber());
         }

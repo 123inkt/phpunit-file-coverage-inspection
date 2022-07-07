@@ -8,7 +8,9 @@ class InspectionConfig
     private int  $minimumCoverage;
     private bool $uncoveredAllowed;
     /** @var PathInspectionConfig[] */
-    private array  $customCoverage = [];
+    private array $customCoverage = [];
+    /** @var IgnoreUncoveredMethodFile[] */
+    private array  $ignoreUncoveredFiles = [];
     private string $basePath;
 
     public function __construct(string $basePath, int $minimumCoverage, bool $uncoveredAllowed = false)
@@ -64,5 +66,23 @@ class InspectionConfig
         }
 
         return $bestConfig;
+    }
+
+    public function addIgnoreUncoveredMethodFile(IgnoreUncoveredMethodFile $file): self
+    {
+        $this->ignoreUncoveredFiles[] = $file;
+
+        return $this;
+    }
+
+    public function hasIgnoreUncoveredMethodFile(string $file): bool
+    {
+        foreach ($this->ignoreUncoveredFiles as $relativeFilePath) {
+            if (str_ends_with($file, $relativeFilePath->getFilepath())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
