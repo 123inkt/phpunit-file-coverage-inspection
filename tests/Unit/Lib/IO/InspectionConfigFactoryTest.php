@@ -85,6 +85,27 @@ class InspectionConfigFactoryTest extends TestCase
      * @covers ::fromDOMDocument
      * @covers ::getInspectionConfig
      */
+    public function testFromDOMDocumentWithIgnoreUncoveredMethods(): void
+    {
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>
+            <phpfci min-coverage="85">
+                <ignore-uncovered-methods>
+                    <file path="a/b/c"/>
+                </ignore-uncovered-methods>
+            </phpfci>
+        ';
+
+        $dom = new DOMDocument();
+        $dom->loadXML($xml);
+
+        $config = InspectionConfigFactory::fromDOMDocument('/tmp/test', $dom);
+        static::assertTrue($config->hasIgnoreUncoveredMethodFile('a/b/c'));
+    }
+
+    /**
+     * @covers ::fromDOMDocument
+     * @covers ::getInspectionConfig
+     */
     public function testFromDOMDocumentInvalidFormatThrowsException(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
