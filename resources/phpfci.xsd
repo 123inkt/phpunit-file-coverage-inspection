@@ -28,13 +28,6 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="uncovered-method-file">
-        <xs:complexType>
-            <xs:attribute name="path" type="xs:string"/>
-            <xs:attribute name="min" type="percentage"/>
-        </xs:complexType>
-    </xs:element>
-
     <xs:group name="pathGroup">
         <xs:sequence>
             <xs:choice maxOccurs="unbounded">
