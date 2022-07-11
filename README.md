@@ -30,6 +30,7 @@ File: `phpfci.xml`
 <phpfci xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="vendor/digitalrevolution/phpunit-file-coverage-inspection/resources/phpfci.xsd"
         min-coverage="100"
+        allow-uncovered-methods="false"
 >
     <custom-coverage>
         <!-- directory based coverage rule -->
@@ -39,6 +40,11 @@ File: `phpfci.xml`
         <!-- file rule will always superceed a directory rule -->
         <file path="src/Lib/Config/File.php" min="80"/>
     </custom-coverage>
+    
+    <!-- when 'allow-uncovered-methods' is set to false, override this behaviour for specific files: -->
+    <ignore-uncovered-methods>
+        <file path="src/Command/ExampleCommand.php"/>
+    </ignore-uncovered-methods>
 </phpfci>
 ```
 

@@ -14,16 +14,30 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="ignore-uncovered-methods">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="file" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="file">
+        <xs:complexType>
+            <xs:attribute name="path" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
     <xs:group name="pathGroup">
         <xs:sequence>
             <xs:choice maxOccurs="unbounded">
-                <xs:element name="directory" type="directory"/>
-                <xs:element name="file" type="file"/>
+                <xs:element name="directory" type="custom-coverage-directory"/>
+                <xs:element name="file" type="custom-coverage-file"/>
             </xs:choice>
         </xs:sequence>
     </xs:group>
 
-    <xs:complexType name="directory">
+    <xs:complexType name="custom-coverage-directory">
         <xs:simpleContent>
             <xs:extension base="xs:string">
                 <xs:attribute name="path" type="xs:string"/>
@@ -32,7 +46,7 @@
         </xs:simpleContent>
     </xs:complexType>
 
-    <xs:complexType name="file">
+    <xs:complexType name="custom-coverage-file">
         <xs:simpleContent>
             <xs:extension base="xs:string">
                 <xs:attribute name="path" type="xs:string"/>
@@ -46,6 +60,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="custom-coverage" minOccurs="0"/>
+                <xs:element ref="ignore-uncovered-methods" minOccurs="0"/>
             </xs:sequence>
             <xs:attribute name="min-coverage" type="percentage"/>
             <xs:attribute name="allow-uncovered-methods" type="xs:boolean" default="false"/>

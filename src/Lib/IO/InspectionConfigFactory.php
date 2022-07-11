@@ -22,6 +22,12 @@ class InspectionConfigFactory
             $inspectionConfig->addPathInspection(PathInspectionConfigFactory::createFromNode($node));
         }
 
+        // find all ignore uncovered method nodes
+        $nodes = XMLUtil::query($xpath, "/phpfci/ignore-uncovered-methods/file");
+        foreach ($nodes as $node) {
+            $inspectionConfig->addIgnoreUncoveredMethodFile(IgnoreUncoveredMethodFileFactory::createFromNode($node));
+        }
+
         return $inspectionConfig;
     }
 
