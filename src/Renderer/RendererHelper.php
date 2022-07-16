@@ -22,7 +22,12 @@ class RendererHelper
                 return sprintf($message, (string)$failure->getMinimumCoverage(), (string)$failure->getMetric()->getCoverage());
             case Failure::MISSING_METHOD_COVERAGE:
                 $message     = "File coverage is above %s%%, but method(s) `%s` has/have no coverage at all.";
-                $methodNames = array_map(static fn($method): string => $method->getMethodName(), $failure->getMetric()->getMethods());
+                $methodNames = array_filter(
+                    array_map(
+                        static fn($method): ?string => $method->getCount() === 0 ? $method->getMethodName() : null,
+                        $failure->getMetric()->getMethods()
+                    )
+                );
 
                 return sprintf($message, (string)$config->getMinimumCoverage(), implode(', ', $methodNames));
             case Failure::UNNECESSARY_CUSTOM_COVERAGE:
