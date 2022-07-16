@@ -70,7 +70,7 @@ class CheckStyleRendererTest extends TestCase
     public function testRenderMissingMethodCoverage(): void
     {
         $config  = new InspectionConfig('', 80);
-        $metric  = new FileMetric('/foo/bar/file.php', 85.3, [new MethodMetric('method', 200, 80)]);
+        $metric  = new FileMetric('/foo/bar/file.php', 85.3, [new MethodMetric('method', 200, 0)]);
         $failure = new Failure($metric, 60, Failure::MISSING_METHOD_COVERAGE, 20);
 
         $checkStyle = new CheckStyleRenderer();
