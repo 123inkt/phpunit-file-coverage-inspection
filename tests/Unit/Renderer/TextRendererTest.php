@@ -11,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Renderer\TextRenderer
- * @covers ::__construct
  */
 class TextRendererTest extends TestCase
 {
