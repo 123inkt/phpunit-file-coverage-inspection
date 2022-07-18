@@ -52,11 +52,11 @@ class RendererHelperTest extends TestCase
      */
     public function testRenderReasonMissingMethodCoverage(): void
     {
-        $metric  = new FileMetric('foobar', 70, [new MethodMetric('myMethod', 100, 80)]);
+        $metric  = new FileMetric('foobar', 70, [new MethodMetric('coveredMethod', 100, 80), new MethodMetric('uncoveredMethod', 105, 0)]);
         $failure = new Failure($metric, 30, Failure::MISSING_METHOD_COVERAGE, 5);
 
         $message = RendererHelper::renderReason($this->config, $failure);
-        static::assertSame('File coverage is above 80%, but method(s) `myMethod` has/have no coverage at all.', $message);
+        static::assertSame('File coverage is above 80%, but method(s) `uncoveredMethod` has/have no coverage at all.', $message);
     }
 
     /**
