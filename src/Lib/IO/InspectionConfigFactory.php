@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Lib\IO;
 
 use DigitalRevolution\CodeCoverageInspection\Lib\Utility\XMLUtil;
-use DigitalRevolution\CodeCoverageInspection\Model\Config\FileInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DOMDocument;
 use DOMXPath;
@@ -14,44 +13,36 @@ class InspectionConfigFactory
 {
     public static function fromDOMDocument(string $basePath, DOMDocument $doc): InspectionConfig
     {
-        $xpath = new DOMXpath($doc);
-        [$minCoverage, $isUncoveredAllowed] = self::getConfiguration($xpath);
+        $xpath            = new DOMXpath($doc);
+        $inspectionConfig = self::getInspectionConfig($basePath, $xpath);
 
-        // find all custom coverage files
-        $files     = [];
-        $fileNodes = $xpath->query("/phpfci/custom-coverage/file");
-        if ($fileNodes !== false) {
-            foreach ($fileNodes as $item) {
-                $path            = (string)XMLUtil::getAttribute($item, 'path');
-                $minimumCoverage = (int)XMLUtil::getAttribute($item, 'min');
-                $files[$path]    = new FileInspectionConfig($path, $minimumCoverage);
-            }
+        // find all custom coverage node
+        $nodes = array_merge(XMLUtil::query($xpath, "/phpfci/custom-coverage/directory"), XMLUtil::query($xpath, "/phpfci/custom-coverage/file"));
+        foreach ($nodes as $node) {
+            $inspectionConfig->addPathInspection(PathInspectionConfigFactory::createFromNode($node));
         }
 
-        return new InspectionConfig($basePath, $minCoverage, $isUncoveredAllowed, $files);
+        // find all ignore uncovered method nodes
+        $nodes = XMLUtil::query($xpath, "/phpfci/ignore-uncovered-methods/file");
+        foreach ($nodes as $node) {
+            $inspectionConfig->addIgnoreUncoveredMethodFile(IgnoreUncoveredMethodFileFactory::createFromNode($node));
+        }
+
+        return $inspectionConfig;
     }
 
-    /**
-     * @return array{int, bool}
-     */
-    private static function getConfiguration(DOMXpath $xpath): array
+    private static function getInspectionConfig(string $basePath, DOMXpath $xpath): InspectionConfig
     {
         // find global coverage settings
-        $nodes = $xpath->query("/phpfci");
-        if ($nodes === false || $nodes->count() === 0) {
+        $nodes = XMLUtil::query($xpath, "/phpfci");
+        if (count($nodes) === 0) {
             throw new RuntimeException('Missing `phpfci` in configuration file');
         }
 
-        $node = $nodes->item(0);
-        if ($node === null) {
-            // @codeCoverageIgnoreStart
-            throw new RuntimeException('Missing attributes on `phpfci`');
-            // @codeCoverageIgnoreEnd
-        }
-
+        $node               = reset($nodes);
         $minCoverage        = (int)XMLUtil::getAttribute($node, 'min-coverage');
         $isUncoveredAllowed = XMLUtil::getAttribute($node, 'allow-uncovered-methods') === "true";
 
-        return [$minCoverage, $isUncoveredAllowed];
+        return new InspectionConfig($basePath, $minCoverage, $isUncoveredAllowed);
     }
 }

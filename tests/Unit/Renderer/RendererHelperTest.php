@@ -6,6 +6,7 @@ namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Renderer;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
+use DigitalRevolution\CodeCoverageInspection\Model\Metric\MethodMetric;
 use DigitalRevolution\CodeCoverageInspection\Renderer\RendererHelper;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
@@ -51,11 +52,11 @@ class RendererHelperTest extends TestCase
      */
     public function testRenderReasonMissingMethodCoverage(): void
     {
-        $metric  = new FileMetric('foobar', 70, []);
+        $metric  = new FileMetric('foobar', 70, [new MethodMetric('coveredMethod', 100, 80), new MethodMetric('uncoveredMethod', 105, 0)]);
         $failure = new Failure($metric, 30, Failure::MISSING_METHOD_COVERAGE, 5);
 
         $message = RendererHelper::renderReason($this->config, $failure);
-        static::assertSame('File coverage is above 80%, but method has no coverage at all.', $message);
+        static::assertSame('File coverage is above 80%, but method(s) `uncoveredMethod` has/have no coverage at all.', $message);
     }
 
     /**

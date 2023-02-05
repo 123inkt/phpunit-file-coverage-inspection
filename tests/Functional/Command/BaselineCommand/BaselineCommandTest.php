@@ -15,7 +15,6 @@ use Symfony\Component\Console\Output\BufferedOutput;
 
 class BaselineCommandTest extends TestCase
 {
-
     /** @var vfsStreamDirectory */
     private $fileSystem;
 

@@ -4,6 +4,12 @@
     "type": "library",
     "license": "MIT",
     "minimum-stability": "stable",
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
+    },
     "autoload": {
         "psr-4": {
             "DigitalRevolution\\CodeCoverageInspection\\": "src/"
@@ -23,17 +29,19 @@
         "ext-json": "*",
         "ext-libxml": "*",
         "ext-xmlwriter": "*",
-        "symfony/console": "^5.1"
+        "symfony/console": "^5.1 || ^6.0",
+        "symfony/polyfill-php80": "^1.24"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-master",
-        "squizlabs/php_codesniffer": "^3.5",
+        "digitalrevolution/accessorpair-constraint": ">= 2.1.7",
+        "roave/security-advisories": "dev-latest",
+        "squizlabs/php_codesniffer": "^3.6",
         "phpmd/phpmd": "@stable",
-        "phpunit/phpunit": "9.5.*",
-        "phpstan/phpstan-phpunit": "0.12.*",
-        "phpstan/phpstan-strict-rules": "0.12.*",
-        "phpstan/extension-installer": "1.0.*",
-        "digitalrevolution/accessorpair-constraint": "^2.1",
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^1.4",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpstan/phpstan-strict-rules": "^1.1",
+        "phpstan/extension-installer": "^1.1",
         "mikey179/vfsstream": "^1.6.7"
     },
     "scripts": {

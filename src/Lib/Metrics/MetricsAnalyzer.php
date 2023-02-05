@@ -8,7 +8,6 @@ use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\BelowCustomC
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\BelowGlobalCoverageInspection;
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\CustomCoverageAboveGlobalInspection;
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\UncoveredMethodsInspection;
-use DigitalRevolution\CodeCoverageInspection\Lib\Utility\FileUtil;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
@@ -47,8 +46,7 @@ class MetricsAnalyzer
         $failures = [];
 
         foreach ($this->metrics as $metric) {
-            $filepath   = FileUtil::getRelativePath($metric->getFilepath(), $this->config->getBasePath());
-            $fileConfig = $this->config->getFileInspection($filepath);
+            $fileConfig = $this->config->getPathInspection($metric->getFilepath());
 
             foreach ($this->inspections as $inspection) {
                 $failure = $inspection->inspect($fileConfig, $metric);

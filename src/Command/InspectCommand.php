@@ -10,7 +10,7 @@ use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\MetricsAnalyzer;
 use DigitalRevolution\CodeCoverageInspection\Lib\Utility\FileUtil;
 use DigitalRevolution\CodeCoverageInspection\Renderer\CheckStyleRenderer;
 use DigitalRevolution\CodeCoverageInspection\Renderer\GitlabErrorRenderer;
-use InvalidArgumentException;
+use DigitalRevolution\CodeCoverageInspection\Renderer\TextRenderer;
 use JsonException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -42,7 +42,7 @@ class InspectCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $configPath       = FileUtil::getExistingFile($input->getOption('config') ?? FileUtil::findFilePath((string)getcwd(), self::CONFIG_FILES));
-        $baseDir          = $input->getOption('baseDir') ?? $configPath->getPath() . '/';
+        $baseDir          = $input->getOption('baseDir') ?? $configPath->getPath();
         $coverageFilePath = FileUtil::getExistingFile($input->getArgument('coverage'));
         $outputFilePath   = FileUtil::getFile($input->getArgument('output'));
         $schema           = dirname(__DIR__, 2) . '/resources/phpfci.xsd';
@@ -76,7 +76,8 @@ class InspectCommand extends Command
                 FileUtil::writeFile($outputFilePath, (new GitlabErrorRenderer())->render($config, $failures));
                 break;
             default:
-                throw new InvalidArgumentException('Invalid report argument: ' . $input->getOption('report'));
+                $output->write((new TextRenderer())->render($config, $failures));
+                break;
         }
 
         // raise exit code on failure

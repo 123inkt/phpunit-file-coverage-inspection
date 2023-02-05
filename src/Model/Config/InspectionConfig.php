@@ -5,20 +5,18 @@ namespace DigitalRevolution\CodeCoverageInspection\Model\Config;
 
 class InspectionConfig
 {
-    private int $minimumCoverage;
+    private int  $minimumCoverage;
     private bool $uncoveredAllowed;
-    /** @var FileInspectionConfig[] */
-    private array $customCoverage;
+    /** @var PathInspectionConfig[] */
+    private array $customCoverage = [];
+    /** @var IgnoreUncoveredMethodFile[] */
+    private array  $ignoreUncoveredFiles = [];
     private string $basePath;
 
-    /**
-     * @param FileInspectionConfig[] $customCoverage
-     */
-    public function __construct(string $basePath, int $minimumCoverage, bool $uncoveredAllowed = false, array $customCoverage = [])
+    public function __construct(string $basePath, int $minimumCoverage, bool $uncoveredAllowed = false)
     {
-        $this->basePath         = $basePath;
+        $this->basePath         = rtrim(str_replace('\\', '/', $basePath), '/') . '/';
         $this->minimumCoverage  = $minimumCoverage;
-        $this->customCoverage   = $customCoverage;
         $this->uncoveredAllowed = $uncoveredAllowed;
     }
 
@@ -37,8 +35,54 @@ class InspectionConfig
         return $this->uncoveredAllowed;
     }
 
-    public function getFileInspection(string $path): ?FileInspectionConfig
+    public function addPathInspection(PathInspectionConfig $inspectionConfig): self
     {
-        return $this->customCoverage[$path] ?? null;
+        $this->customCoverage[] = $inspectionConfig;
+
+        return $this;
+    }
+
+    public function getPathInspection(string $path): ?PathInspectionConfig
+    {
+        // subtract basePath from path
+        $relativePath = (string)preg_replace('#^' . preg_quote($this->basePath, '#') . '#', '', $path);
+
+        $bestConfig = null;
+        foreach ($this->customCoverage as $config) {
+            $baselinePath = $config->getPath();
+
+            if ($config->isFile() && $relativePath !== $baselinePath) {
+                continue;
+            }
+
+            if ($config->isDirectory() && str_starts_with($relativePath, $baselinePath) === false) {
+                continue;
+            }
+
+            // determine which rule has the highest priority
+            if ($bestConfig === null || $config->compare($bestConfig) > 0) {
+                $bestConfig = $config;
+            }
+        }
+
+        return $bestConfig;
+    }
+
+    public function addIgnoreUncoveredMethodFile(IgnoreUncoveredMethodFile $file): self
+    {
+        $this->ignoreUncoveredFiles[] = $file;
+
+        return $this;
+    }
+
+    public function hasIgnoreUncoveredMethodFile(string $file): bool
+    {
+        foreach ($this->ignoreUncoveredFiles as $relativeFilePath) {
+            if (str_ends_with($file, $relativeFilePath->getFilepath())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
