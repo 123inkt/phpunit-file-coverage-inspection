@@ -42,7 +42,7 @@
         "phpstan/phpstan-phpunit": "^1.0",
         "phpstan/phpstan-strict-rules": "^1.1",
         "phpstan/extension-installer": "^1.1",
-        "mikey179/vfsstream": "^1.6.7"
+        "mikey179/vfsstream": "^1.6.11"
     },
     "scripts": {
         "check": ["@check:phpstan", "@check:phpmd", "@check:phpcs"],
