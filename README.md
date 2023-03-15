@@ -74,6 +74,11 @@ Gitlab format:
 php vendor/bin/phpfci inspect coverage.xml reports/gitlab.errors.json --report=gitlab
 ```
 
+Text format to stdout:
+```shell script
+php vendor/bin/phpfci inspect coverage.xml php://stdout --report=text
+```
+
 ## Command line arguments
 
 | Option                    | Values                                   | Description                                                             |
@@ -81,7 +86,7 @@ php vendor/bin/phpfci inspect coverage.xml reports/gitlab.errors.json --report=g
 | `argument 1`              | `inspect`, `baseline`                    | the command to execute.                                                 |
 | `argument 2`              | `coverage.xml`                           | the phpunit clover coverage input file.                                 |
 | `argument 3`              | `phpfci.xml`                             | the output file to write to.                                            |
-| `--report=<report-style>` | `gitlab`, `checkstyle`                   | the output format. If absent will default to console.                   |
+| `--report=<report-style>` | `gitlab`, `checkstyle`, `text`           | the output format. If absent will default to console.                   |
 | `--config=<path-to-file>` | `phpfci.xml`                             | the path to the config file.                                            |
 | `--baseDir=<path>`        | defaults to directory of the output file | The root directory of the project, will be used to make paths relative. |
 | `--exit-code-on-failure`  | -                                        | Set exit code to `1` when there are failures.                           |
