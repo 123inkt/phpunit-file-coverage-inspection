@@ -66,7 +66,7 @@ class FileUtil
     public static function writeFile(SplFileInfo $file, string $content): void
     {
         $dir = $file->getPath();
-        if ($dir !== '' && !is_dir($dir) && !mkdir($dir, 0777, true) && !is_dir($dir)) {
+        if (str_starts_with($file->getPathname(), "php://") === false && $dir !== '' && !is_dir($dir) && !mkdir($dir, 0777, true) && !is_dir($dir)) {
             // @codeCoverageIgnoreStart
             throw new RuntimeException(sprintf('Failed to create directory "%s".', $dir));
             // @codeCoverageIgnoreEnd

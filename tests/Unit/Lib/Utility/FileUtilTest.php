@@ -46,8 +46,8 @@ class FileUtilTest extends TestCase
      */
     public function testFindFilePathForExistingFile(): void
     {
-        $path = $this->fileSystem->url();
-        $file = 'existing-file.txt';
+        $path     = $this->fileSystem->url();
+        $file     = 'existing-file.txt';
         $filepath = $path . '/' . $file;
 
         // create file
@@ -122,5 +122,20 @@ class FileUtilTest extends TestCase
         $result = $this->fileSystem->getChild('foo/bar/text.txt');
         static::assertNotNull($result);
         static::assertSame('foobar', $result->getContent());
+    }
+
+    /**
+     * @covers ::writeFile
+     */
+    public function testWriteFileToPhpStream(): void
+    {
+        $filepath = "php://output";
+        $content  = 'foobar';
+
+        ob_start();
+        FileUtil::writeFile(new SplFileInfo($filepath), $content);
+        $result = ob_get_clean();
+
+        static::assertSame($content, $result);
     }
 }
