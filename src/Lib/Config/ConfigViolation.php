@@ -6,17 +6,14 @@ namespace DigitalRevolution\CodeCoverageInspection\Lib\Config;
 class ConfigViolation
 {
     private string $message;
-    /** @var string[] */
-    private array $parameters;
 
-    public function __construct(string $message, string ...$parameters)
+    public function __construct(string $message)
     {
-        $this->message    = $message;
-        $this->parameters = $parameters;
+        $this->message = $message;
     }
 
     public function getMessage(): string
     {
-        return sprintf($this->message, ...$this->parameters);
+        return $this->message;
     }
 }
