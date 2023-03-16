@@ -9,15 +9,13 @@ use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamFile;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use SplFileInfo;
 
 /**
  * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\Utility\FileUtil
  */
 class FileUtilTest extends TestCase
 {
-    /** @var vfsStreamDirectory */
-    private $fileSystem;
+    private vfsStreamDirectory $fileSystem;
 
     protected function setUp(): void
     {
@@ -112,11 +110,11 @@ class FileUtilTest extends TestCase
     /**
      * @covers ::writeTo
      */
-    public function testWriteFile(): void
+    public function testWriteTo(): void
     {
         $filepath = $this->fileSystem->url() . '/foo/bar/text.txt';
         $content  = 'foobar';
-        FileUtil::writeTo(new SplFileInfo($filepath), $content);
+        FileUtil::writeTo($filepath, $content);
 
         /** @var vfsStreamFile|null $result */
         $result = $this->fileSystem->getChild('foo/bar/text.txt');
@@ -133,7 +131,7 @@ class FileUtilTest extends TestCase
         $content  = 'foobar';
 
         ob_start();
-        FileUtil::writeTo(new SplFileInfo($filepath), $content);
+        FileUtil::writeTo($filepath, $content);
         $result = ob_get_clean();
 
         static::assertSame($content, $result);
