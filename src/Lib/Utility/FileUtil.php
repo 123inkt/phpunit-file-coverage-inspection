@@ -63,19 +63,19 @@ class FileUtil
         return $fileInfo;
     }
 
-    public static function writeFile(SplFileInfo $file, string $content): void
+    public static function writeTo(string $filepath, string $content): void
     {
-        $dir = $file->getPath();
-        if (str_starts_with($file->getPathname(), "php://") === false && $dir !== '' && !is_dir($dir) && !mkdir($dir, 0777, true) && !is_dir($dir)) {
+        $dir = dirname($filepath);
+        if (str_starts_with($filepath, "php://") === false && $dir !== '' && !is_dir($dir) && !mkdir($dir, 0777, true) && !is_dir($dir)) {
             // @codeCoverageIgnoreStart
             throw new RuntimeException(sprintf('Failed to create directory "%s".', $dir));
             // @codeCoverageIgnoreEnd
         }
 
-        $success = @file_put_contents($file->getPathname(), $content);
+        $success = @file_put_contents($filepath, $content);
         if ($success === false) {
             // @codeCoverageIgnoreStart
-            throw new RuntimeException(sprintf('Failed to write to file "%s".', $file->getPathname()));
+            throw new RuntimeException(sprintf('Failed to write to file "%s".', $filepath));
             // @codeCoverageIgnoreEnd
         }
     }

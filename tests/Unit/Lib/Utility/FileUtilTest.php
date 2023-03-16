@@ -110,13 +110,13 @@ class FileUtilTest extends TestCase
     }
 
     /**
-     * @covers ::writeFile
+     * @covers ::writeTo
      */
     public function testWriteFile(): void
     {
         $filepath = $this->fileSystem->url() . '/foo/bar/text.txt';
         $content  = 'foobar';
-        FileUtil::writeFile(new SplFileInfo($filepath), $content);
+        FileUtil::writeTo(new SplFileInfo($filepath), $content);
 
         /** @var vfsStreamFile|null $result */
         $result = $this->fileSystem->getChild('foo/bar/text.txt');
@@ -125,7 +125,7 @@ class FileUtilTest extends TestCase
     }
 
     /**
-     * @covers ::writeFile
+     * @covers ::writeTo
      */
     public function testWriteFileToPhpStream(): void
     {
@@ -133,7 +133,7 @@ class FileUtilTest extends TestCase
         $content  = 'foobar';
 
         ob_start();
-        FileUtil::writeFile(new SplFileInfo($filepath), $content);
+        FileUtil::writeTo(new SplFileInfo($filepath), $content);
         $result = ob_get_clean();
 
         static::assertSame($content, $result);
