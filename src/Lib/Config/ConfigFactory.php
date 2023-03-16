@@ -38,7 +38,9 @@ class ConfigFactory
         }
 
         $reports = array_filter([$reportGitlab, $reportCheckstyle, $reportText]);
-        if ($reports !== array_unique($reports)) {
+        if (count($reports) === 0) {
+            $reportText = 'php://stdout';
+        } elseif ($reports !== array_unique($reports)) {
             return new ConfigViolation('Two or more reports output to the same destination');
         }
 
