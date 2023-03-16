@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 
 /**
  * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\Config\ConfigFactory
+ * @covers ::getReport
  */
 class ConfigFactoryTest extends TestCase
 {
