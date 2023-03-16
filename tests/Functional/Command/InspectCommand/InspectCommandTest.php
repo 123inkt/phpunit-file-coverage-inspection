@@ -10,6 +10,7 @@ use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamFile;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Exception\ExceptionInterface;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
@@ -24,9 +25,11 @@ class InspectCommandTest extends TestCase
     }
 
     /**
+     * @param string[] $flags
+     *
      * @coversNothing
      * @dataProvider dataProvider
-     * @throws Exception
+     * @throws Exception|ExceptionInterface
      */
     public function testInspectCommand(array $flags, int $exitStatus): void
     {
@@ -39,7 +42,9 @@ class InspectCommandTest extends TestCase
 
         // prepare command
         $command = new InspectCommand();
-        $input   = new ArgvInput(array_merge(['phpfci', '--config', $configPath, '--baseDir', $baseDir, $coveragePath, $output], $flags));
+        $input   = new ArgvInput(
+            array_merge(['phpfci', '--config', $configPath, '--baseDir', $baseDir, $coveragePath, '--reportCheckstyle', $output], $flags)
+        );
         $output  = new ConsoleOutput();
 
         // run test case
@@ -54,6 +59,9 @@ class InspectCommandTest extends TestCase
         static::assertSame($expected, $result);
     }
 
+    /**
+     * @return array<string, array{0: string[], 1:int}>
+     */
     public function dataProvider(): array
     {
         return [
