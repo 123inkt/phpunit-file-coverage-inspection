@@ -8,12 +8,10 @@ use DigitalRevolution\CodeCoverageInspection\Lib\Config\ConfigViolation;
 use DigitalRevolution\CodeCoverageInspection\Lib\Config\InspectConfig;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 
 /**
  * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\Config\ConfigFactory
- * @covers ::__construct
  */
 class ConfigFactoryTest extends TestCase
 {
