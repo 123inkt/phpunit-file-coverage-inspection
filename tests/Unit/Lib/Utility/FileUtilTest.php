@@ -9,15 +9,13 @@ use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamFile;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use SplFileInfo;
 
 /**
  * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\Utility\FileUtil
  */
 class FileUtilTest extends TestCase
 {
-    /** @var vfsStreamDirectory */
-    private $fileSystem;
+    private vfsStreamDirectory $fileSystem;
 
     protected function setUp(): void
     {
@@ -46,8 +44,8 @@ class FileUtilTest extends TestCase
      */
     public function testFindFilePathForExistingFile(): void
     {
-        $path = $this->fileSystem->url();
-        $file = 'existing-file.txt';
+        $path     = $this->fileSystem->url();
+        $file     = 'existing-file.txt';
         $filepath = $path . '/' . $file;
 
         // create file
@@ -110,17 +108,32 @@ class FileUtilTest extends TestCase
     }
 
     /**
-     * @covers ::writeFile
+     * @covers ::writeTo
      */
-    public function testWriteFile(): void
+    public function testWriteTo(): void
     {
         $filepath = $this->fileSystem->url() . '/foo/bar/text.txt';
         $content  = 'foobar';
-        FileUtil::writeFile(new SplFileInfo($filepath), $content);
+        FileUtil::writeTo($filepath, $content);
 
         /** @var vfsStreamFile|null $result */
         $result = $this->fileSystem->getChild('foo/bar/text.txt');
         static::assertNotNull($result);
         static::assertSame('foobar', $result->getContent());
+    }
+
+    /**
+     * @covers ::writeTo
+     */
+    public function testWriteFileToPhpStream(): void
+    {
+        $filepath = "php://output";
+        $content  = 'foobar';
+
+        ob_start();
+        FileUtil::writeTo($filepath, $content);
+        $result = ob_get_clean();
+
+        static::assertSame($content, $result);
     }
 }

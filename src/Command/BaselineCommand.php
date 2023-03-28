@@ -66,7 +66,7 @@ class BaselineCommand extends Command
         $failures = (new MetricsAnalyzer($metrics, $config))->analyze();
 
         // write to file
-        FileUtil::writeFile($outputPath, (new ConfigFileRenderer())->render($failures, $config));
+        FileUtil::writeTo($outputPath->getPathname(), (new ConfigFileRenderer())->render($failures, $config));
 
         $output->writeln('Config successfully written to: ' . $outputPath->getPathname());
 

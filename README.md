@@ -66,25 +66,45 @@ The base directory will be subtracted from the filepaths in coverage.xml
 
 Checkstyle format:
 ```shell script
-php vendor/bin/phpfci inspect coverage.xml reports/checkstyle.xml --report=checkstyle
+php vendor/bin/phpfci inspect coverage.xml --reportCheckstyle=reports/checkstyle.xml
 ```
 
 Gitlab format:
 ```shell script
-php vendor/bin/phpfci inspect coverage.xml reports/gitlab.errors.json --report=gitlab
+php vendor/bin/phpfci inspect coverage.xml --reportGitlab=reports/gitlab.errors.json
+```
+
+Gitlab format to file and text output to stdout:
+```shell script
+php vendor/bin/phpfci inspect coverage.xml --reportGitlab=reports/gitlab.errors.json --reportText
+```
+
+Text format to stdout:
+```shell script
+php vendor/bin/phpfci inspect coverage.xml
+```
+```shell script
+php vendor/bin/phpfci inspect coverage.xml --reportText
 ```
 
 ## Command line arguments
 
-| Option                    | Values                                   | Description                                                             |
-|---------------------------|------------------------------------------|-------------------------------------------------------------------------| 
-| `argument 1`              | `inspect`, `baseline`                    | the command to execute.                                                 |
-| `argument 2`              | `coverage.xml`                           | the phpunit clover coverage input file.                                 |
-| `argument 3`              | `phpfci.xml`                             | the output file to write to.                                            |
-| `--report=<report-style>` | `gitlab`, `checkstyle`                   | the output format. If absent will default to console.                   |
-| `--config=<path-to-file>` | `phpfci.xml`                             | the path to the config file.                                            |
-| `--baseDir=<path>`        | defaults to directory of the output file | The root directory of the project, will be used to make paths relative. |
-| `--exit-code-on-failure`  | -                                        | Set exit code to `1` when there are failures.                           |
+| Option                        | Values                                   | Description                                                             |
+|-------------------------------|------------------------------------------|-------------------------------------------------------------------------| 
+| `argument 1`                  | `inspect`, `baseline`                    | the command to execute.                                                 |
+| `argument 2`                  | `coverage.xml`                           | the phpunit clover coverage input file.                                 |
+| `--reportGitlab=[<file>]`     | filepath or if absent stdout             | the file (or stdout) to write the gitlab format to.                     |
+| `--reportCheckstyle=[<file>]` | filepath or if absent stdout             | the file (or stdout) to write the checkstyle format to.                 |
+| `--reportText=[<file>]`       | filepath or if absent stdout             | the file (or stdout) to write the checkstyle format to.                 |
+| `--config=<path-to-file>`     | `phpfci.xml`                             | the path to the config file.                                            |
+| `--baseDir=<path>`            | defaults to directory of the output file | The root directory of the project, will be used to make paths relative. |
+| `--exit-code-on-failure`      | -                                        | Set exit code to `1` when there are failures.                           |
+
+Note: if no `--reportGitlab`, `--reportCheckstyle` or `--reportText` is set, it will default to `--reportText=php://stdout`
+
+## Migrating from 1 to 2
+The third required argument and `--report` has been removed, and should be replaced by:
+`--reportGitlab=<file>`, `--reportCheckstyle=<file>` or `--reportText=<file>` 
 
 ## About us
 
