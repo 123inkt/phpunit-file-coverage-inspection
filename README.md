@@ -1,5 +1,5 @@
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF)](https://php.net/)
-![Run tests](https://github.com/123inkt/phpunit-file-coverage-inspection/workflows/Run%20checks/badge.svg)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.1-8892BF)](https://php.net/)
+![Run tests](https://github.com/123inkt/phpunit-file-coverage-inspection/actions/workflows/test.yml/badge.svg)
 
 # PHPUnit coverage inspection
 A tool to allow code coverage rules be defined per file. Set a minimum coverage threshold for every file and configure
