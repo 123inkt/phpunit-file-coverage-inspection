@@ -18,21 +18,11 @@ jobs:
     strategy:
       matrix:
         php-versions: [ '8.1', '8.2', '8.3' ]
-        symfony: [ '^6.2' ]
+        symfony: [ '^6.2', '^7.0' ]
         composer-flags: [ '', '--prefer-lowest' ]
-        include:
-          - php-versions: 8.2
+        exclude:
+          - php-versions: 8.1
             symfony: '^7.0'
-            composer-flags: '--prefer-lowest'
-          - php-versions: 8.3
-            symfony: '^7.0'
-            composer-flags: ''
-          - php-versions: 8.2
-            symfony: '^7.0'
-            composer-flags: '--prefer-lowest'
-          - php-versions: 8.3
-            symfony: '^7.0'
-            composer-flags: ''
     steps:
       - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
 
