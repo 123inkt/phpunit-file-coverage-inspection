@@ -82,6 +82,7 @@ php vendor/bin/phpfci inspect coverage.xml --reportGitlab=reports/gitlab.errors.
 Text format to stdout:
 ```shell script
 php vendor/bin/phpfci inspect coverage.xml
+php vendor/bin/phpfci inspect coverage1.xml coverage2.xml
 ```
 ```shell script
 php vendor/bin/phpfci inspect coverage.xml --reportText
