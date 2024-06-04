@@ -17,7 +17,11 @@ class ConfigFactory
     {
         $configPath        = FileUtil::getExistingFile($input->getOption('config') ?? FileUtil::findFilePath((string)getcwd(), self::CONFIG_FILES));
         $coveragesFilepath = [];
-        foreach ($input->getArgument('coverage') as $coverageFilepath) {
+        $coverageArgument = $input->getArgument('coverage');
+        if (is_array($coverageArgument) === false) {
+            return new ConfigViolation('Coverage argument should be an array');
+        }
+        foreach ($coverageArgument as $coverageFilepath) {
             $coveragesFilepath[] = FileUtil::getExistingFile($coverageFilepath);
         }
         $baseDir = $input->getOption('baseDir') ?? $configPath->getPath();
