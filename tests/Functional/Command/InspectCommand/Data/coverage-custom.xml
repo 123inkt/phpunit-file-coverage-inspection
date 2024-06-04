@@ -79,5 +79,19 @@
                      coveredelements="0"/>
         </file>
 
+        <!-- coverage same test 70%, will be ignored, coverage at 90% in coverage.xml -->
+        <file name="/home/workspace/test\case/result-same-test.php">
+            <metrics loc="11"
+                     ncloc="11"
+                     classes="0"
+                     methods="0"
+                     coveredmethods="0"
+                     conditionals="0"
+                     coveredconditionals="0"
+                     statements="100"
+                     coveredstatements="70"
+                     elements="0"
+                     coveredelements="0"/>
+        </file>
     </project>
 </coverage>
