@@ -15,6 +15,7 @@ use DigitalRevolution\CodeCoverageInspection\Renderer\GitlabErrorRenderer;
 use DigitalRevolution\CodeCoverageInspection\Renderer\TextRenderer;
 use JsonException;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -25,7 +26,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class InspectCommand extends Command
 {
     private ConfigFactory $configFactory;
-    private string        $schemaPath;
+    private string $schemaPath;
 
     public function __construct(string $name = null)
     {
@@ -38,7 +39,7 @@ class InspectCommand extends Command
     {
         $this->setName("inspect")
             ->setDescription("PHPUnit code coverage inspection")
-            ->addArgument('coverage', InputOption::VALUE_REQUIRED, 'Path to phpunit\'s coverage.xml')
+            ->addArgument('coverage', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Path to phpunit\'s coverage.xml')
             ->addOption('config', 'c', InputOption::VALUE_REQUIRED, 'Path to configuration file. Optional')
             ->addOption('baseDir', '', InputOption::VALUE_REQUIRED, 'Base directory from where to determine the relative config paths')
             ->addOption('reportGitlab', '', InputOption::VALUE_OPTIONAL, 'Gitlab output format. To file or if absent to stdout', false)
@@ -62,12 +63,14 @@ class InspectCommand extends Command
         // gather data
         $domConfig = DOMDocumentFactory::getValidatedDOMDocument($inputConfig->getConfigPath(), $this->schemaPath);
         $config    = InspectionConfigFactory::fromDOMDocument($inputConfig->getBaseDir(), $domConfig);
-        $metrics   = MetricsFactory::getFileMetrics(DOMDocumentFactory::getDOMDocument($inputConfig->getCoverageFilepath()));
+        $metrics   = [];
+        foreach ($inputConfig->getCoveragesFilepath() as $coverageFilepath) {
+            $metrics = array_merge($metrics, MetricsFactory::getFileMetrics(DOMDocumentFactory::getDOMDocument($coverageFilepath)));
+            if (count($metrics) === 0) {
+                $output->writeln("No metrics found in coverage file: " . $coverageFilepath);
 
-        if (count($metrics) === 0) {
-            $output->writeln("No metrics found in coverage file: " . $inputConfig->getCoverageFilepath());
-
-            return Command::FAILURE;
+                return Command::FAILURE;
+            }
         }
 
         // analyze

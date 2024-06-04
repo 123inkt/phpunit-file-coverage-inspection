@@ -7,16 +7,20 @@ use SplFileInfo;
 
 class InspectConfig
 {
-    private SplFileInfo $coverageFilepath;
+    /** @var SplFileInfo[] */
+    private array $coveragesFilepath;
     private SplFileInfo $configPath;
-    private string      $baseDir;
-    private ?string     $reportGitlab;
-    private ?string     $reportCheckstyle;
-    private ?string     $reportText;
-    private bool        $exitCodeOnFailure;
+    private string $baseDir;
+    private ?string $reportGitlab;
+    private ?string $reportCheckstyle;
+    private ?string $reportText;
+    private bool $exitCodeOnFailure;
 
+    /**
+     * @param SplFileInfo[] $coveragesFilepath
+     */
     public function __construct(
-        SplFileInfo $coverageFilepath,
+        array $coveragesFilepath,
         SplFileInfo $configPath,
         string $baseDir,
         ?string $reportGitlab,
@@ -24,7 +28,7 @@ class InspectConfig
         ?string $reportText,
         bool $exitCodeOnFailure
     ) {
-        $this->coverageFilepath  = $coverageFilepath;
+        $this->coveragesFilepath = $coveragesFilepath;
         $this->configPath        = $configPath;
         $this->baseDir           = $baseDir;
         $this->reportGitlab      = $reportGitlab;
@@ -33,9 +37,12 @@ class InspectConfig
         $this->exitCodeOnFailure = $exitCodeOnFailure;
     }
 
-    public function getCoverageFilepath(): SplFileInfo
+    /**
+     * @return SplFileInfo[]
+     */
+    public function getCoveragesFilepath(): array
     {
-        return $this->coverageFilepath;
+        return $this->coveragesFilepath;
     }
 
     public function getConfigPath(): SplFileInfo

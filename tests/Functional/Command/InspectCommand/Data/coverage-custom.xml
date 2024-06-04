@@ -1,8 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <coverage generated="1598702199">
     <project timestamp="1598702199">
+        <!-- custom configured files -->
+        <!-- coverage 60% -->
+        <file name="/home/workspace/test/case/above-threshold.php">
+            <metrics loc="11"
+                     ncloc="11"
+                     classes="0"
+                     methods="0"
+                     coveredmethods="0"
+                     conditionals="0"
+                     coveredconditionals="0"
+                     statements="100"
+                     coveredstatements="60"
+                     elements="0"
+                     coveredelements="0"/>
+        </file>
+        <!-- coverage 50% -->
+        <file name="/home\workspace/test/case\below-threshold.php">
+            <metrics loc="11"
+                     ncloc="11"
+                     classes="0"
+                     methods="0"
+                     coveredmethods="0"
+                     conditionals="0"
+                     coveredconditionals="0"
+                     statements="100"
+                     coveredstatements="50"
+                     elements="0"
+                     coveredelements="0"/>
+        </file>
+
         <!-- coverage 90% -->
-        <file name="/home/workspace/test\case/standard-above-threshold.php">
+        <file name="\home/workspace/test/case\unnecessary-custom-rule.php">
             <metrics loc="11"
                      ncloc="11"
                      classes="0"
@@ -15,8 +45,11 @@
                      elements="0"
                      coveredelements="0"/>
         </file>
-        <!-- coverage 70% -->
-        <file name="/home\workspace/test/case/standard-below-threshold.php">
+
+        <!-- coverage 90% and uncovered methods -->
+        <file name="/home/workspace/test/case/uncovered-method.php">
+            <line num="16" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
+            <line num="30" type="method" name="myMethod" visibility="public" complexity="3" crap="3" count="2"/>
             <metrics loc="11"
                      ncloc="11"
                      classes="0"
@@ -25,13 +58,14 @@
                      conditionals="0"
                      coveredconditionals="0"
                      statements="100"
-                     coveredstatements="70"
+                     coveredstatements="90"
                      elements="0"
                      coveredelements="0"/>
         </file>
 
-        <!-- coverage directory coverage below threshold -->
-        <file name="/home\workspace/test/directory/standard-below-threshold.php">
+        <!-- coverage 90% and ignore uncovered methods -->
+        <file name="/home/workspace/test/case/ignored-uncovered-method.php">
+            <line num="16" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
             <metrics loc="11"
                      ncloc="11"
                      classes="0"
@@ -40,23 +74,10 @@
                      conditionals="0"
                      coveredconditionals="0"
                      statements="100"
-                     coveredstatements="85"
+                     coveredstatements="90"
                      elements="0"
                      coveredelements="0"/>
         </file>
-        <!-- coverage directory coverage above threshold -->
-        <file name="/home\workspace/test/directory/standard-above-threshold.php">
-            <metrics loc="11"
-                     ncloc="11"
-                     classes="0"
-                     methods="0"
-                     coveredmethods="0"
-                     conditionals="0"
-                     coveredconditionals="0"
-                     statements="100"
-                     coveredstatements="95"
-                     elements="0"
-                     coveredelements="0"/>
-        </file>
+
     </project>
 </coverage>

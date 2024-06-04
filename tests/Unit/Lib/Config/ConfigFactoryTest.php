@@ -17,7 +17,7 @@ use Symfony\Component\Console\Input\InputInterface;
 class ConfigFactoryTest extends TestCase
 {
     private ConfigFactory $factory;
-    private string        $filepath;
+    private string $filepath;
 
     protected function setUp(): void
     {
@@ -37,13 +37,13 @@ class ConfigFactoryTest extends TestCase
 
         $input = $this->createMock(InputInterface::class);
         $input->expects(self::exactly(6))->method('getOption')->willReturn($configPath, null, false, false, false, true);
-        $input->expects(self::once())->method('getArgument')->with('coverage')->willReturn($coveragePath);
+        $input->expects(self::once())->method('getArgument')->with('coverage')->willReturn([$coveragePath]);
 
         $config = $this->factory->createInspectConfig($input);
         static::assertInstanceOf(InspectConfig::class, $config);
 
         static::assertSame($configPath, $config->getConfigPath()->getPathname());
-        static::assertSame($coveragePath, $config->getCoverageFilepath()->getPathname());
+        static::assertSame($coveragePath, $config->getCoveragesFilepath()[0]->getPathname());
         static::assertNull($config->getReportGitlab());
         static::assertNull($config->getReportCheckstyle());
         static::assertSame('php://stdout', $config->getReportText());
@@ -62,13 +62,13 @@ class ConfigFactoryTest extends TestCase
 
         $input = $this->createMock(InputInterface::class);
         $input->expects(self::exactly(6))->method('getOption')->willReturn($configPath, null, 'gitlab.json', 'checkstyle.xml', null, false);
-        $input->expects(self::once())->method('getArgument')->with('coverage')->willReturn($coveragePath);
+        $input->expects(self::once())->method('getArgument')->with('coverage')->willReturn([$coveragePath]);
 
         $config = $this->factory->createInspectConfig($input);
         static::assertInstanceOf(InspectConfig::class, $config);
 
         static::assertSame($configPath, $config->getConfigPath()->getPathname());
-        static::assertSame($coveragePath, $config->getCoverageFilepath()->getPathname());
+        static::assertSame($coveragePath, $config->getCoveragesFilepath()[0]->getPathname());
         static::assertSame('gitlab.json', $config->getReportGitlab());
         static::assertSame('checkstyle.xml', $config->getReportCheckstyle());
         static::assertSame('php://stdout', $config->getReportText());
@@ -87,7 +87,7 @@ class ConfigFactoryTest extends TestCase
 
         $input = $this->createMock(InputInterface::class);
         $input->expects(self::exactly(2))->method('getOption')->willReturn($configPath, []);
-        $input->expects(self::once())->method('getArgument')->with('coverage')->willReturn($coveragePath);
+        $input->expects(self::once())->method('getArgument')->with('coverage')->willReturn([$coveragePath]);
 
         $config = $this->factory->createInspectConfig($input);
         static::assertEquals(new ConfigViolation('--base-dir expecting a value string as argument'), $config);
@@ -105,7 +105,7 @@ class ConfigFactoryTest extends TestCase
 
         $input = $this->createMock(InputInterface::class);
         $input->expects(self::exactly(5))->method('getOption')->willReturn($configPath, null, [], false, false);
-        $input->expects(self::once())->method('getArgument')->with('coverage')->willReturn($coveragePath);
+        $input->expects(self::once())->method('getArgument')->with('coverage')->willReturn([$coveragePath]);
 
         $config = $this->factory->createInspectConfig($input);
         static::assertEquals(new ConfigViolation('--reportGitlab expecting the value to absent or string argument'), $config);
@@ -123,7 +123,7 @@ class ConfigFactoryTest extends TestCase
 
         $input = $this->createMock(InputInterface::class);
         $input->expects(self::exactly(5))->method('getOption')->willReturn($configPath, null, false, [], false);
-        $input->expects(self::once())->method('getArgument')->with('coverage')->willReturn($coveragePath);
+        $input->expects(self::once())->method('getArgument')->with('coverage')->willReturn([$coveragePath]);
 
         $config = $this->factory->createInspectConfig($input);
         static::assertEquals(new ConfigViolation('--reportCheckstyle expecting the value to absent or string argument'), $config);
@@ -141,7 +141,7 @@ class ConfigFactoryTest extends TestCase
 
         $input = $this->createMock(InputInterface::class);
         $input->expects(self::exactly(5))->method('getOption')->willReturn($configPath, null, false, false, []);
-        $input->expects(self::once())->method('getArgument')->with('coverage')->willReturn($coveragePath);
+        $input->expects(self::once())->method('getArgument')->with('coverage')->willReturn([$coveragePath]);
 
         $config = $this->factory->createInspectConfig($input);
         static::assertEquals(new ConfigViolation('--reportText expecting the value to absent or string argument'), $config);
@@ -159,7 +159,7 @@ class ConfigFactoryTest extends TestCase
 
         $input = $this->createMock(InputInterface::class);
         $input->expects(self::exactly(5))->method('getOption')->willReturn($configPath, null, null, null);
-        $input->expects(self::once())->method('getArgument')->with('coverage')->willReturn($coveragePath);
+        $input->expects(self::once())->method('getArgument')->with('coverage')->willReturn([$coveragePath]);
 
         $config = $this->factory->createInspectConfig($input);
         static::assertEquals(new ConfigViolation('Two or more reports output to the same destination'), $config);
