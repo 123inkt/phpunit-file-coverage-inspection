@@ -63,23 +63,16 @@ class InspectCommand extends Command
         // gather data
         $domConfig = DOMDocumentFactory::getValidatedDOMDocument($inputConfig->getConfigPath(), $this->schemaPath);
         $config    = InspectionConfigFactory::fromDOMDocument($inputConfig->getBaseDir(), $domConfig);
-        $metrics   = [];
-        foreach ($inputConfig->getCoveragesFilepath() as $coverageFilepath) {
-            $foundMetrics = MetricsFactory::getFileMetrics(DOMDocumentFactory::getDOMDocument($coverageFilepath));
-            if (count($foundMetrics) === 0) {
-                $output->writeln("No metrics found in coverage file: " . $coverageFilepath);
 
-                return Command::FAILURE;
-            }
-            foreach ($foundMetrics as $metric) {
-                if (isset($metrics[$metric->getFilepath()])) {
-                    $previousMetric = $metrics[$metric->getFilepath()];
-                    if ($previousMetric->getCoverage() > $metric->getCoverage()) {
-                        continue;
-                    }
-                }
-                $metrics[$metric->getFilepath()] = $metric;
-            }
+        $domDocuments = [];
+        foreach ($inputConfig->getCoveragesFilepath() as $coverageFilepath) {
+            $domDocuments[] = DOMDocumentFactory::getDOMDocument($coverageFilepath);
+        }
+        $metrics = MetricsFactory::getFilesMetrics($domDocuments);
+        if (count($metrics) === 0) {
+            $output->writeln("No metrics found in coverage files: " . implode(', ', $inputConfig->getCoveragesFilepath()));
+
+            return Command::FAILURE;
         }
 
         // analyze

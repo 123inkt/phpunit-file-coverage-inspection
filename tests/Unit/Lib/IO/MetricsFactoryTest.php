@@ -17,6 +17,53 @@ class MetricsFactoryTest extends TestCase
      * @covers ::getFileMetrics
      * @covers ::getMethodMetrics
      */
+    public function testGetFilesMetrics(): void
+    {
+        $xml1 = '<?xml version="1.0" encoding="UTF-8"?>
+    <coverage generated="1598702199">
+        <project timestamp="1598702199">
+            <file name="/API\\Example.php">
+                <metrics loc="11" ncloc="11" classes="0"
+                    methods="0" coveredmethods="0"
+                    conditionals="0" coveredconditionals="0"
+                    statements="50" coveredstatements="10"
+                    elements="0" coveredelements="0"/>
+            </file>
+        </project>
+    </coverage>';
+
+        $dom1 = new DOMDocument();
+        $dom1->loadXML($xml1);
+
+        $xml2 = '<?xml version="1.0" encoding="UTF-8"?>
+    <coverage generated="1598702199">
+        <project timestamp="1598702199">
+            <file name="/API\\Example.php">
+                <metrics loc="11" ncloc="11" classes="0"
+                    methods="0" coveredmethods="0"
+                    conditionals="0" coveredconditionals="0"
+                    statements="50" coveredstatements="25"
+                    elements="0" coveredelements="0"/>
+            </file>
+        </project>
+    </coverage>';
+
+        $dom2 = new DOMDocument();
+        $dom2->loadXML($xml2);
+
+        $metrics = MetricsFactory::getFilesMetrics([$dom1, $dom2]);
+        static::assertCount(1, $metrics);
+
+        $metric = reset($metrics);
+        static::assertSame('/API/Example.php', $metric->getFilepath());
+        static::assertSame([], $metric->getMethods());
+        static::assertSame(50.0, $metric->getCoverage());
+    }
+
+    /**
+     * @covers ::getFileMetrics
+     * @covers ::getMethodMetrics
+     */
     public function testGetFileMetrics(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
