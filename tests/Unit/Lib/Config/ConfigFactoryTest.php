@@ -78,6 +78,24 @@ class ConfigFactoryTest extends TestCase
     /**
      * @covers ::createInspectConfig
      */
+    public function testCreateInspectConfigInvalidCoverage(): void
+    {
+        $configPath   = $this->filepath . 'config.xml';
+        $coveragePath = $this->filepath . 'coverage.xml';
+        touch($configPath);
+        touch($coveragePath);
+
+        $input = $this->createMock(InputInterface::class);
+        $input->expects(self::once())->method('getOption')->willReturn($configPath, []);
+        $input->expects(self::once())->method('getArgument')->with('coverage')->willReturn($coveragePath);
+
+        $config = $this->factory->createInspectConfig($input);
+        static::assertEquals(new ConfigViolation('Coverage argument should be an array'), $config);
+    }
+
+    /**
+     * @covers ::createInspectConfig
+     */
     public function testCreateInspectConfigInvalidBaseDir(): void
     {
         $configPath   = $this->filepath . 'config.xml';
