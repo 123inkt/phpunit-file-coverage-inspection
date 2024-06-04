@@ -30,6 +30,20 @@ class MetricsFactoryTest extends TestCase
                     statements="50" coveredstatements="10"
                     elements="0" coveredelements="0"/>
             </file>
+            <file name="/API\\Example2.php">
+                <metrics loc="11" ncloc="11" classes="0"
+                    methods="0" coveredmethods="0"
+                    conditionals="0" coveredconditionals="0"
+                    statements="50" coveredstatements="50"
+                    elements="0" coveredelements="0"/>
+            </file>
+            <file name="/API\\Example3.php">
+                <metrics loc="11" ncloc="11" classes="0"
+                    methods="0" coveredmethods="0"
+                    conditionals="0" coveredconditionals="0"
+                    statements="50" coveredstatements="10"
+                    elements="0" coveredelements="0"/>
+            </file>
         </project>
     </coverage>';
 
@@ -46,6 +60,13 @@ class MetricsFactoryTest extends TestCase
                     statements="50" coveredstatements="25"
                     elements="0" coveredelements="0"/>
             </file>
+            <file name="/API\\Example2.php">
+                <metrics loc="11" ncloc="11" classes="0"
+                    methods="0" coveredmethods="0"
+                    conditionals="0" coveredconditionals="0"
+                    statements="50" coveredstatements="5"
+                    elements="0" coveredelements="0"/>
+            </file>
         </project>
     </coverage>';
 
@@ -53,41 +74,20 @@ class MetricsFactoryTest extends TestCase
         $dom2->loadXML($xml2);
 
         $metrics = MetricsFactory::getFilesMetrics([$dom1, $dom2]);
-        static::assertCount(1, $metrics);
+        static::assertCount(3, $metrics);
 
-        $metric = reset($metrics);
+        $metric = $metrics['/API/Example.php'];
         static::assertSame('/API/Example.php', $metric->getFilepath());
         static::assertSame([], $metric->getMethods());
         static::assertSame(50.0, $metric->getCoverage());
-    }
 
-    /**
-     * @covers ::getFileMetrics
-     * @covers ::getMethodMetrics
-     */
-    public function testGetFileMetrics(): void
-    {
-        $xml = '<?xml version="1.0" encoding="UTF-8"?>
-    <coverage generated="1598702199">
-        <project timestamp="1598702199">
-            <file name="/API\\Example.php">
-                <metrics loc="11" ncloc="11" classes="0"
-                    methods="0" coveredmethods="0"
-                    conditionals="0" coveredconditionals="0"
-                    statements="50" coveredstatements="10"
-                    elements="0" coveredelements="0"/>
-            </file>
-        </project>
-    </coverage>';
+        $metric = $metrics['/API/Example2.php'];
+        static::assertSame('/API/Example2.php', $metric->getFilepath());
+        static::assertSame([], $metric->getMethods());
+        static::assertSame(100.0, $metric->getCoverage());
 
-        $dom = new DOMDocument();
-        $dom->loadXML($xml);
-
-        $metrics = MetricsFactory::getFileMetrics($dom);
-        static::assertCount(1, $metrics);
-
-        $metric = reset($metrics);
-        static::assertSame('/API/Example.php', $metric->getFilepath());
+        $metric = $metrics['/API/Example3.php'];
+        static::assertSame('/API/Example3.php', $metric->getFilepath());
         static::assertSame([], $metric->getMethods());
         static::assertSame(20.0, $metric->getCoverage());
     }
@@ -126,6 +126,7 @@ class MetricsFactoryTest extends TestCase
     }
 
     /**
+     * @covers ::getFilesMetrics
      * @covers ::getFileMetrics
      */
     public function testGetMetricsEmptyXmlShouldReturnEmptyArray(): void
@@ -138,6 +139,6 @@ class MetricsFactoryTest extends TestCase
         $dom = new DOMDocument();
         $dom->loadXML($xml);
 
-        static::assertCount(0, MetricsFactory::getFileMetrics($dom));
+        static::assertCount(0, MetricsFactory::getFilesMetrics([$dom]));
     }
 }
