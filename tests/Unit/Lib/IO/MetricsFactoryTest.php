@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 class MetricsFactoryTest extends TestCase
 {
     /**
+     * @covers ::getFilesMetrics
      * @covers ::getFileMetrics
      * @covers ::getMethodMetrics
      */
