@@ -15,6 +15,33 @@ class MetricsFactory
     private const COVERAGE_PERCENTAGE_PRECISION = 2;
 
     /**
+     *  Get metrics information from coverage.xml files
+     *
+     * @param DOMDocument[] $documents
+     *
+     * @return FileMetric[]
+     */
+    public static function getFilesMetrics(array $documents): array
+    {
+        $metrics = [];
+
+        foreach ($documents as $document) {
+            $foundMetrics = self::getFileMetrics($document);
+            foreach ($foundMetrics as $metric) {
+                if (isset($metrics[$metric->getFilepath()])) {
+                    $previousMetric = $metrics[$metric->getFilepath()];
+                    if ($previousMetric->getCoverage() > $metric->getCoverage()) {
+                        continue;
+                    }
+                }
+                $metrics[$metric->getFilepath()] = $metric;
+            }
+        }
+
+        return $metrics;
+    }
+
+    /**
      * Get metrics information from coverage.xml file
      *
      * @return FileMetric[]

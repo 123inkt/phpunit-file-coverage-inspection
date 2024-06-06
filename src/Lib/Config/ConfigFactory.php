@@ -15,9 +15,16 @@ class ConfigFactory
      */
     public function createInspectConfig(InputInterface $input)
     {
-        $configPath       = FileUtil::getExistingFile($input->getOption('config') ?? FileUtil::findFilePath((string)getcwd(), self::CONFIG_FILES));
-        $coverageFilepath = FileUtil::getExistingFile($input->getArgument('coverage'));
-        $baseDir          = $input->getOption('baseDir') ?? $configPath->getPath();
+        $configPath        = FileUtil::getExistingFile($input->getOption('config') ?? FileUtil::findFilePath((string)getcwd(), self::CONFIG_FILES));
+        $coveragesFilepath = [];
+        $coverageArgument = $input->getArgument('coverage');
+        if (is_array($coverageArgument) === false) {
+            return new ConfigViolation('Coverage argument should be an array');
+        }
+        foreach ($coverageArgument as $coverageFilepath) {
+            $coveragesFilepath[] = FileUtil::getExistingFile($coverageFilepath);
+        }
+        $baseDir = $input->getOption('baseDir') ?? $configPath->getPath();
 
         if (is_string($baseDir) === false) {
             return new ConfigViolation('--base-dir expecting a value string as argument');
@@ -46,7 +53,7 @@ class ConfigFactory
 
         $exitCodeOnFailure = $input->getOption('exit-code-on-failure') !== false;
 
-        return new InspectConfig($coverageFilepath, $configPath, $baseDir, $reportGitlab, $reportCheckstyle, $reportText, $exitCodeOnFailure);
+        return new InspectConfig($coveragesFilepath, $configPath, $baseDir, $reportGitlab, $reportCheckstyle, $reportText, $exitCodeOnFailure);
     }
 
     /**

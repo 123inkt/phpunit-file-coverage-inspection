@@ -34,16 +34,30 @@ class InspectCommandTest extends TestCase
     public function testInspectCommand(array $flags, int $exitStatus): void
     {
         // prepare data files
-        $configPath   = __DIR__ . '/Data/phpfci.xml';
-        $coveragePath = __DIR__ . '/Data/coverage.xml';
-        $expected     = str_replace("\r", "", (string)file_get_contents(__DIR__ . '/Data/checkstyle.xml'));
-        $output       = $this->fileSystem->url() . '/checkstyle.xml';
-        $baseDir      = '/home\workspace';
+        $configPath         = __DIR__ . '/Data/phpfci.xml';
+        $coveragePath       = __DIR__ . '/Data/coverage.xml';
+        $coverageCustomPath = __DIR__ . '/Data/coverage-custom.xml';
+        $expected           = str_replace("\r", "", (string)file_get_contents(__DIR__ . '/Data/checkstyle.xml'));
+        $output             = $this->fileSystem->url() . '/checkstyle.xml';
+        $baseDir            = '/home\workspace';
 
         // prepare command
         $command = new InspectCommand();
         $input   = new ArgvInput(
-            array_merge(['phpfci', '--config', $configPath, '--baseDir', $baseDir, $coveragePath, '--reportCheckstyle', $output], $flags)
+            array_merge(
+                [
+                    'phpfci',
+                    '--config',
+                    $configPath,
+                    '--baseDir',
+                    $baseDir,
+                    $coveragePath,
+                    $coverageCustomPath,
+                    '--reportCheckstyle',
+                    $output
+                ],
+                $flags
+            )
         );
         $output  = new ConsoleOutput();
 
