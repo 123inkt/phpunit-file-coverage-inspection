@@ -74,6 +74,7 @@ class MetricsFactoryTest extends TestCase
                 <line num="33" type="stmt" count="1"/>
                 <line num="34" type="stmt" count="0"/>
                 <line num="35" type="stmt" count="0"/>
+                <line num="45" type="method" name="isEmpty" visibility="public" complexity="0" crap="0" count="0"/>
             </file>
         </project>
     </coverage>';
@@ -112,7 +113,7 @@ class MetricsFactoryTest extends TestCase
         return [
             'second coverage is used' => [
                 '<file name="utTestFile.php">
-                <line num="1" type="method" name="methodName" count="2"/>
+                <line num="1" type="method" name="methodName" complexity="1" count="2"/>
                 <line num="2" type="stmt" count="2"/>
                 <line num="3" type="stmt" count="0"/>
                 <line num="4" type="stmt" count="0"/>
@@ -120,7 +121,7 @@ class MetricsFactoryTest extends TestCase
                 <metrics loc="11" ncloc="11" statements="4" coveredstatements="1"/>
             </file>',
                 '<file name="utTestFile.php">
-                <line num="1" type="method" name="methodName" count="1"/>
+                <line num="1" type="method" name="methodName" complexity="1" count="1"/>
                 <line num="2" type="stmt" count="1"/>
                 <line num="3" type="stmt" count="0"/>
                 <line num="4" type="stmt" count="1"/>
@@ -133,7 +134,7 @@ class MetricsFactoryTest extends TestCase
             ],
             'second count is higher'  => [
                 '<file name="utTestFile.php">
-                <line num="1" type="method" name="methodName" count="1"/>
+                <line num="1" type="method" name="methodName" complexity="1" count="1"/>
                 <line num="2" type="stmt" count="1"/>
                 <line num="3" type="stmt" count="1"/>
                 <line num="4" type="stmt" count="1"/>
@@ -141,7 +142,7 @@ class MetricsFactoryTest extends TestCase
                 <metrics loc="11" ncloc="11" statements="4" coveredstatements="1"/>
             </file>',
                 '<file name="utTestFile.php">
-                <line num="1" type="method" name="methodName" count="2"/>
+                <line num="1" type="method" name="methodName" complexity="1" count="2"/>
                 <line num="2" type="stmt" count="1"/>
                 <line num="3" type="stmt" count="0"/>
                 <line num="4" type="stmt" count="1"/>
@@ -164,12 +165,12 @@ class MetricsFactoryTest extends TestCase
             'first 100 %'             => [
                 '<file name="utTestFile.php">
                 <metrics loc="11" ncloc="11" statements="1" coveredstatements="1"/>
-                <line num="1" type="method" name="methodName" count="1"/>
+                <line num="1" type="method" name="methodName" complexity="1" count="1"/>
                 <line num="2" type="stmt" count="1"/>
             </file>',
                 ' <file name="utTestFile.php">
                 <metrics loc="11" ncloc="11" statements="0" coveredstatements="0"/>
-                <line num="1" type="method" name="methodName" count="1"/>
+                <line num="1" type="method" name="methodName" complexity="1" count="1"/>
             </file>',
                 1,
                 100.0,
@@ -178,13 +179,13 @@ class MetricsFactoryTest extends TestCase
             'second 100%'             => [
                 '<file name="utTestFile.php">
                 <metrics loc="11" ncloc="11" statements="2" coveredstatements="0"/>
-                <line num="1" type="method" name="methodName" count="1"/>
+                <line num="1" type="method" name="methodName" complexity="1" count="1"/>
                 <line num="2" type="stmt" count="0"/>
                 <line num="3" type="stmt" count="0"/>
             </file>',
                 '<file name="utTestFile.php">
                 <metrics loc="11" ncloc="11" statements="2" coveredstatements="2"/>
-                <line num="1" type="method" name="methodName" count="1"/>
+                <line num="1" type="method" name="methodName" complexity="1" count="1"/>
                 <line num="2" type="stmt" count="1"/>
                 <line num="3" type="stmt" count="1"/>
             </file>',

@@ -105,6 +105,10 @@ class MetricsFactory
 
         $metrics = [];
         foreach ($methodNodes as $methodNode) {
+            $complexity = (int)XMLUtil::getAttribute($methodNode, 'complexity');
+            if ($complexity === 0) {
+                continue;
+            }
             $methodName = XMLUtil::getAttribute($methodNode, 'name') ?? '';
             $lineNumber = (int)XMLUtil::getAttribute($methodNode, 'num');
             $count      = (int)XMLUtil::getAttribute($methodNode, 'count');
@@ -117,6 +121,7 @@ class MetricsFactory
 
     /**
      * @param DOMNodeList<DOMNode>|false $statementNodes
+     *
      * @return int[]
      */
     private static function getCoveredStatements(DOMNodeList|false $statementNodes): array
