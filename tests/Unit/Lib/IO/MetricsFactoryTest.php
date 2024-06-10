@@ -18,6 +18,7 @@ class MetricsFactoryTest extends TestCase
      * @covers ::getFileMetrics
      * @covers ::getMethodMetrics
      * @covers ::mergeFileMetrics
+     * @covers ::getCoveredStatements
      */
     public function testGetFilesMetrics(): void
     {
@@ -33,16 +34,22 @@ class MetricsFactoryTest extends TestCase
                 <metrics loc="11" ncloc="11" statements="4" coveredstatements="1"/>
             </file>
             <file name="/API\\Example2.php">
-                <line num="1" type="method" name="methodName" count="1"/>
-                <line num="2" type="stmt" count="1"/>
-                <line num="3" type="stmt" count="1"/>
-                <line num="4" type="stmt" count="1"/>
-                <line num="5" type="stmt" count="1"/>
-                <line num="6" type="stmt" count="1"/>
-                <metrics loc="11" ncloc="11" statements="5" coveredstatements="5"/>
+                <line num="1" type="method" name="methodName" count="0"/>
+                <line num="2" type="stmt" count="0"/>
+                <line num="3" type="stmt" count="0"/>
+                <line num="4" type="stmt" count="0"/>
+                <line num="5" type="stmt" count="0"/>
+                <line num="6" type="stmt" count="0"/>
+                <metrics loc="11" ncloc="11" statements="5" coveredstatements="0"/>
             </file>
             <file name="/API\\Example3.php">
-                <metrics loc="11" ncloc="11" statements="50" coveredstatements="10"/>
+                <metrics loc="11" ncloc="11" statements="0" coveredstatements="0"/>
+            </file>
+            <file name="/API\\Example4.php">
+                <metrics loc="11" ncloc="11" statements="1" coveredstatements="1"/>
+            </file>
+            <file name="/API\\Example5.php">
+                <metrics loc="11" ncloc="11" statements="2" coveredstatements="0"/>
             </file>
         </project>
     </coverage>';
@@ -62,13 +69,19 @@ class MetricsFactoryTest extends TestCase
                 <metrics loc="11" ncloc="11" statements="4" coveredstatements="2"/>
             </file>
             <file name="/API\\Example2.php">
-                <line num="1" type="method" name="methodName" count="0"/>
-                <line num="2" type="stmt" count="0"/>
-                <line num="3" type="stmt" count="0"/>
-                <line num="4" type="stmt" count="0"/>
+                <line num="1" type="method" name="methodName" count="1"/>
+                <line num="2" type="stmt" count="1"/>
+                <line num="3" type="stmt" count="1"/>
+                <line num="4" type="stmt" count="1"/>
                 <line num="5" type="stmt" count="0"/>
-                <line num="6" type="stmt" count="0"/>
-                <metrics loc="11" ncloc="11" statements="5" coveredstatements="5"/>
+                <line num="6" type="stmt" count="1"/>
+                <metrics loc="11" ncloc="11" statements="5" coveredstatements="4"/>
+            </file>
+            <file name="/API\\Example4.php">
+                <metrics loc="11" ncloc="11" statements="0" coveredstatements="0"/>
+            </file>
+            <file name="/API\\Example5.php">
+                <metrics loc="11" ncloc="11" statements="2" coveredstatements="2"/>
             </file>
         </project>
     </coverage>';
@@ -77,7 +90,7 @@ class MetricsFactoryTest extends TestCase
         $dom2->loadXML($xml2);
 
         $metrics = MetricsFactory::getFilesMetrics([$dom1, $dom2]);
-        static::assertCount(3, $metrics);
+        static::assertCount(5, $metrics);
 
         $metric = $metrics['/API/Example.php'];
         static::assertSame('/API/Example.php', $metric->getFilepath());
@@ -92,13 +105,25 @@ class MetricsFactoryTest extends TestCase
         $metric = $metrics['/API/Example2.php'];
         static::assertSame('/API/Example2.php', $metric->getFilepath());
         static::assertCount(1, $metric->getMethods());
-        static::assertSame(100.0, $metric->getCoverage());
-        static::assertSame([2, 3, 4, 5, 6], $metric->getCoveredStatements());
+        static::assertSame(80.0, $metric->getCoverage());
+        static::assertSame([2, 3, 4, 6], $metric->getCoveredStatements());
 
         $metric = $metrics['/API/Example3.php'];
         static::assertSame('/API/Example3.php', $metric->getFilepath());
         static::assertSame([], $metric->getMethods());
-        static::assertSame(20.0, $metric->getCoverage());
+        static::assertSame(100.0, $metric->getCoverage());
+        static::assertSame([], $metric->getCoveredStatements());
+
+        $metric = $metrics['/API/Example4.php'];
+        static::assertSame('/API/Example4.php', $metric->getFilepath());
+        static::assertSame([], $metric->getMethods());
+        static::assertSame(100.0, $metric->getCoverage());
+        static::assertSame([], $metric->getCoveredStatements());
+
+        $metric = $metrics['/API/Example5.php'];
+        static::assertSame('/API/Example5.php', $metric->getFilepath());
+        static::assertSame([], $metric->getMethods());
+        static::assertSame(100.0, $metric->getCoverage());
         static::assertSame([], $metric->getCoveredStatements());
     }
 

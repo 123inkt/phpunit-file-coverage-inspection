@@ -151,9 +151,10 @@ class MetricsFactory
         $metricCovered   = $metric->getCoveredStatements();
         $existingMetric->setCoveredStatements(array_merge($existingCovered, array_diff($metricCovered, $existingCovered)));
         $existingMetric->setMethods($existingMetricMethods);
-        $coveragePercentage = $existingMetric->getStatements() === 0 ?
-            100 :
-            round(count($existingMetric->getCoveredStatements()) / $existingMetric->getStatements() * 100, self::COVERAGE_PERCENTAGE_PRECISION);
+        $coveragePercentage = round(
+            count($existingMetric->getCoveredStatements()) / $existingMetric->getStatements() * 100,
+            self::COVERAGE_PERCENTAGE_PRECISION
+        );
         $existingMetric->setCoverage($coveragePercentage);
     }
 }
