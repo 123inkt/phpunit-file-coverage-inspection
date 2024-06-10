@@ -8,6 +8,7 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\MethodMetric;
 use DOMDocument;
 use DOMNode;
+use DOMNodeList;
 use DOMXPath;
 
 class MetricsFactory
@@ -75,14 +76,15 @@ class MetricsFactory
             $filename   = str_replace('\\', '/', (string)XMLUtil::getAttribute($parentNode, 'name'));
 
             // calculate coverage
-            $statements         = (int)XMLUtil::getAttribute($domMetric, 'statements');
+            $statementsNodes    = $xpath->query('line[@type="stmt"]', $parentNode);
+            $statements         = $statementsNodes === false ? 0 : count($statementsNodes);
             $coveredStatements  = (int)XMLUtil::getAttribute($domMetric, 'coveredstatements');
             $coveragePercentage = $statements === 0 ? 100 : round($coveredStatements / $statements * 100, self::COVERAGE_PERCENTAGE_PRECISION);
 
             // gather metrics per method
             $methodMetrics = self::getMethodMetrics($xpath, $parentNode);
 
-            $coveredStatements = self::getCoveredStatements($xpath, $parentNode);
+            $coveredStatements = self::getCoveredStatements($statementsNodes);
 
             $metrics[$filename] = new FileMetric($filename, $statements, $coveragePercentage, $methodMetrics, $coveredStatements);
         }
@@ -114,11 +116,11 @@ class MetricsFactory
     }
 
     /**
+     * @param DOMNodeList<DOMNode>|false $statementNodes
      * @return int[]
      */
-    private static function getCoveredStatements(DOMXPath $xpath, DOMNode $fileNode): array
+    private static function getCoveredStatements(DOMNodeList|false $statementNodes): array
     {
-        $statementNodes = $xpath->query('line[@type="stmt"]', $fileNode);
         if ($statementNodes === false || count($statementNodes) === 0) {
             return [];
         }

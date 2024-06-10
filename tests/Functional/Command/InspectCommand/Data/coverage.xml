@@ -10,10 +10,21 @@
                      coveredmethods="0"
                      conditionals="0"
                      coveredconditionals="0"
-                     statements="100"
-                     coveredstatements="90"
+                     statements="10"
+                     coveredstatements="9"
                      elements="0"
                      coveredelements="0"/>
+            <line num="1" type="method" name="methodName" count="1"/>
+            <line num="2" type="stmt" count="1"/>
+            <line num="3" type="stmt" count="1"/>
+            <line num="4" type="stmt" count="1"/>
+            <line num="5" type="stmt" count="1"/>
+            <line num="6" type="stmt" count="1"/>
+            <line num="7" type="stmt" count="1"/>
+            <line num="8" type="stmt" count="1"/>
+            <line num="9" type="stmt" count="1"/>
+            <line num="10" type="stmt" count="0"/>
+            <line num="11" type="stmt" count="1"/>
         </file>
         <!-- coverage 70% -->
         <file name="/home\workspace/test/case/standard-below-threshold.php">
@@ -24,10 +35,21 @@
                      coveredmethods="0"
                      conditionals="0"
                      coveredconditionals="0"
-                     statements="100"
-                     coveredstatements="70"
+                     statements="10"
+                     coveredstatements="7"
                      elements="0"
                      coveredelements="0"/>
+            <line num="1" type="method" name="methodName" count="1"/>
+            <line num="2" type="stmt" count="1"/>
+            <line num="3" type="stmt" count="1"/>
+            <line num="4" type="stmt" count="1"/>
+            <line num="5" type="stmt" count="1"/>
+            <line num="6" type="stmt" count="0"/>
+            <line num="7" type="stmt" count="1"/>
+            <line num="8" type="stmt" count="0"/>
+            <line num="9" type="stmt" count="1"/>
+            <line num="10" type="stmt" count="0"/>
+            <line num="11" type="stmt" count="1"/>
         </file>
 
         <!-- coverage directory coverage below threshold -->
@@ -39,10 +61,21 @@
                      coveredmethods="0"
                      conditionals="0"
                      coveredconditionals="0"
-                     statements="100"
-                     coveredstatements="85"
+                     statements="10"
+                     coveredstatements="8"
                      elements="0"
                      coveredelements="0"/>
+            <line num="1" type="method" name="methodName" count="1"/>
+            <line num="2" type="stmt" count="1"/>
+            <line num="3" type="stmt" count="1"/>
+            <line num="4" type="stmt" count="1"/>
+            <line num="5" type="stmt" count="1"/>
+            <line num="6" type="stmt" count="1"/>
+            <line num="7" type="stmt" count="1"/>
+            <line num="8" type="stmt" count="0"/>
+            <line num="9" type="stmt" count="1"/>
+            <line num="10" type="stmt" count="0"/>
+            <line num="11" type="stmt" count="1"/>
         </file>
         <!-- coverage directory coverage above threshold -->
         <file name="/home\workspace/test/directory/standard-above-threshold.php">
@@ -53,10 +86,21 @@
                      coveredmethods="0"
                      conditionals="0"
                      coveredconditionals="0"
-                     statements="100"
-                     coveredstatements="95"
+                     statements="10"
+                     coveredstatements="9"
                      elements="0"
                      coveredelements="0"/>
+            <line num="1" type="method" name="methodName" count="1"/>
+            <line num="2" type="stmt" count="1"/>
+            <line num="3" type="stmt" count="1"/>
+            <line num="4" type="stmt" count="1"/>
+            <line num="5" type="stmt" count="1"/>
+            <line num="6" type="stmt" count="1"/>
+            <line num="7" type="stmt" count="1"/>
+            <line num="8" type="stmt" count="1"/>
+            <line num="9" type="stmt" count="1"/>
+            <line num="10" type="stmt" count="0"/>
+            <line num="11" type="stmt" count="1"/>
         </file>
 
         <!-- custom configured files -->
@@ -69,10 +113,16 @@
                      coveredmethods="0"
                      conditionals="0"
                      coveredconditionals="0"
-                     statements="100"
-                     coveredstatements="60"
+                     statements="5"
+                     coveredstatements="3"
                      elements="0"
                      coveredelements="0"/>
+            <line num="1" type="method" name="methodName" count="1"/>
+            <line num="2" type="stmt" count="1"/>
+            <line num="3" type="stmt" count="0"/>
+            <line num="4" type="stmt" count="1"/>
+            <line num="5" type="stmt" count="0"/>
+            <line num="6" type="stmt" count="1"/>
         </file>
         <!-- coverage 50% -->
         <file name="/home\workspace/test/case\below-threshold.php">
@@ -83,10 +133,13 @@
                      coveredmethods="0"
                      conditionals="0"
                      coveredconditionals="0"
-                     statements="100"
-                     coveredstatements="50"
+                     statements="2"
+                     coveredstatements="1"
                      elements="0"
                      coveredelements="0"/>
+            <line num="1" type="method" name="methodName" count="1"/>
+            <line num="2" type="stmt" count="1"/>
+            <line num="3" type="stmt" count="0"/>
         </file>
 
         <!-- coverage 90% -->
@@ -98,10 +151,21 @@
                      coveredmethods="0"
                      conditionals="0"
                      coveredconditionals="0"
-                     statements="100"
-                     coveredstatements="90"
+                     statements="10"
+                     coveredstatements="9"
                      elements="0"
                      coveredelements="0"/>
+            <line num="1" type="method" name="methodName" count="1"/>
+            <line num="2" type="stmt" count="1"/>
+            <line num="3" type="stmt" count="1"/>
+            <line num="4" type="stmt" count="1"/>
+            <line num="5" type="stmt" count="1"/>
+            <line num="6" type="stmt" count="1"/>
+            <line num="7" type="stmt" count="1"/>
+            <line num="8" type="stmt" count="1"/>
+            <line num="9" type="stmt" count="1"/>
+            <line num="10" type="stmt" count="0"/>
+            <line num="11" type="stmt" count="1"/>
         </file>
 
         <!-- coverage 90% and uncovered methods -->
@@ -115,10 +179,21 @@
                      coveredmethods="0"
                      conditionals="0"
                      coveredconditionals="0"
-                     statements="100"
-                     coveredstatements="90"
+                     statements="10"
+                     coveredstatements="9"
                      elements="0"
                      coveredelements="0"/>
+            <line num="1" type="method" name="methodName" count="1"/>
+            <line num="2" type="stmt" count="1"/>
+            <line num="3" type="stmt" count="1"/>
+            <line num="4" type="stmt" count="1"/>
+            <line num="5" type="stmt" count="1"/>
+            <line num="6" type="stmt" count="1"/>
+            <line num="7" type="stmt" count="1"/>
+            <line num="8" type="stmt" count="1"/>
+            <line num="9" type="stmt" count="1"/>
+            <line num="10" type="stmt" count="0"/>
+            <line num="11" type="stmt" count="1"/>
         </file>
 
         <!-- coverage 90% and ignore uncovered methods -->
@@ -131,11 +206,21 @@
                      coveredmethods="0"
                      conditionals="0"
                      coveredconditionals="0"
-                     statements="100"
-                     coveredstatements="90"
+                     statements="10"
+                     coveredstatements="9"
                      elements="0"
                      coveredelements="0"/>
+            <line num="1" type="method" name="methodName" count="1"/>
+            <line num="2" type="stmt" count="1"/>
+            <line num="3" type="stmt" count="1"/>
+            <line num="4" type="stmt" count="1"/>
+            <line num="5" type="stmt" count="1"/>
+            <line num="6" type="stmt" count="1"/>
+            <line num="7" type="stmt" count="1"/>
+            <line num="8" type="stmt" count="1"/>
+            <line num="9" type="stmt" count="1"/>
+            <line num="10" type="stmt" count="0"/>
+            <line num="11" type="stmt" count="1"/>
         </file>
-
     </project>
 </coverage>
