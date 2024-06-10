@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1598702199">
+    <project timestamp="1598702199">
+        <!-- coverage test 1 90% -->
+        <file name="/home/workspace/test\case/result-90.php">
+            <line num="1" type="method" name="methodName" count="1"/>
+            <line num="2" type="stmt" count="1"/>
+            <line num="3" type="stmt" count="1"/>
+            <line num="4" type="stmt" count="1"/>
+            <line num="5" type="stmt" count="1"/>
+            <line num="6" type="stmt" count="1"/>
+            <line num="7" type="stmt" count="1"/>
+            <line num="8" type="stmt" count="0"/>
+            <line num="9" type="stmt" count="1"/>
+            <line num="10" type="stmt" count="1"/>
+            <metrics loc="11" ncloc="11" statements="10" coveredstatements="9"/>
+        </file>
+        <!-- coverage test 2 90% -->
+        <file name="/home/workspace/test\case/result-100.php">
+            <line num="1" type="method" name="methodName" count="1"/>
+            <line num="2" type="stmt" count="1"/>
+            <line num="3" type="stmt" count="1"/>
+            <line num="4" type="stmt" count="1"/>
+            <line num="5" type="stmt" count="1"/>
+            <line num="6" type="stmt" count="1"/>
+            <line num="7" type="stmt" count="1"/>
+            <line num="8" type="stmt" count="0"/>
+            <line num="9" type="stmt" count="1"/>
+            <line num="10" type="stmt" count="1"/>
+            <metrics loc="11" ncloc="11" statements="10" coveredstatements="9"/>
+        </file>
+    </project>
+</coverage>

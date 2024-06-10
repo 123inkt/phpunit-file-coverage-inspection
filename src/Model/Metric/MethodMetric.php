@@ -6,8 +6,9 @@ namespace DigitalRevolution\CodeCoverageInspection\Model\Metric;
 class MethodMetric
 {
     private string $methodName;
-    private int    $lineNumber;
-    private int    $count;
+    private int $lineNumber;
+    private int $count;
+    private array $linesDetails = [];
 
     public function __construct(string $methodName, int $lineNumber, int $count)
     {
@@ -29,5 +30,21 @@ class MethodMetric
     public function getCount(): int
     {
         return $this->count;
+    }
+
+    public function addLineDetail(int $lineNumber, int $count): self
+    {
+        $this->linesDetails[$lineNumber] = $count;
+
+        return $this;
+    }
+
+    public function merge(MethodMetric $otherMetric): self
+    {
+        if ($this->getCount() < $otherMetric->getCount()) {
+            $this->count = $otherMetric->getCount();
+        }
+
+        return $this;
     }
 }
