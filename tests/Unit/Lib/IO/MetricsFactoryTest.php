@@ -66,10 +66,14 @@ class MetricsFactoryTest extends TestCase
                 <metrics loc="11" ncloc="11" classes="0"
                     methods="0" coveredmethods="0"
                     conditionals="0" coveredconditionals="0"
-                    statements="50" coveredstatements="10"
+                    statements="50" coveredstatements="1"
                     elements="0" coveredelements="0"/>
                 <line num="29" type="method" name="isFoobar" visibility="public" complexity="1" crap="1" count="1"/>
-                <line num="31" type="stmt" count="1"/>
+                <line num="31" type="stmt" count="0"/>
+                <line num="32" type="stmt" count="0"/>
+                <line num="33" type="stmt" count="1"/>
+                <line num="34" type="stmt" count="0"/>
+                <line num="35" type="stmt" count="0"/>
             </file>
         </project>
     </coverage>';

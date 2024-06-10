@@ -9,10 +9,16 @@
                      coveredmethods="0"
                      conditionals="0"
                      coveredconditionals="0"
-                     statements="78"
-                     coveredstatements="35"
+                     statements="5"
+                     coveredstatements="2"
                      elements="0"
                      coveredelements="0"/>
+            <line num="1" type="method" name="methodName" count="1"/>
+            <line num="2" type="stmt" count="0"/>
+            <line num="3" type="stmt" count="1"/>
+            <line num="4" type="stmt" count="0"/>
+            <line num="5" type="stmt" count="1"/>
+            <line num="6" type="stmt" count="0"/>
         </file>
         <file name="/home/workspace/test/case/file-b.php">
             <metrics loc="11"
@@ -22,10 +28,15 @@
                      coveredmethods="0"
                      conditionals="0"
                      coveredconditionals="0"
-                     statements="100"
-                     coveredstatements="50"
+                     statements="4"
+                     coveredstatements="2"
                      elements="0"
                      coveredelements="0"/>
+            <line num="1" type="method" name="methodName" count="1"/>
+            <line num="2" type="stmt" count="1"/>
+            <line num="3" type="stmt" count="0"/>
+            <line num="4" type="stmt" count="1"/>
+            <line num="5" type="stmt" count="0"/>
         </file>
     </project>
 </coverage>
