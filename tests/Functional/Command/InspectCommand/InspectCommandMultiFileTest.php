@@ -14,7 +14,7 @@ use Symfony\Component\Console\Exception\ExceptionInterface;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
-class InspectCommandTest extends TestCase
+class InspectCommandMultiFileTest extends TestCase
 {
     private vfsStreamDirectory $fileSystem;
 
@@ -25,48 +25,48 @@ class InspectCommandTest extends TestCase
     }
 
     /**
-     * @param string[] $flags
-     *
      * @coversNothing
-     * @dataProvider dataProvider
      * @throws Exception|ExceptionInterface
      */
-    public function testInspectCommand(array $flags, int $exitStatus): void
+    public function testInspectCommand(): void
     {
         // prepare data files
-        $configPath   = __DIR__ . '/Data/phpfci.xml';
-        $coveragePath = __DIR__ . '/Data/coverage.xml';
-        $expected     = str_replace("\r", "", (string)file_get_contents(__DIR__ . '/Data/checkstyle.xml'));
-        $output       = $this->fileSystem->url() . '/checkstyle.xml';
-        $baseDir      = '/home\workspace';
+        $configPath         = __DIR__ . '/Data/phpfci.xml';
+        $coveragePath       = __DIR__ . '/Data/coverage-multi1.xml';
+        $coverageCustomPath = __DIR__ . '/Data/coverage-multi2.xml';
+        $expected           = str_replace("\r", "", (string)file_get_contents(__DIR__ . '/Data/checkstyle-multi.xml'));
+        $output             = $this->fileSystem->url() . '/checkstyle-multi.xml';
+        $baseDir            = '/home\workspace';
 
         // prepare command
         $command = new InspectCommand();
         $input   = new ArgvInput(
-            array_merge(['phpfci', '--config', $configPath, '--baseDir', $baseDir, $coveragePath, '--reportCheckstyle', $output], $flags)
+            array_merge(
+                [
+                    'phpfci',
+                    '--config',
+                    $configPath,
+                    '--baseDir',
+                    $baseDir,
+                    $coveragePath,
+                    $coverageCustomPath,
+                    '--reportCheckstyle',
+                    $output
+                ],
+                []
+            )
         );
         $output  = new ConsoleOutput();
 
         // run test case
-        static::assertSame($exitStatus, $command->run($input, $output));
-        static::assertTrue($this->fileSystem->hasChild('checkstyle.xml'));
+        static::assertSame(Command::SUCCESS, $command->run($input, $output));
+        static::assertTrue($this->fileSystem->hasChild('checkstyle-multi.xml'));
 
         // check output
         /** @var vfsStreamFile $resultFile */
-        $resultFile = $this->fileSystem->getChild('checkstyle.xml');
+        $resultFile = $this->fileSystem->getChild('checkstyle-multi.xml');
         $result     = $resultFile->getContent();
 
         static::assertSame($expected, $result);
-    }
-
-    /**
-     * @return array<string, array{0: string[], 1:int}>
-     */
-    public function dataProvider(): array
-    {
-        return [
-            'standard exit code'   => [[], Command::SUCCESS],
-            'exit code on failure' => [['--exit-code-on-failure'], Command::FAILURE]
-        ];
     }
 }

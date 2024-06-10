@@ -19,22 +19,32 @@ class MetricsFactory
      *
      * @param DOMDocument[] $documents
      *
-     * @return FileMetric[]
+     * @return array<string, FileMetric>
      */
     public static function getFilesMetrics(array $documents): array
     {
+        /** @var array<string, FileMetric> $metrics */
         $metrics = [];
 
         foreach ($documents as $document) {
             $foundMetrics = self::getFileMetrics($document);
             foreach ($foundMetrics as $metric) {
-                if (isset($metrics[$metric->getFilepath()])) {
-                    $previousMetric = $metrics[$metric->getFilepath()];
-                    if ($previousMetric->getCoverage() > $metric->getCoverage()) {
-                        continue;
-                    }
+                $existingMetric = $metrics[$metric->getFilepath()] ?? null;
+                if ($existingMetric === null) {
+                    $metrics[$metric->getFilepath()] = $metric;
+                    continue;
                 }
-                $metrics[$metric->getFilepath()] = $metric;
+
+                if ($existingMetric->getCoverage() === 100.0) {
+                    continue;
+                }
+
+                if ($metric->getCoverage() === 100.0) {
+                    $metrics[$metric->getFilepath()] = $metric;
+                    continue;
+                }
+
+                self::mergeFileMetrics($existingMetric, $metric);
             }
         }
 
@@ -44,7 +54,7 @@ class MetricsFactory
     /**
      * Get metrics information from coverage.xml file
      *
-     * @return FileMetric[]
+     * @return array<string, FileMetric>
      */
     public static function getFileMetrics(DOMDocument $document): array
     {
@@ -72,14 +82,16 @@ class MetricsFactory
             // gather metrics per method
             $methodMetrics = self::getMethodMetrics($xpath, $parentNode);
 
-            $metrics[] = new FileMetric($filename, $coveragePercentage, $methodMetrics);
+            $coveredStatements = self::getCoveredStatements($xpath, $parentNode);
+
+            $metrics[$filename] = new FileMetric($filename, $statements, $coveragePercentage, $methodMetrics, $coveredStatements);
         }
 
         return $metrics;
     }
 
     /**
-     * @return MethodMetric[]
+     * @return array<string, MethodMetric>
      */
     public static function getMethodMetrics(DOMXPath $xpath, DOMNode $fileNode): array
     {
@@ -95,9 +107,54 @@ class MetricsFactory
             $lineNumber = (int)XMLUtil::getAttribute($methodNode, 'num');
             $count      = (int)XMLUtil::getAttribute($methodNode, 'count');
 
-            $metrics[] = new MethodMetric($methodName, $lineNumber, $count);
+            $metrics[$methodName] = new MethodMetric($methodName, $lineNumber, $count);
         }
 
         return $metrics;
+    }
+
+    /**
+     * @return int[]
+     */
+    private static function getCoveredStatements(DOMXPath $xpath, DOMNode $fileNode): array
+    {
+        $statementNodes = $xpath->query('line[@type="stmt"]', $fileNode);
+        if ($statementNodes === false || count($statementNodes) === 0) {
+            return [];
+        }
+
+        $coveredStatements = [];
+        foreach ($statementNodes as $node) {
+            $count = (int)XMLUtil::getAttribute($node, 'count');
+            if ($count === 0) {
+                continue;
+            }
+            $lineNumber = (int)XMLUtil::getAttribute($node, 'num');
+
+            $coveredStatements[] = $lineNumber;
+        }
+
+        return $coveredStatements;
+    }
+
+    private static function mergeFileMetrics(FileMetric $existingMetric, FileMetric $metric): void
+    {
+        $existingMetricMethods = $existingMetric->getMethods();
+        $metricMethods         = $metric->getMethods();
+        foreach ($metricMethods as $methodName => $methodMetric) {
+            if (isset($existingMetricMethods[$methodName]) === false || $existingMetricMethods[$methodName]->getCount() < $methodMetric->getCount()) {
+                $existingMetricMethods[$methodName] = $methodMetric;
+            }
+        }
+
+        $existingCovered = $existingMetric->getCoveredStatements();
+        $metricCovered   = $metric->getCoveredStatements();
+        $existingMetric->setCoveredStatements(array_merge($existingCovered, array_diff($metricCovered, $existingCovered)));
+        $existingMetric->setMethods($existingMetricMethods);
+        $coveragePercentage = round(
+            count($existingMetric->getCoveredStatements()) / $existingMetric->getStatements() * 100,
+            self::COVERAGE_PERCENTAGE_PRECISION
+        );
+        $existingMetric->setCoverage($coveragePercentage);
     }
 }

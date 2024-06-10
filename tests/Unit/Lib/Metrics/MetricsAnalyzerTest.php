@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Metrics;
 
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\MetricsAnalyzer;
-use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\MethodMetric;
@@ -22,7 +22,7 @@ class MetricsAnalyzerTest extends TestCase
      */
     public function testAnalyzeFileAboveMinimumShouldPass(): void
     {
-        $metrics[] = new FileMetric('/a/b/c/test.php', 80, []);
+        $metrics[] = new FileMetric('/a/b/c/test.php', 0, 80, [], []);
         $config    = new InspectionConfig('/a/', 80);
 
         $analyzer = new MetricsAnalyzer($metrics, $config);
@@ -35,7 +35,7 @@ class MetricsAnalyzerTest extends TestCase
      */
     public function testAnalyzeFileBelowMinimumShouldFail(): void
     {
-        $metric  = new FileMetric('/a/b/c/test.php', 79.4, []);
+        $metric  = new FileMetric('/a/b/c/test.php', 0, 79.4, [], []);
         $metrics = [$metric];
         $config  = new InspectionConfig('/a/', 80);
 
@@ -50,7 +50,7 @@ class MetricsAnalyzerTest extends TestCase
      */
     public function testAnalyzeFileWithCustomCoverageRuleShouldPass(): void
     {
-        $metrics[] = new FileMetric('/a/b/c/test.php', 45, []);
+        $metrics[] = new FileMetric('/a/b/c/test.php', 0, 45, [], []);
         $config    = new InspectionConfig('/a/', 80, false);
         $config->addPathInspection(new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, 'b/c/test.php', 40));
 
@@ -64,7 +64,7 @@ class MetricsAnalyzerTest extends TestCase
      */
     public function testAnalyzeFileWithCustomCoverageRuleShouldFail(): void
     {
-        $metric  = new FileMetric('/a/b/c/test.php', 45, []);
+        $metric  = new FileMetric('/a/b/c/test.php', 0, 45, [], []);
         $metrics = [$metric];
         $config  = new InspectionConfig('/a/', 80, false);
         $config->addPathInspection(new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, 'b/c/test.php', 50));
@@ -80,7 +80,7 @@ class MetricsAnalyzerTest extends TestCase
      */
     public function testAnalyzeFileWithCustomCoverageAboveGlobalCoverageShouldFail(): void
     {
-        $metric  = new FileMetric('/a/b/c/test.php', 90, []);
+        $metric  = new FileMetric('/a/b/c/test.php', 0, 90, [], []);
         $metrics = [$metric];
         $config  = new InspectionConfig('/a/', 80, false);
         $config->addPathInspection(new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, 'b/c/test.php', 50));
@@ -96,7 +96,7 @@ class MetricsAnalyzerTest extends TestCase
      */
     public function testAnalyzeFileWithUncoveredMethodsShouldFail(): void
     {
-        $metric    = new FileMetric('/a/b/c/test.php', 80, [new MethodMetric('foobar', 10, 0)]);
+        $metric    = new FileMetric('/a/b/c/test.php', 0, 80, [new MethodMetric('foobar', 10, 0)], []);
         $metrics[] = $metric;
         $config    = new InspectionConfig('/a/', 80, false);
 
@@ -111,7 +111,7 @@ class MetricsAnalyzerTest extends TestCase
      */
     public function testAnalyzeFileWithoutAnyUncoveredMethodsShouldPass(): void
     {
-        $metric    = new FileMetric('/a/b/c/test.php', 80, [new MethodMetric('foobar', 10, 20)]);
+        $metric    = new FileMetric('/a/b/c/test.php', 0, 80, [new MethodMetric('foobar', 10, 20)], []);
         $metrics[] = $metric;
         $config    = new InspectionConfig('/a/', 80, false);
 
@@ -124,7 +124,7 @@ class MetricsAnalyzerTest extends TestCase
      */
     public function testAnalyzeFileWithUncoveredMethodsButAllowedShouldPass(): void
     {
-        $metric    = new FileMetric('/a/b/c/test.php', 80, [new MethodMetric('foobar', 10, 0)]);
+        $metric    = new FileMetric('/a/b/c/test.php', 0, 80, [new MethodMetric('foobar', 10, 0)], []);
         $metrics[] = $metric;
         $config    = new InspectionConfig('/a/', 80, true);
 

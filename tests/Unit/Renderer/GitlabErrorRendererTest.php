@@ -22,7 +22,7 @@ class GitlabErrorRendererTest extends TestCase
     public function testRender(): void
     {
         $config  = new InspectionConfig('', 80);
-        $metric  = new FileMetric('/foo/bar/file.php', 48.3, []);
+        $metric  = new FileMetric('/foo/bar/file.php', 0, 48.3, [], []);
         $failure = new Failure($metric, 80, Failure::GLOBAL_COVERAGE_TOO_LOW);
 
         $checkStyle = new GitlabErrorRenderer();

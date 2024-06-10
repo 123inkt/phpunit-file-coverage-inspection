@@ -18,7 +18,7 @@ class FileMetricAnalyzerTest extends TestCase
      */
     public function testGetUncoveredMethodMetricShouldReturnNullForFileWithoutMethods(): void
     {
-        $fileMetric = new FileMetric('/tmp/a/', 20, []);
+        $fileMetric = new FileMetric('/tmp/a/', 0, 20, [], []);
 
         static::assertNull(FileMetricAnalyzer::getUncoveredMethodMetric($fileMetric));
     }
@@ -30,7 +30,7 @@ class FileMetricAnalyzerTest extends TestCase
     {
         $metricA    = new MethodMetric('A', 5, 1);
         $metricB    = new MethodMetric('B', 6, 0);
-        $fileMetric = new FileMetric('/tmp/a/', 20, [$metricA, $metricB]);
+        $fileMetric = new FileMetric('/tmp/a/', 0, 20, [$metricA, $metricB], []);
 
         // expect metric B
         $result = FileMetricAnalyzer::getUncoveredMethodMetric($fileMetric);
@@ -44,7 +44,7 @@ class FileMetricAnalyzerTest extends TestCase
     {
         $metricA    = new MethodMetric('A', 5, 2);
         $metricB    = new MethodMetric('B', 6, 3);
-        $fileMetric = new FileMetric('/tmp/a/', 20, [$metricA, $metricB]);
+        $fileMetric = new FileMetric('/tmp/a/', 0, 20, [$metricA, $metricB], []);
 
         static::assertNull(FileMetricAnalyzer::getUncoveredMethodMetric($fileMetric));
     }
