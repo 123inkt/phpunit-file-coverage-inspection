@@ -75,7 +75,7 @@ class MetricsFactory
             $filename   = str_replace('\\', '/', (string)XMLUtil::getAttribute($parentNode, 'name'));
 
             // calculate coverage
-            $statements         = (int)XMLUtil::getAttribute($domMetric, 'statements');
+            $statements         = count($xpath->query('line[@type="stmt"]', $parentNode));
             $coveredStatements  = (int)XMLUtil::getAttribute($domMetric, 'coveredstatements');
             $coveragePercentage = $statements === 0 ? 100 : round($coveredStatements / $statements * 100, self::COVERAGE_PERCENTAGE_PRECISION);
 
