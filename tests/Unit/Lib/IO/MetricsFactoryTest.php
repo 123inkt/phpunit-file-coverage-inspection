@@ -19,38 +19,14 @@ class MetricsFactoryTest extends TestCase
      * @covers ::getMethodMetrics
      * @covers ::mergeFileMetrics
      * @covers ::getCoveredStatements
+     * @dataProvider multiFilesDataProvider
      */
-    public function testGetFilesMetrics(): void
+    public function testGetFilesMetrics(string $file1Data, string $file2Data, int $methods, float $coverage, array $coveredStatements): void
     {
         $xml1 = '<?xml version="1.0" encoding="UTF-8"?>
     <coverage generated="1598702199">
         <project timestamp="1598702199">
-            <file name="/API\\Example.php">
-                <line num="1" type="method" name="methodName" count="2"/>
-                <line num="2" type="stmt" count="2"/>
-                <line num="3" type="stmt" count="0"/>
-                <line num="4" type="stmt" count="0"/>
-                <line num="5" type="stmt" count="0"/>
-                <metrics loc="11" ncloc="11" statements="4" coveredstatements="1"/>
-            </file>
-            <file name="/API\\Example2.php">
-                <line num="1" type="method" name="methodName" count="0"/>
-                <line num="2" type="stmt" count="0"/>
-                <line num="3" type="stmt" count="0"/>
-                <line num="4" type="stmt" count="0"/>
-                <line num="5" type="stmt" count="0"/>
-                <line num="6" type="stmt" count="0"/>
-                <metrics loc="11" ncloc="11" statements="5" coveredstatements="0"/>
-            </file>
-            <file name="/API\\Example3.php">
-                <metrics loc="11" ncloc="11" statements="0" coveredstatements="0"/>
-            </file>
-            <file name="/API\\Example4.php">
-                <metrics loc="11" ncloc="11" statements="1" coveredstatements="1"/>
-            </file>
-            <file name="/API\\Example5.php">
-                <metrics loc="11" ncloc="11" statements="2" coveredstatements="0"/>
-            </file>
+' . $file1Data . '
         </project>
     </coverage>';
 
@@ -60,29 +36,7 @@ class MetricsFactoryTest extends TestCase
         $xml2 = '<?xml version="1.0" encoding="UTF-8"?>
     <coverage generated="1598702199">
         <project timestamp="1598702199">
-           <file name="/API\\Example.php">
-                <line num="1" type="method" name="methodName" count="1"/>
-                <line num="2" type="stmt" count="1"/>
-                <line num="3" type="stmt" count="0"/>
-                <line num="4" type="stmt" count="1"/>
-                <line num="5" type="stmt" count="0"/>
-                <metrics loc="11" ncloc="11" statements="4" coveredstatements="2"/>
-            </file>
-            <file name="/API\\Example2.php">
-                <line num="1" type="method" name="methodName" count="1"/>
-                <line num="2" type="stmt" count="1"/>
-                <line num="3" type="stmt" count="1"/>
-                <line num="4" type="stmt" count="1"/>
-                <line num="5" type="stmt" count="0"/>
-                <line num="6" type="stmt" count="1"/>
-                <metrics loc="11" ncloc="11" statements="5" coveredstatements="4"/>
-            </file>
-            <file name="/API\\Example4.php">
-                <metrics loc="11" ncloc="11" statements="0" coveredstatements="0"/>
-            </file>
-            <file name="/API\\Example5.php">
-                <metrics loc="11" ncloc="11" statements="2" coveredstatements="2"/>
-            </file>
+           ' . $file2Data . '
         </project>
     </coverage>';
 
@@ -90,41 +44,13 @@ class MetricsFactoryTest extends TestCase
         $dom2->loadXML($xml2);
 
         $metrics = MetricsFactory::getFilesMetrics([$dom1, $dom2]);
-        static::assertCount(5, $metrics);
+        static::assertCount(1, $metrics);
 
-        $metric = $metrics['/API/Example.php'];
-        static::assertSame('/API/Example.php', $metric->getFilepath());
-        static::assertCount(1, $metric->getMethods());
-        $method = $metric->getMethods()['methodName'];
-        static::assertSame('methodName', $method->getMethodName());
-        static::assertSame(1, $method->getLineNumber());
-        static::assertSame(2, $method->getCount());
-        static::assertSame(50.0, $metric->getCoverage());
-        static::assertSame([2, 4], $metric->getCoveredStatements());
-
-        $metric = $metrics['/API/Example2.php'];
-        static::assertSame('/API/Example2.php', $metric->getFilepath());
-        static::assertCount(1, $metric->getMethods());
-        static::assertSame(80.0, $metric->getCoverage());
-        static::assertSame([2, 3, 4, 6], $metric->getCoveredStatements());
-
-        $metric = $metrics['/API/Example3.php'];
-        static::assertSame('/API/Example3.php', $metric->getFilepath());
-        static::assertSame([], $metric->getMethods());
-        static::assertSame(100.0, $metric->getCoverage());
-        static::assertSame([], $metric->getCoveredStatements());
-
-        $metric = $metrics['/API/Example4.php'];
-        static::assertSame('/API/Example4.php', $metric->getFilepath());
-        static::assertSame([], $metric->getMethods());
-        static::assertSame(100.0, $metric->getCoverage());
-        static::assertSame([], $metric->getCoveredStatements());
-
-        $metric = $metrics['/API/Example5.php'];
-        static::assertSame('/API/Example5.php', $metric->getFilepath());
-        static::assertSame([], $metric->getMethods());
-        static::assertSame(100.0, $metric->getCoverage());
-        static::assertSame([], $metric->getCoveredStatements());
+        $metric = $metrics['utTestFile.php'];
+        static::assertSame('utTestFile.php', $metric->getFilepath());
+        static::assertCount($methods, $metric->getMethods());
+        static::assertSame($coverage, $metric->getCoverage());
+        static::assertSame($coveredStatements, $metric->getCoveredStatements());
     }
 
     /**
@@ -175,5 +101,84 @@ class MetricsFactoryTest extends TestCase
         $dom->loadXML($xml);
 
         static::assertCount(0, MetricsFactory::getFilesMetrics([$dom]));
+    }
+
+    public static function multiFilesDataProvider(): array
+    {
+        return [
+            'second coverage is used' => [
+                '<file name="utTestFile.php">
+                <line num="1" type="method" name="methodName" count="2"/>
+                <line num="2" type="stmt" count="2"/>
+                <line num="3" type="stmt" count="0"/>
+                <line num="4" type="stmt" count="0"/>
+                <line num="5" type="stmt" count="0"/>
+                <metrics loc="11" ncloc="11" statements="4" coveredstatements="1"/>
+            </file>',
+                '<file name="utTestFile.php">
+                <line num="1" type="method" name="methodName" count="1"/>
+                <line num="2" type="stmt" count="1"/>
+                <line num="3" type="stmt" count="0"/>
+                <line num="4" type="stmt" count="1"/>
+                <line num="5" type="stmt" count="0"/>
+                <metrics loc="11" ncloc="11" statements="4" coveredstatements="2"/>
+            </file>',
+                1,
+                50.0,
+                [2, 4]
+            ],
+            'second count is higher'  => [
+                '<file name="utTestFile.php">
+                <line num="1" type="method" name="methodName" count="1"/>
+                <line num="2" type="stmt" count="1"/>
+                <line num="3" type="stmt" count="1"/>
+                <line num="4" type="stmt" count="1"/>
+                <line num="5" type="stmt" count="1"/>
+                <metrics loc="11" ncloc="11" statements="4" coveredstatements="1"/>
+            </file>',
+                '<file name="utTestFile.php">
+                <line num="1" type="method" name="methodName" count="2"/>
+                <line num="2" type="stmt" count="1"/>
+                <line num="3" type="stmt" count="0"/>
+                <line num="4" type="stmt" count="1"/>
+                <line num="5" type="stmt" count="0"/>
+                <metrics loc="11" ncloc="11" statements="4" coveredstatements="2"/>
+            </file>',
+                1,
+                100.0,
+                [2, 3, 4, 5]
+            ],
+            'no second coverage'      => [
+                '<file name="utTestFile.php">
+                <metrics loc="11" ncloc="11" statements="0" coveredstatements="0"/>
+            </file>',
+                '',
+                0,
+                100.0,
+                []
+            ],
+            'first 100 %'             => [
+                '<file name="utTestFile.php">
+                <metrics loc="11" ncloc="11" statements="1" coveredstatements="1"/>
+            </file>',
+                ' <file name="utTestFile.php">
+                <metrics loc="11" ncloc="11" statements="0" coveredstatements="0"/>
+            </file>',
+                0,
+                100.0,
+                []
+            ],
+            'second 100%'             => [
+                '<file name="utTestFile.php">
+                <metrics loc="11" ncloc="11" statements="2" coveredstatements="0"/>
+            </file>',
+                '<file name="utTestFile.php">
+                <metrics loc="11" ncloc="11" statements="2" coveredstatements="2"/>
+            </file>',
+                0,
+                100.0,
+                []
+            ]
+        ];
     }
 }
