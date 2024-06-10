@@ -17,6 +17,7 @@ class MetricsFactoryTest extends TestCase
      * @covers ::getFilesMetrics
      * @covers ::getFileMetrics
      * @covers ::getMethodMetrics
+     * @covers ::mergeFileMetrics
      */
     public function testGetFilesMetrics(): void
     {
@@ -24,25 +25,24 @@ class MetricsFactoryTest extends TestCase
     <coverage generated="1598702199">
         <project timestamp="1598702199">
             <file name="/API\\Example.php">
-                <metrics loc="11" ncloc="11" classes="0"
-                    methods="0" coveredmethods="0"
-                    conditionals="0" coveredconditionals="0"
-                    statements="50" coveredstatements="10"
-                    elements="0" coveredelements="0"/>
+                <line num="1" type="method" name="methodName" count="2"/>
+                <line num="2" type="stmt" count="2"/>
+                <line num="3" type="stmt" count="0"/>
+                <line num="4" type="stmt" count="0"/>
+                <line num="5" type="stmt" count="0"/>
+                <metrics loc="11" ncloc="11" statements="4" coveredstatements="1"/>
             </file>
             <file name="/API\\Example2.php">
-                <metrics loc="11" ncloc="11" classes="0"
-                    methods="0" coveredmethods="0"
-                    conditionals="0" coveredconditionals="0"
-                    statements="50" coveredstatements="50"
-                    elements="0" coveredelements="0"/>
+                <line num="1" type="method" name="methodName" count="1"/>
+                <line num="2" type="stmt" count="1"/>
+                <line num="3" type="stmt" count="1"/>
+                <line num="4" type="stmt" count="1"/>
+                <line num="5" type="stmt" count="1"/>
+                <line num="6" type="stmt" count="1"/>
+                <metrics loc="11" ncloc="11" statements="5" coveredstatements="5"/>
             </file>
             <file name="/API\\Example3.php">
-                <metrics loc="11" ncloc="11" classes="0"
-                    methods="0" coveredmethods="0"
-                    conditionals="0" coveredconditionals="0"
-                    statements="50" coveredstatements="10"
-                    elements="0" coveredelements="0"/>
+                <metrics loc="11" ncloc="11" statements="50" coveredstatements="10"/>
             </file>
         </project>
     </coverage>';
@@ -53,19 +53,22 @@ class MetricsFactoryTest extends TestCase
         $xml2 = '<?xml version="1.0" encoding="UTF-8"?>
     <coverage generated="1598702199">
         <project timestamp="1598702199">
-            <file name="/API\\Example.php">
-                <metrics loc="11" ncloc="11" classes="0"
-                    methods="0" coveredmethods="0"
-                    conditionals="0" coveredconditionals="0"
-                    statements="50" coveredstatements="25"
-                    elements="0" coveredelements="0"/>
+           <file name="/API\\Example.php">
+                <line num="1" type="method" name="methodName" count="1"/>
+                <line num="2" type="stmt" count="1"/>
+                <line num="3" type="stmt" count="0"/>
+                <line num="4" type="stmt" count="1"/>
+                <line num="5" type="stmt" count="0"/>
+                <metrics loc="11" ncloc="11" statements="4" coveredstatements="2"/>
             </file>
             <file name="/API\\Example2.php">
-                <metrics loc="11" ncloc="11" classes="0"
-                    methods="0" coveredmethods="0"
-                    conditionals="0" coveredconditionals="0"
-                    statements="50" coveredstatements="5"
-                    elements="0" coveredelements="0"/>
+                <line num="1" type="method" name="methodName" count="0"/>
+                <line num="2" type="stmt" count="0"/>
+                <line num="3" type="stmt" count="0"/>
+                <line num="4" type="stmt" count="0"/>
+                <line num="5" type="stmt" count="0"/>
+                <line num="6" type="stmt" count="0"/>
+                <metrics loc="11" ncloc="11" statements="5" coveredstatements="5"/>
             </file>
         </project>
     </coverage>';
@@ -78,18 +81,25 @@ class MetricsFactoryTest extends TestCase
 
         $metric = $metrics['/API/Example.php'];
         static::assertSame('/API/Example.php', $metric->getFilepath());
-        static::assertSame([], $metric->getMethods());
+        static::assertCount(1, $metric->getMethods());
+        $method = $metric->getMethods()['methodName'];
+        static::assertSame('methodName', $method->getMethodName());
+        static::assertSame(1, $method->getLineNumber());
+        static::assertSame(2, $method->getCount());
         static::assertSame(50.0, $metric->getCoverage());
+        static::assertSame([2, 4], $metric->getCoveredStatements());
 
         $metric = $metrics['/API/Example2.php'];
         static::assertSame('/API/Example2.php', $metric->getFilepath());
-        static::assertSame([], $metric->getMethods());
+        static::assertCount(1, $metric->getMethods());
         static::assertSame(100.0, $metric->getCoverage());
+        static::assertSame([2, 3, 4, 5, 6], $metric->getCoveredStatements());
 
         $metric = $metrics['/API/Example3.php'];
         static::assertSame('/API/Example3.php', $metric->getFilepath());
         static::assertSame([], $metric->getMethods());
         static::assertSame(20.0, $metric->getCoverage());
+        static::assertSame([], $metric->getCoveredStatements());
     }
 
     /**
@@ -121,7 +131,7 @@ class MetricsFactoryTest extends TestCase
 
         $metric = reset($metrics);
         static::assertSame('/API/Example.php', $metric->getFilepath());
-        static::assertEquals([new MethodMetric('isFoobar', 29, 1)], $metric->getMethods());
+        static::assertEquals(['isFoobar' => new MethodMetric('isFoobar', 29, 1)], $metric->getMethods());
         static::assertSame(20.0, $metric->getCoverage());
     }
 

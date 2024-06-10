@@ -20,9 +20,9 @@ class TextRendererTest extends TestCase
     public function testRenderGlobalCoverageTooLow(): void
     {
         $config   = new InspectionConfig('', 80);
-        $failureA = new Failure(new FileMetric('/short/file/path.php', 48.3, []), 80, Failure::GLOBAL_COVERAGE_TOO_LOW, 5);
-        $failureB = new Failure(new FileMetric('/a/medium/file/path.php', 42.5, []), 80, Failure::CUSTOM_COVERAGE_TOO_LOW, 10);
-        $failureC = new Failure(new FileMetric('/a/very/very/long/file/path.php', 67.3, []), 80, Failure::CUSTOM_COVERAGE_TOO_LOW, 200);
+        $failureA = new Failure(new FileMetric('/short/file/path.php', 0, 48.3, [], []), 80, Failure::GLOBAL_COVERAGE_TOO_LOW, 5);
+        $failureB = new Failure(new FileMetric('/a/medium/file/path.php', 0, 42.5, [], []), 80, Failure::CUSTOM_COVERAGE_TOO_LOW, 10);
+        $failureC = new Failure(new FileMetric('/a/very/very/long/file/path.php', 0, 67.3, [], []), 80, Failure::CUSTOM_COVERAGE_TOO_LOW, 200);
 
         $renderer = new TextRenderer();
         $result   = $renderer->render($config, [$failureA, $failureB, $failureC]);

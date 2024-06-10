@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Metrics\Inspection;
 
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\CustomCoverageAboveGlobalInspection;
-use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
+use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 use PHPUnit\Framework\TestCase;
@@ -29,7 +29,7 @@ class CustomCoverageAboveGlobalInspectionTest extends TestCase
      */
     public function testInspectNoCustomCoverageShouldPass(): void
     {
-        static::assertNull($this->inspection->inspect(null, new FileMetric('/tmp/b/', 0, [])));
+        static::assertNull($this->inspection->inspect(null, new FileMetric('/tmp/b/', 0, 0, [], [])));
     }
 
     /**
@@ -38,7 +38,7 @@ class CustomCoverageAboveGlobalInspectionTest extends TestCase
     public function testInspectCoverageBelowGlobalCoverageShouldPass(): void
     {
         $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '/tmp/b', 40);
-        $metric     = new FileMetric('/tmp/b', 70, []);
+        $metric     = new FileMetric('/tmp/b/', 0, 70, [], []);
 
         static::assertNull($this->inspection->inspect($fileConfig, $metric));
     }
@@ -49,7 +49,7 @@ class CustomCoverageAboveGlobalInspectionTest extends TestCase
     public function testInspectCoverageAboveGlobalCoverageShouldFail(): void
     {
         $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '/tmp/b', 40);
-        $metric     = new FileMetric('/tmp/b', 90, []);
+        $metric     = new FileMetric('/tmp/b/', 0, 90, [], []);
 
         $failure = $this->inspection->inspect($fileConfig, $metric);
         static::assertNotNull($failure);
@@ -64,7 +64,7 @@ class CustomCoverageAboveGlobalInspectionTest extends TestCase
     {
         // global is 80
         $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '/tmp/b', 85);
-        $metric     = new FileMetric('/tmp/b', 83, []);
+        $metric     = new FileMetric('/tmp/b/', 0, 83, [], []);
 
         static::assertNull($this->inspection->inspect($fileConfig, $metric));
     }

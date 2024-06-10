@@ -28,7 +28,7 @@ class RendererHelperTest extends TestCase
      */
     public function testRenderReasonGlobalCoverageTooLow(): void
     {
-        $metric  = new FileMetric('foobar', 80, []);
+        $metric  = new FileMetric('foobar', 0, 80, [], []);
         $failure = new Failure($metric, 20, Failure::GLOBAL_COVERAGE_TOO_LOW, 5);
 
         $message = RendererHelper::renderReason($this->config, $failure);
@@ -40,7 +40,7 @@ class RendererHelperTest extends TestCase
      */
     public function testRenderReasonCustomCoverageTooLow(): void
     {
-        $metric  = new FileMetric('foobar', 70, []);
+        $metric  = new FileMetric('foobar', 0, 70, [], []);
         $failure = new Failure($metric, 30, Failure::CUSTOM_COVERAGE_TOO_LOW, 5);
 
         $message = RendererHelper::renderReason($this->config, $failure);
@@ -52,7 +52,7 @@ class RendererHelperTest extends TestCase
      */
     public function testRenderReasonMissingMethodCoverage(): void
     {
-        $metric  = new FileMetric('foobar', 70, [new MethodMetric('coveredMethod', 100, 80), new MethodMetric('uncoveredMethod', 105, 0)]);
+        $metric  = new FileMetric('foobar', 0, 70, [new MethodMetric('coveredMethod', 100, 80), new MethodMetric('uncoveredMethod', 105, 0)], []);
         $failure = new Failure($metric, 30, Failure::MISSING_METHOD_COVERAGE, 5);
 
         $message = RendererHelper::renderReason($this->config, $failure);
@@ -64,7 +64,7 @@ class RendererHelperTest extends TestCase
      */
     public function testRenderReasonUnnecessaryCustomCoverage(): void
     {
-        $metric  = new FileMetric('foobar', 70, []);
+        $metric  = new FileMetric('foobar', 0, 70, [], []);
         $failure = new Failure($metric, 30, Failure::UNNECESSARY_CUSTOM_COVERAGE, 5);
 
         $message = RendererHelper::renderReason($this->config, $failure);
@@ -80,7 +80,7 @@ class RendererHelperTest extends TestCase
      */
     public function testRenderReasonShouldThrowExceptionWhenInvalid(): void
     {
-        $metric  = new FileMetric('foobar', 70, []);
+        $metric  = new FileMetric('foobar', 0, 70, [], []);
         $failure = new Failure($metric, 30, 9999, 5);
 
         $this->expectException(RuntimeException::class);

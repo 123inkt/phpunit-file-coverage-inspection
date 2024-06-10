@@ -20,7 +20,7 @@ class ConfigFileRendererTest extends TestCase
     public function testWrite(): void
     {
         $config  = new InspectionConfig('/foo/', 100);
-        $metric  = new FileMetric('/foo/bar/file.php', 48.3, []);
+        $metric  = new FileMetric('/foo/bar/file.php', 0, 48.3, [], []);
         $failure = new Failure($metric, 60, Failure::GLOBAL_COVERAGE_TOO_LOW);
 
         $checkStyle = new ConfigFileRenderer();

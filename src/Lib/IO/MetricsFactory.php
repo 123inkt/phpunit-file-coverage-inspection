@@ -149,7 +149,7 @@ class MetricsFactory
 
         $existingCovered = $existingMetric->getCoveredStatements();
         $metricCovered   = $metric->getCoveredStatements();
-        $existingMetric->setCoveredStatements(array_merge($existingCovered, array_diff($existingCovered, $metricCovered)));
+        $existingMetric->setCoveredStatements(array_merge($existingCovered, array_diff($metricCovered, $existingCovered)));
         $existingMetric->setMethods($existingMetricMethods);
         $coveragePercentage = $existingMetric->getStatements() === 0 ?
             100 :
