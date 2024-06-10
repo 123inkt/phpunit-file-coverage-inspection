@@ -116,6 +116,7 @@ class MetricsFactory
     }
 
     /**
+     * @param DOMNodeList<DOMNode>|false $statementNodes
      * @return int[]
      */
     private static function getCoveredStatements(DOMNodeList|false $statementNodes): array
