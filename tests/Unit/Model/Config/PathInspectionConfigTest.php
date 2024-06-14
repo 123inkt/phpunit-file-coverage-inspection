@@ -7,7 +7,7 @@ use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig::class)]
+#[CoversClass(PathInspectionConfig::class)]
 class PathInspectionConfigTest extends TestCase
 {
     public function testAccessors(): void

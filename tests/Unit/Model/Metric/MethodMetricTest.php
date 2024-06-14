@@ -8,7 +8,7 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\MethodMetric;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Model\Metric\MethodMetric::class)]
+#[CoversClass(MethodMetric::class)]
 class MethodMetricTest extends TestCase
 {
     use AccessorPairAsserter;

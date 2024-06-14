@@ -10,7 +10,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Lib\IO\MetricsFactory::class)]
+#[CoversClass(MetricsFactory::class)]
 class MetricsFactoryTest extends TestCase
 {
     #[DataProvider('multiFilesDataProvider')]

@@ -12,8 +12,8 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\CustomCoverageAboveGlobalInspection::class)]
-#[CoversClass(AbstractInspection::__construct)]
+#[CoversClass(CustomCoverageAboveGlobalInspection::class)]
+#[CoversClass(AbstractInspection::class)]
 class CustomCoverageAboveGlobalInspectionTest extends TestCase
 {
     private CustomCoverageAboveGlobalInspection $inspection;

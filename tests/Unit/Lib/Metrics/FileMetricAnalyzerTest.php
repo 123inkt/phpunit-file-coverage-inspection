@@ -9,7 +9,7 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\MethodMetric;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Lib\Metrics\FileMetricAnalyzer::class)]
+#[CoversClass(FileMetricAnalyzer::class)]
 class FileMetricAnalyzerTest extends TestCase
 {
     public function testGetUncoveredMethodMetricShouldReturnNullForFileWithoutMethods(): void

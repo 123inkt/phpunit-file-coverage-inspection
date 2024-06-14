@@ -8,7 +8,7 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric::class)]
+#[CoversClass(FileMetric::class)]
 class FileMetricTest extends TestCase
 {
     use AccessorPairAsserter;

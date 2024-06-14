@@ -11,7 +11,7 @@ use DOMXPath;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Lib\Utility\XMLUtil::class)]
+#[CoversClass(XMLUtil::class)]
 class XMLUtilTest extends TestCase
 {
     public function testQueryInvalidPath(): void

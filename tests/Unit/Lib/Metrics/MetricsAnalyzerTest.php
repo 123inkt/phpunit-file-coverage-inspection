@@ -12,7 +12,7 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\MethodMetric;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Lib\Metrics\MetricsAnalyzer::class)]
+#[CoversClass(MetricsAnalyzer::class)]
 class MetricsAnalyzerTest extends TestCase
 {
     public function testAnalyzeFileAboveMinimumShouldPass(): void

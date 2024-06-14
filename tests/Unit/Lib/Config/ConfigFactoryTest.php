@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\InputInterface;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Lib\Config\ConfigFactory::class)]
+#[CoversClass(ConfigFactory::class)]
 class ConfigFactoryTest extends TestCase
 {
     private ConfigFactory $factory;

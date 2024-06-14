@@ -12,7 +12,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Renderer\RendererHelper::class)]
+#[CoversClass(RendererHelper::class)]
 class RendererHelperTest extends TestCase
 {
     private InspectionConfig $config;

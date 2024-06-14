@@ -9,7 +9,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Lib\IO\InspectionConfigFactory::class)]
+#[CoversClass(InspectionConfigFactory::class)]
 class InspectionConfigFactoryTest extends TestCase
 {
     public function testFromDOMDocument(): void

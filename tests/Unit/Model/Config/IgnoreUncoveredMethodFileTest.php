@@ -7,7 +7,7 @@ use DigitalRevolution\CodeCoverageInspection\Model\Config\IgnoreUncoveredMethodF
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Model\Config\IgnoreUncoveredMethodFile::class)]
+#[CoversClass(IgnoreUncoveredMethodFile::class)]
 class IgnoreUncoveredMethodFileTest extends TestCase
 {
     public function testGetFilepath(): void

@@ -10,7 +10,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Lib\IO\PathInspectionConfigFactory::class)]
+#[CoversClass(PathInspectionConfigFactory::class)]
 class PathInspectionConfigFactoryTest extends TestCase
 {
     /**

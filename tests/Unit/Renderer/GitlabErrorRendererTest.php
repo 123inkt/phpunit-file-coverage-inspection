@@ -11,7 +11,7 @@ use JsonException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Renderer\GitlabErrorRenderer::class)]
+#[CoversClass(GitlabErrorRenderer::class)]
 class GitlabErrorRendererTest extends TestCase
 {
     /**

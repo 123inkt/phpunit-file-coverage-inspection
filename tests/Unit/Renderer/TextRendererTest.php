@@ -10,7 +10,7 @@ use DigitalRevolution\CodeCoverageInspection\Renderer\TextRenderer;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Renderer\TextRenderer::class)]
+#[CoversClass(TextRenderer::class)]
 class TextRendererTest extends TestCase
 {
     public function testRenderGlobalCoverageTooLow(): void

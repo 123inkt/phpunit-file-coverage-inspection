@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use SplFileInfo;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Lib\IO\DOMDocumentFactory::class)]
+#[CoversClass(DOMDocumentFactory::class)]
 class DOMDocumentFactoryTest extends TestCase
 {
     /** @var resource */

@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Lib\Utility\FileUtil::class)]
+#[CoversClass(FileUtil::class)]
 class FileUtilTest extends TestCase
 {
     private vfsStreamDirectory $fileSystem;

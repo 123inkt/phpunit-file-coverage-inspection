@@ -8,7 +8,7 @@ use DigitalRevolution\CodeCoverageInspection\Lib\Config\ConfigViolation;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Lib\Config\ConfigViolation::class)]
+#[CoversClass(ConfigViolation::class)]
 class ConfigViolationTest extends TestCase
 {
     use AccessorPairAsserter;

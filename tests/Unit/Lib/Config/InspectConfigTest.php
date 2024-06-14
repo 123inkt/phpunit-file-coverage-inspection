@@ -8,7 +8,7 @@ use DigitalRevolution\CodeCoverageInspection\Lib\Config\InspectConfig;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Lib\Config\InspectConfig::class)]
+#[CoversClass(InspectConfig::class)]
 class InspectConfigTest extends TestCase
 {
     use AccessorPairAsserter;

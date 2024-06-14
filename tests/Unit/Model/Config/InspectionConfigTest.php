@@ -11,7 +11,7 @@ use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig::class)]
+#[CoversClass(InspectionConfig::class)]
 class InspectionConfigTest extends TestCase
 {
     use AccessorPairAsserter;

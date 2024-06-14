@@ -8,7 +8,7 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure::class)]
+#[CoversClass(Failure::class)]
 class FailureTest extends TestCase
 {
     use AccessorPairAsserter;

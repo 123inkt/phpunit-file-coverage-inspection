@@ -14,8 +14,8 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\MethodMetric;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\UncoveredMethodsInspection::class)]
-#[CoversClass(AbstractInspection::__construct)]
+#[CoversClass(UncoveredMethodsInspection::class)]
+#[CoversClass(AbstractInspection::class)]
 class UncoveredMethodsInspectionTest extends TestCase
 {
     private InspectionConfig $config;

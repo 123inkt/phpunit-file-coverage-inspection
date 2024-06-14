@@ -10,7 +10,7 @@ use DigitalRevolution\CodeCoverageInspection\Renderer\ConfigFileRenderer;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Renderer\ConfigFileRenderer::class)]
+#[CoversClass(ConfigFileRenderer::class)]
 class ConfigFileRendererTest extends TestCase
 {
     public function testWrite(): void
