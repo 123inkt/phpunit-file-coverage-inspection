@@ -8,12 +8,11 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\MethodMetric;
 use DigitalRevolution\CodeCoverageInspection\Renderer\RendererHelper;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Renderer\RendererHelper
- */
+#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Renderer\RendererHelper::class)]
 class RendererHelperTest extends TestCase
 {
     private InspectionConfig $config;
@@ -23,9 +22,6 @@ class RendererHelperTest extends TestCase
         $this->config = new InspectionConfig('base-path', 80);
     }
 
-    /**
-     * @covers ::renderReason
-     */
     public function testRenderReasonGlobalCoverageTooLow(): void
     {
         $metric  = new FileMetric('foobar', 0, 80, [], []);
@@ -35,9 +31,6 @@ class RendererHelperTest extends TestCase
         static::assertSame('Project per file coverage is configured at 20%. Current coverage is at 80%. Improve coverage for this class.', $message);
     }
 
-    /**
-     * @covers ::renderReason
-     */
     public function testRenderReasonCustomCoverageTooLow(): void
     {
         $metric  = new FileMetric('foobar', 0, 70, [], []);
@@ -47,9 +40,6 @@ class RendererHelperTest extends TestCase
         static::assertSame('Custom file coverage is configured at 30%. Current coverage is at 70%. Improve coverage for this class.', $message);
     }
 
-    /**
-     * @covers ::renderReason
-     */
     public function testRenderReasonMissingMethodCoverage(): void
     {
         $metric  = new FileMetric('foobar', 0, 70, [new MethodMetric('coveredMethod', 100, 80), new MethodMetric('uncoveredMethod', 105, 0)], []);
@@ -59,9 +49,6 @@ class RendererHelperTest extends TestCase
         static::assertSame('File coverage is above 80%, but method(s) `uncoveredMethod` has/have no coverage at all.', $message);
     }
 
-    /**
-     * @covers ::renderReason
-     */
     public function testRenderReasonUnnecessaryCustomCoverage(): void
     {
         $metric  = new FileMetric('foobar', 0, 70, [], []);
@@ -75,9 +62,6 @@ class RendererHelperTest extends TestCase
         );
     }
 
-    /**
-     * @covers ::renderReason
-     */
     public function testRenderReasonShouldThrowExceptionWhenInvalid(): void
     {
         $metric  = new FileMetric('foobar', 0, 70, [], []);

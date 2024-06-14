@@ -7,12 +7,11 @@ use DigitalRevolution\CodeCoverageInspection\Lib\Utility\FileUtil;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamFile;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\Utility\FileUtil
- */
+#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Lib\Utility\FileUtil::class)]
 class FileUtilTest extends TestCase
 {
     private vfsStreamDirectory $fileSystem;
@@ -23,25 +22,16 @@ class FileUtilTest extends TestCase
         $this->fileSystem = vfsStream::setup('output');
     }
 
-    /**
-     * @covers ::findFilePath
-     */
     public function testFindFilePathMissingDirectory(): void
     {
         static::assertNull(FileUtil::findFilePath('/non-existing-file-path/', []));
     }
 
-    /**
-     * @covers ::findFilePath
-     */
     public function testFindFilePathMissingFile(): void
     {
         static::assertNull(FileUtil::findFilePath($this->fileSystem->url(), ['non-existing-file']));
     }
 
-    /**
-     * @covers ::findFilePath
-     */
     public function testFindFilePathForExistingFile(): void
     {
         $path     = $this->fileSystem->url();
@@ -54,9 +44,6 @@ class FileUtilTest extends TestCase
         static::assertSame($filepath, FileUtil::findFilePath($path, ['non-existing-file', $file]));
     }
 
-    /**
-     * @covers ::getFile
-     */
     public function testGetFileMissingThrowsException(): void
     {
         $this->expectException(RuntimeException::class);
@@ -64,9 +51,6 @@ class FileUtilTest extends TestCase
         FileUtil::getFile(false);
     }
 
-    /**
-     * @covers ::getFile
-     */
     public function testGetFileShouldPass(): void
     {
         $path = '/a/b/c.txt';
@@ -75,9 +59,6 @@ class FileUtilTest extends TestCase
         static::assertSame($path, $file->getPathname());
     }
 
-    /**
-     * @covers ::getExistingFile
-     */
     public function testGetExistingFileThrowsExceptionWhenAbsent(): void
     {
         $this->expectException(RuntimeException::class);
@@ -85,9 +66,6 @@ class FileUtilTest extends TestCase
         FileUtil::getExistingFile($this->fileSystem->url() . 'missing-file.txt');
     }
 
-    /**
-     * @covers ::getExistingFile
-     */
     public function testGetExistingFileShouldPass(): void
     {
         $filepath = $this->fileSystem->url() . '/existing-file.txt';
@@ -97,9 +75,6 @@ class FileUtilTest extends TestCase
         static::assertSame($filepath, $file->getPathname());
     }
 
-    /**
-     * @covers ::getRelativePath
-     */
     public function testGetRelativePath(): void
     {
         static::assertSame('b/c.txt', FileUtil::getRelativePath('/a/b/c.txt', '/a/'));
@@ -107,9 +82,6 @@ class FileUtilTest extends TestCase
         static::assertSame('/a/b/c.txt', FileUtil::getRelativePath('/a/b/c.txt', '/c/'));
     }
 
-    /**
-     * @covers ::writeTo
-     */
     public function testWriteTo(): void
     {
         $filepath = $this->fileSystem->url() . '/foo/bar/text.txt';
@@ -122,9 +94,6 @@ class FileUtilTest extends TestCase
         static::assertSame('foobar', $result->getContent());
     }
 
-    /**
-     * @covers ::writeTo
-     */
     public function testWriteFileToPhpStream(): void
     {
         $filepath = "php://output";

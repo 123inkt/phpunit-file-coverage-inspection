@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Metrics\Inspection;
 
+use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\AbstractInspection;
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\UncoveredMethodsInspection;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\IgnoreUncoveredMethodFile;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
@@ -10,12 +11,11 @@ use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\MethodMetric;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\UncoveredMethodsInspection
- * @covers \DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\AbstractInspection::__construct
- */
+#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\UncoveredMethodsInspection::class)]
+#[CoversClass(AbstractInspection::__construct)]
 class UncoveredMethodsInspectionTest extends TestCase
 {
     private InspectionConfig $config;
@@ -27,9 +27,6 @@ class UncoveredMethodsInspectionTest extends TestCase
         $this->inspection = new UncoveredMethodsInspection($this->config);
     }
 
-    /**
-     * @covers ::inspect
-     */
     public function testInspectCustomCoverageShouldPass(): void
     {
         $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '/tmp/b', 40);
@@ -38,9 +35,6 @@ class UncoveredMethodsInspectionTest extends TestCase
         static::assertNull($this->inspection->inspect($fileConfig, $metric));
     }
 
-    /**
-     * @covers ::inspect
-     */
     public function testInspectNoUncoveredMethodsShouldPass(): void
     {
         $metric = new FileMetric('/tmp/b', 0, 20, [new MethodMetric('foobar', 200, 10)], []);
@@ -48,9 +42,6 @@ class UncoveredMethodsInspectionTest extends TestCase
         static::assertNull($this->inspection->inspect(null, $metric));
     }
 
-    /**
-     * @covers ::inspect
-     */
     public function testInspectUncoveredMethodsShouldFail(): void
     {
         $metric = new FileMetric('/tmp/b', 0, 20, [new MethodMetric('foobar', 200, 0)], []);
@@ -62,9 +53,6 @@ class UncoveredMethodsInspectionTest extends TestCase
         static::assertSame(200, $failure->getLineNumber());
     }
 
-    /**
-     * @covers ::inspect
-     */
     public function testInspectIgnoredUncoveredMethodShouldPass(): void
     {
         $metric = new FileMetric('/tmp/b', 0, 20, [new MethodMetric('foobar', 200, 0)], []);

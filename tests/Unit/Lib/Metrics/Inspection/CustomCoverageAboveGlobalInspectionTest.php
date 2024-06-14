@@ -3,17 +3,17 @@ declare(strict_types=1);
 
 namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Metrics\Inspection;
 
+use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\AbstractInspection;
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\CustomCoverageAboveGlobalInspection;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\CustomCoverageAboveGlobalInspection
- * @covers \DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\AbstractInspection::__construct
- */
+#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\CustomCoverageAboveGlobalInspection::class)]
+#[CoversClass(AbstractInspection::__construct)]
 class CustomCoverageAboveGlobalInspectionTest extends TestCase
 {
     private CustomCoverageAboveGlobalInspection $inspection;
@@ -24,17 +24,11 @@ class CustomCoverageAboveGlobalInspectionTest extends TestCase
         $this->inspection = new CustomCoverageAboveGlobalInspection($config);
     }
 
-    /**
-     * @covers ::inspect
-     */
     public function testInspectNoCustomCoverageShouldPass(): void
     {
         static::assertNull($this->inspection->inspect(null, new FileMetric('/tmp/b/', 0, 0, [], [])));
     }
 
-    /**
-     * @covers ::inspect
-     */
     public function testInspectCoverageBelowGlobalCoverageShouldPass(): void
     {
         $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '/tmp/b', 40);
@@ -43,9 +37,6 @@ class CustomCoverageAboveGlobalInspectionTest extends TestCase
         static::assertNull($this->inspection->inspect($fileConfig, $metric));
     }
 
-    /**
-     * @covers ::inspect
-     */
     public function testInspectCoverageAboveGlobalCoverageShouldFail(): void
     {
         $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '/tmp/b', 40);
@@ -57,9 +48,6 @@ class CustomCoverageAboveGlobalInspectionTest extends TestCase
         static::assertSame(40, $failure->getMinimumCoverage());
     }
 
-    /**
-     * @covers ::inspect
-     */
     public function testInspectCoverageCustomCoverageAboveGlobalCoverageShouldPass(): void
     {
         // global is 80

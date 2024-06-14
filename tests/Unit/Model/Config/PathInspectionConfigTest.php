@@ -4,16 +4,12 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Model\Config;
 
 use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig
- */
+#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig::class)]
 class PathInspectionConfigTest extends TestCase
 {
-    /**
-     * @covers ::<public>
-     */
     public function testAccessors(): void
     {
         $config = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, 'path', 86);
@@ -23,29 +19,18 @@ class PathInspectionConfigTest extends TestCase
         static::assertSame(86, $config->getMinimumCoverage());
     }
 
-    /**
-     * @covers ::__construct
-     * @covers ::getPath
-     */
     public function testGetPathNormalizeSlashes(): void
     {
         $config = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '\\path\\to\\file', 86);
         static::assertSame('/path/to/file', $config->getPath());
     }
 
-    /**
-     * @covers ::__construct
-     * @covers ::getPath
-     */
     public function testGetPathNormalizeDirectory(): void
     {
         $config = new PathInspectionConfig(PathInspectionConfig::TYPE_DIR, '\\path\\to/directory', 86);
         static::assertSame('path/to/directory/', $config->getPath());
     }
 
-    /**
-     * @covers ::compare
-     */
     public function testCompareFileAndDirectory(): void
     {
         $configA = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, 'foobar', 40);
@@ -56,9 +41,6 @@ class PathInspectionConfigTest extends TestCase
         static::assertSame(-1, $configB->compare($configA));
     }
 
-    /**
-     * @covers ::compare
-     */
     public function testCompareFileAndFile(): void
     {
         $configA = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, 'foobar', 40);
@@ -69,9 +51,6 @@ class PathInspectionConfigTest extends TestCase
         static::assertSame(0, $configB->compare($configA));
     }
 
-    /**
-     * @covers ::compare
-     */
     public function testCompareDirectoryAndDirectory(): void
     {
         $configA = new PathInspectionConfig(PathInspectionConfig::TYPE_DIR, 'a/very/long/directory/', 40);

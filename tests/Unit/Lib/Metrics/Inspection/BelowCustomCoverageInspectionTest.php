@@ -9,12 +9,11 @@ use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\BelowCustomCoverageInspection
- * @covers \DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\AbstractInspection::__construct
- */
+#[CoversClass(BelowCustomCoverageInspection::class)]
+#[CoversClass(AbstractInspection::class)]
 class BelowCustomCoverageInspectionTest extends TestCase
 {
     private BelowCustomCoverageInspection $inspection;
@@ -25,9 +24,6 @@ class BelowCustomCoverageInspectionTest extends TestCase
         $this->inspection = new BelowCustomCoverageInspection($config);
     }
 
-    /**
-     * @covers ::inspect
-     */
     public function testInspectNoCustomCoverageShouldPass(): void
     {
         static::assertNull($this->inspection->inspect(null, new FileMetric('/tmp/a/', 0, 0, [], [])));
@@ -35,7 +31,6 @@ class BelowCustomCoverageInspectionTest extends TestCase
 
     /**
      * Custom coverage 40%
-     * @covers ::inspect
      */
     public function testInspectCoverageBelowCustomCoverageShouldFail(): void
     {
@@ -48,9 +43,6 @@ class BelowCustomCoverageInspectionTest extends TestCase
         static::assertSame(40, $failure->getMinimumCoverage());
     }
 
-    /**
-     * @covers ::inspect
-     */
     public function testInspectCoverageAboveCustomCoverageShouldPass(): void
     {
         $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '/tmp/b', 40);

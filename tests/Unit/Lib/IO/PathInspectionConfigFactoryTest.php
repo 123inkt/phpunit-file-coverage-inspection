@@ -6,16 +6,14 @@ namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\IO;
 use DigitalRevolution\CodeCoverageInspection\Lib\IO\PathInspectionConfigFactory;
 use DOMDocument;
 use DOMException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\IO\PathInspectionConfigFactory
- */
+#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Lib\IO\PathInspectionConfigFactory::class)]
 class PathInspectionConfigFactoryTest extends TestCase
 {
     /**
-     * @covers ::createFromNode
      * @throws DOMException
      */
     public function testCreateFromNodeInvalidNodeThrowsException(): void
@@ -29,7 +27,6 @@ class PathInspectionConfigFactoryTest extends TestCase
     }
 
     /**
-     * @covers ::createFromNode
      * @throws DOMException
      */
     public function testCreateFromNodeForTypeFile(): void
@@ -53,7 +50,6 @@ class PathInspectionConfigFactoryTest extends TestCase
     }
 
     /**
-     * @covers ::createFromNode
      * @throws DOMException
      */
     public function testCreateFromNodeForTypeDirectory(): void

@@ -8,11 +8,13 @@ use Exception;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamFile;
+use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
+#[CoversNothing]
 class BaselineCommandTest extends TestCase
 {
     /** @var vfsStreamDirectory */
@@ -25,7 +27,6 @@ class BaselineCommandTest extends TestCase
     }
 
     /**
-     * @coversNothing
      * @throws Exception
      */
     public function testBaselineCommand(): void

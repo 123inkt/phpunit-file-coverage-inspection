@@ -8,17 +8,13 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\MethodMetric;
 use DigitalRevolution\CodeCoverageInspection\Renderer\CheckStyleRenderer;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Renderer\CheckStyleRenderer
- */
+#[CoversClass(\DigitalRevolution\CodeCoverageInspection\Renderer\CheckStyleRenderer::class)]
 class CheckStyleRendererTest extends TestCase
 {
-    /**
-     * @covers ::render
-     */
     public function testRenderGlobalCoverageTooLow(): void
     {
         $config  = new InspectionConfig('', 80);
@@ -40,9 +36,6 @@ class CheckStyleRendererTest extends TestCase
         );
     }
 
-    /**
-     * @covers ::render
-     */
     public function testRenderFileCoverageTooLow(): void
     {
         $config  = new InspectionConfig('', 80);
@@ -64,9 +57,6 @@ class CheckStyleRendererTest extends TestCase
         );
     }
 
-    /**
-     * @covers ::render
-     */
     public function testRenderMissingMethodCoverage(): void
     {
         $config  = new InspectionConfig('', 80);
@@ -88,9 +78,6 @@ class CheckStyleRendererTest extends TestCase
         );
     }
 
-    /**
-     * @covers ::render
-     */
     public function testRenderUnnecessaryFileCoverage(): void
     {
         $config  = new InspectionConfig('', 80);
@@ -113,9 +100,6 @@ class CheckStyleRendererTest extends TestCase
         );
     }
 
-    /**
-     * @covers ::render
-     */
     public function testRenderInvalidReasonThrowsException(): void
     {
         $config     = new InspectionConfig('', 80);
