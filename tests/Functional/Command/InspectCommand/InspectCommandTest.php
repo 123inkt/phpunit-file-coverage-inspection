@@ -62,7 +62,7 @@ class InspectCommandTest extends TestCase
     /**
      * @return array<string, array{0: string[], 1:int}>
      */
-    public function dataProvider(): array
+    public static function dataProvider(): array
     {
         return [
             'standard exit code'   => [[], Command::SUCCESS],
