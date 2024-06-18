@@ -9,17 +9,12 @@ use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\MethodMetric;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\Metrics\MetricsAnalyzer
- * @covers ::__construct
- */
+#[CoversClass(MetricsAnalyzer::class)]
 class MetricsAnalyzerTest extends TestCase
 {
-    /**
-     * @covers ::analyze
-     */
     public function testAnalyzeFileAboveMinimumShouldPass(): void
     {
         $metrics[] = new FileMetric('/a/b/c/test.php', 0, 80, [], []);
@@ -30,9 +25,6 @@ class MetricsAnalyzerTest extends TestCase
         static::assertEmpty($result);
     }
 
-    /**
-     * @covers ::analyze
-     */
     public function testAnalyzeFileBelowMinimumShouldFail(): void
     {
         $metric  = new FileMetric('/a/b/c/test.php', 0, 79.4, [], []);
@@ -45,9 +37,6 @@ class MetricsAnalyzerTest extends TestCase
         static::assertEquals([new Failure($metric, 80, Failure::GLOBAL_COVERAGE_TOO_LOW)], $result);
     }
 
-    /**
-     * @covers ::analyze
-     */
     public function testAnalyzeFileWithCustomCoverageRuleShouldPass(): void
     {
         $metrics[] = new FileMetric('/a/b/c/test.php', 0, 45, [], []);
@@ -59,9 +48,6 @@ class MetricsAnalyzerTest extends TestCase
         static::assertEmpty($result);
     }
 
-    /**
-     * @covers ::analyze
-     */
     public function testAnalyzeFileWithCustomCoverageRuleShouldFail(): void
     {
         $metric  = new FileMetric('/a/b/c/test.php', 0, 45, [], []);
@@ -75,9 +61,6 @@ class MetricsAnalyzerTest extends TestCase
         static::assertEquals([new Failure($metric, 50, Failure::CUSTOM_COVERAGE_TOO_LOW)], $result);
     }
 
-    /**
-     * @covers ::analyze
-     */
     public function testAnalyzeFileWithCustomCoverageAboveGlobalCoverageShouldFail(): void
     {
         $metric  = new FileMetric('/a/b/c/test.php', 0, 90, [], []);
@@ -91,9 +74,6 @@ class MetricsAnalyzerTest extends TestCase
         static::assertEquals([new Failure($metric, 50, Failure::UNNECESSARY_CUSTOM_COVERAGE)], $result);
     }
 
-    /**
-     * @covers ::analyze
-     */
     public function testAnalyzeFileWithUncoveredMethodsShouldFail(): void
     {
         $metric    = new FileMetric('/a/b/c/test.php', 0, 80, [new MethodMetric('foobar', 10, 0)], []);
@@ -106,9 +86,6 @@ class MetricsAnalyzerTest extends TestCase
         static::assertEquals([new Failure($metric, 80, Failure::MISSING_METHOD_COVERAGE, 10)], $result);
     }
 
-    /**
-     * @covers ::analyze
-     */
     public function testAnalyzeFileWithoutAnyUncoveredMethodsShouldPass(): void
     {
         $metric    = new FileMetric('/a/b/c/test.php', 0, 80, [new MethodMetric('foobar', 10, 20)], []);
@@ -119,9 +96,6 @@ class MetricsAnalyzerTest extends TestCase
         static::assertEmpty($analyzer->analyze());
     }
 
-    /**
-     * @covers ::analyze
-     */
     public function testAnalyzeFileWithUncoveredMethodsButAllowedShouldPass(): void
     {
         $metric    = new FileMetric('/a/b/c/test.php', 0, 80, [new MethodMetric('foobar', 10, 0)], []);

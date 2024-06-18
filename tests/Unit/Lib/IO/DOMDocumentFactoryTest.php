@@ -4,13 +4,12 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\IO;
 
 use DigitalRevolution\CodeCoverageInspection\Lib\IO\DOMDocumentFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use SplFileInfo;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\IO\DOMDocumentFactory
- */
+#[CoversClass(DOMDocumentFactory::class)]
 class DOMDocumentFactoryTest extends TestCase
 {
     /** @var resource */
@@ -27,9 +26,6 @@ class DOMDocumentFactoryTest extends TestCase
         $this->schemaPath = dirname(__DIR__, 4) . '/resources/phpfci.xsd';
     }
 
-    /**
-     * @covers ::getDOMDocument
-     */
     public function testGetDOMDocumentMissingFileShouldFail(): void
     {
         $file = new SplFileInfo('/a/b/c');
@@ -38,10 +34,6 @@ class DOMDocumentFactoryTest extends TestCase
         DOMDocumentFactory::getDOMDocument($file);
     }
 
-    /**
-     * @covers ::getDOMDocument
-     * @covers ::getValidatedDOMDocument
-     */
     public function testGetDOMDocumentShouldPass(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
@@ -56,10 +48,6 @@ class DOMDocumentFactoryTest extends TestCase
         static::assertSame('1.0', $dom->xmlVersion);
     }
 
-    /**
-     * @covers ::getDOMDocument
-     * @covers ::getValidatedDOMDocument
-     */
     public function testGetDOMDocumentWithoutCustomCoverageShouldPass(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
@@ -71,10 +59,6 @@ class DOMDocumentFactoryTest extends TestCase
         static::assertSame('1.0', $dom->xmlVersion);
     }
 
-    /**
-     * @covers ::getDOMDocument
-     * @covers ::getValidatedDOMDocument
-     */
     public function testGetDOMDocumentWithInvalidCoverageShouldFail(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
@@ -88,10 +72,6 @@ class DOMDocumentFactoryTest extends TestCase
         DOMDocumentFactory::getValidatedDOMDocument($this->fileInfo, $this->schemaPath);
     }
 
-    /**
-     * @covers ::getDOMDocument
-     * @covers ::getValidatedDOMDocument
-     */
     public function testGetDOMDocumentWithInvalidCoverage(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>

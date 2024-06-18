@@ -7,16 +7,12 @@ use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 use DigitalRevolution\CodeCoverageInspection\Renderer\ConfigFileRenderer;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Renderer\ConfigFileRenderer
- */
+#[CoversClass(ConfigFileRenderer::class)]
 class ConfigFileRendererTest extends TestCase
 {
-    /**
-     * @covers ::render
-     */
     public function testWrite(): void
     {
         $config  = new InspectionConfig('/foo/', 100);

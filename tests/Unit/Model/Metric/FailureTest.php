@@ -5,19 +5,14 @@ namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Model\Metric;
 
 use DigitalRevolution\AccessorPairConstraint\AccessorPairAsserter;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure
- * @covers ::__construct
- */
+#[CoversClass(Failure::class)]
 class FailureTest extends TestCase
 {
     use AccessorPairAsserter;
 
-    /**
-     * @covers ::<public>
-     */
     public function testAccessors(): void
     {
         static::assertAccessorPairs(Failure::class);

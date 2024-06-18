@@ -5,18 +5,13 @@ namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\IO;
 
 use DigitalRevolution\CodeCoverageInspection\Lib\IO\InspectionConfigFactory;
 use DOMDocument;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\IO\InspectionConfigFactory
- */
+#[CoversClass(InspectionConfigFactory::class)]
 class InspectionConfigFactoryTest extends TestCase
 {
-    /**
-     * @covers ::fromDOMDocument
-     * @covers ::getInspectionConfig
-     */
     public function testFromDOMDocument(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
@@ -47,10 +42,6 @@ class InspectionConfigFactoryTest extends TestCase
         static::assertSame('a/b/c', $file->getPath());
     }
 
-    /**
-     * @covers ::fromDOMDocument
-     * @covers ::getInspectionConfig
-     */
     public function testFromDOMDocumentWithUncoveredMethodsAllowed(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
@@ -64,10 +55,6 @@ class InspectionConfigFactoryTest extends TestCase
         static::assertTrue($config->isUncoveredAllowed());
     }
 
-    /**
-     * @covers ::fromDOMDocument
-     * @covers ::getInspectionConfig
-     */
     public function testFromDOMDocumentWithUncoveredMethodsForcedDisallowed(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
@@ -81,10 +68,6 @@ class InspectionConfigFactoryTest extends TestCase
         static::assertFalse($config->isUncoveredAllowed());
     }
 
-    /**
-     * @covers ::fromDOMDocument
-     * @covers ::getInspectionConfig
-     */
     public function testFromDOMDocumentWithIgnoreUncoveredMethods(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
@@ -102,10 +85,6 @@ class InspectionConfigFactoryTest extends TestCase
         static::assertTrue($config->hasIgnoreUncoveredMethodFile('a/b/c'));
     }
 
-    /**
-     * @covers ::fromDOMDocument
-     * @covers ::getInspectionConfig
-     */
     public function testFromDOMDocumentInvalidFormatThrowsException(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>

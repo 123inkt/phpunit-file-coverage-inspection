@@ -6,16 +6,12 @@ namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Metrics;
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\FileMetricAnalyzer;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\MethodMetric;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\Metrics\FileMetricAnalyzer
- */
+#[CoversClass(FileMetricAnalyzer::class)]
 class FileMetricAnalyzerTest extends TestCase
 {
-    /**
-     * @covers ::getUncoveredMethodMetric
-     */
     public function testGetUncoveredMethodMetricShouldReturnNullForFileWithoutMethods(): void
     {
         $fileMetric = new FileMetric('/tmp/a/', 0, 20, [], []);
@@ -23,9 +19,6 @@ class FileMetricAnalyzerTest extends TestCase
         static::assertNull(FileMetricAnalyzer::getUncoveredMethodMetric($fileMetric));
     }
 
-    /**
-     * @covers ::getUncoveredMethodMetric
-     */
     public function testGetUncoveredMethodMetricShouldReturnMethodWithoutCoverage(): void
     {
         $metricA    = new MethodMetric('A', 5, 1);
@@ -37,9 +30,6 @@ class FileMetricAnalyzerTest extends TestCase
         static::assertSame($metricB, $result);
     }
 
-    /**
-     * @covers ::getUncoveredMethodMetric
-     */
     public function testGetUncoveredMethodMetricShouldReturnNullForMethodsThatAreCovered(): void
     {
         $metricA    = new MethodMetric('A', 5, 2);

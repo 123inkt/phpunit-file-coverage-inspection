@@ -5,19 +5,14 @@ namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Config;
 
 use DigitalRevolution\AccessorPairConstraint\AccessorPairAsserter;
 use DigitalRevolution\CodeCoverageInspection\Lib\Config\InspectConfig;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\Config\InspectConfig
- * @covers ::__construct
- */
+#[CoversClass(InspectConfig::class)]
 class InspectConfigTest extends TestCase
 {
     use AccessorPairAsserter;
 
-    /**
-     * @covers ::<public>
-     */
     public function testAccessorPairs(): void
     {
         static::assertAccessorPairs(InspectConfig::class);

@@ -8,15 +8,13 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 use DigitalRevolution\CodeCoverageInspection\Renderer\GitlabErrorRenderer;
 use JsonException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Renderer\GitlabErrorRenderer
- */
+#[CoversClass(GitlabErrorRenderer::class)]
 class GitlabErrorRendererTest extends TestCase
 {
     /**
-     * @covers ::render
      * @throws JsonException
      */
     public function testRender(): void

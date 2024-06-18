@@ -7,16 +7,12 @@ use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 use DigitalRevolution\CodeCoverageInspection\Renderer\TextRenderer;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Renderer\TextRenderer
- */
+#[CoversClass(TextRenderer::class)]
 class TextRendererTest extends TestCase
 {
-    /**
-     * @covers ::render
-     */
     public function testRenderGlobalCoverageTooLow(): void
     {
         $config   = new InspectionConfig('', 80);

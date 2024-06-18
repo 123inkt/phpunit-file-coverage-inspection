@@ -6,16 +6,14 @@ namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\IO;
 use DigitalRevolution\CodeCoverageInspection\Lib\IO\IgnoreUncoveredMethodFileFactory;
 use DOMDocument;
 use DOMException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\IO\IgnoreUncoveredMethodFileFactory
- */
+#[CoversClass(IgnoreUncoveredMethodFileFactory::class)]
 class IgnoreUncoveredMethodFileFactoryTest extends TestCase
 {
     /**
-     * @covers ::createFromNode
      * @throws DOMException
      */
     public function testCreateFromNodeInvalidNodeThrowsException(): void
@@ -29,7 +27,6 @@ class IgnoreUncoveredMethodFileFactoryTest extends TestCase
     }
 
     /**
-     * @covers ::createFromNode
      * @throws DOMException
      */
     public function testCreateFromNode(): void

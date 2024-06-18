@@ -7,13 +7,11 @@ use DigitalRevolution\CodeCoverageInspection\Lib\Config\ConfigFactory;
 use DigitalRevolution\CodeCoverageInspection\Lib\Config\ConfigViolation;
 use DigitalRevolution\CodeCoverageInspection\Lib\Config\InspectConfig;
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\InputInterface;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\Config\ConfigFactory
- * @covers ::getReport
- */
+#[CoversClass(ConfigFactory::class)]
 class ConfigFactoryTest extends TestCase
 {
     private ConfigFactory $factory;
@@ -25,9 +23,6 @@ class ConfigFactoryTest extends TestCase
         $this->factory  = new ConfigFactory();
     }
 
-    /**
-     * @covers ::createInspectConfig
-     */
     public function testCreateInspectConfigMinimal(): void
     {
         $configPath   = $this->filepath . 'config.xml';
@@ -50,9 +45,6 @@ class ConfigFactoryTest extends TestCase
         static::assertTrue($config->isExitCodeOnFailure());
     }
 
-    /**
-     * @covers ::createInspectConfig
-     */
     public function testCreateInspectConfigMultiReport(): void
     {
         $configPath   = $this->filepath . 'config.xml';
@@ -75,9 +67,6 @@ class ConfigFactoryTest extends TestCase
         static::assertFalse($config->isExitCodeOnFailure());
     }
 
-    /**
-     * @covers ::createInspectConfig
-     */
     public function testCreateInspectConfigInvalidCoverage(): void
     {
         $configPath   = $this->filepath . 'config.xml';
@@ -93,9 +82,6 @@ class ConfigFactoryTest extends TestCase
         static::assertEquals(new ConfigViolation('Coverage argument should be an array'), $config);
     }
 
-    /**
-     * @covers ::createInspectConfig
-     */
     public function testCreateInspectConfigInvalidBaseDir(): void
     {
         $configPath   = $this->filepath . 'config.xml';
@@ -111,9 +97,6 @@ class ConfigFactoryTest extends TestCase
         static::assertEquals(new ConfigViolation('--base-dir expecting a value string as argument'), $config);
     }
 
-    /**
-     * @covers ::createInspectConfig
-     */
     public function testCreateInspectConfigInvalidGitlabReport(): void
     {
         $configPath   = $this->filepath . 'config.xml';
@@ -129,9 +112,6 @@ class ConfigFactoryTest extends TestCase
         static::assertEquals(new ConfigViolation('--reportGitlab expecting the value to absent or string argument'), $config);
     }
 
-    /**
-     * @covers ::createInspectConfig
-     */
     public function testCreateInspectConfigInvalidCheckstyleReport(): void
     {
         $configPath   = $this->filepath . 'config.xml';
@@ -147,9 +127,6 @@ class ConfigFactoryTest extends TestCase
         static::assertEquals(new ConfigViolation('--reportCheckstyle expecting the value to absent or string argument'), $config);
     }
 
-    /**
-     * @covers ::createInspectConfig
-     */
     public function testCreateInspectConfigInvalidTextReport(): void
     {
         $configPath   = $this->filepath . 'config.xml';
@@ -165,9 +142,6 @@ class ConfigFactoryTest extends TestCase
         static::assertEquals(new ConfigViolation('--reportText expecting the value to absent or string argument'), $config);
     }
 
-    /**
-     * @covers ::createInspectConfig
-     */
     public function testCreateInspectConfigDuplicateOutputReport(): void
     {
         $configPath   = $this->filepath . 'config.xml';

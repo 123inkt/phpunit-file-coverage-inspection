@@ -6,21 +6,14 @@ namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\IO;
 use DigitalRevolution\CodeCoverageInspection\Lib\IO\MetricsFactory;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\MethodMetric;
 use DOMDocument;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\IO\MetricsFactory
- */
+#[CoversClass(MetricsFactory::class)]
 class MetricsFactoryTest extends TestCase
 {
-    /**
-     * @covers ::getFilesMetrics
-     * @covers ::getFileMetrics
-     * @covers ::getMethodMetrics
-     * @covers ::mergeFileMetrics
-     * @covers ::getCoveredStatements
-     * @dataProvider multiFilesDataProvider
-     */
+    #[DataProvider('multiFilesDataProvider')]
     public function testGetFilesMetrics(string $file1Data, string $file2Data, int $methods, float $coverage, array $coveredStatements): void
     {
         $xml1 = '<?xml version="1.0" encoding="UTF-8"?>
@@ -53,10 +46,6 @@ class MetricsFactoryTest extends TestCase
         static::assertSame($coveredStatements, $metric->getCoveredStatements());
     }
 
-    /**
-     * @covers ::getFileMetrics
-     * @covers ::getMethodMetrics
-     */
     public function testGetMethodMetrics(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
@@ -91,10 +80,6 @@ class MetricsFactoryTest extends TestCase
         static::assertSame(20.0, $metric->getCoverage());
     }
 
-    /**
-     * @covers ::getFilesMetrics
-     * @covers ::getFileMetrics
-     */
     public function testGetMetricsEmptyXmlShouldReturnEmptyArray(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>

@@ -8,16 +8,12 @@ use DigitalRevolution\CodeCoverageInspection\Lib\Utility\XMLUtil;
 use DOMDocument;
 use DOMException;
 use DOMXPath;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \DigitalRevolution\CodeCoverageInspection\Lib\Utility\XMLUtil
- */
+#[CoversClass(XMLUtil::class)]
 class XMLUtilTest extends TestCase
 {
-    /**
-     * @covers ::query
-     */
     public function testQueryInvalidPath(): void
     {
         $xpath = $this->createMock(DOMXPath::class);
@@ -27,7 +23,6 @@ class XMLUtilTest extends TestCase
     }
 
     /**
-     * @covers ::query
      * @throws DOMException
      */
     public function testQuerySuccessful(): void
@@ -40,9 +35,6 @@ class XMLUtilTest extends TestCase
         static::assertSame([$node], XMLUtil::query($xpath, 'foobar'));
     }
 
-    /**
-     * @covers ::getAttribute
-     */
     public function testGetAttribute(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?><phpfci min-coverage="85"></phpfci>';
@@ -57,9 +49,6 @@ class XMLUtilTest extends TestCase
         static::assertNull(XMLUtil::getAttribute($dom->firstChild, 'unknown'));
     }
 
-    /**
-     * @covers ::getAttribute
-     */
     public function testGetAttributeNodeWithoutAttributesShouldReturnNull(): void
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?><phpfci>text</phpfci>';
