@@ -150,7 +150,7 @@ class ConfigFactoryTest extends TestCase
         touch($coveragePath);
 
         $input = $this->createMock(InputInterface::class);
-        $input->expects(self::exactly(5))->method('getOption')->willReturn($configPath, null, null, null);
+        $input->expects(self::exactly(5))->method('getOption')->willReturn($configPath, null, null, null, null);
         $input->expects(self::once())->method('getArgument')->with('coverage')->willReturn([$coveragePath]);
 
         $config = $this->factory->createInspectConfig($input);
