@@ -31,10 +31,10 @@ class MetricsAnalyzer
         $this->config  = $config;
 
         $this->inspections = [
+            new CustomCoverageAboveGlobalInspection($config),
             new DifferentCustomCoverageInspection($config),
             new BelowGlobalCoverageInspection($config),
-            new UncoveredMethodsInspection($config),
-            new CustomCoverageAboveGlobalInspection($config)
+            new UncoveredMethodsInspection($config)
         ];
     }
 

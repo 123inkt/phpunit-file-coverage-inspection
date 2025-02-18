@@ -21,9 +21,8 @@ class CustomCoverageAboveGlobalInspection extends AbstractInspection
         }
 
         $globalCoverage = $this->config->getMinimumCoverage();
-        $customCoverage = $fileConfig->getMinimumCoverage();
 
-        if ($customCoverage >= $globalCoverage || $metric->getCoverage() >= $globalCoverage) {
+        if ($metric->getCoverage() >= $globalCoverage) {
             return new Failure($metric, $fileConfig->getMinimumCoverage(), Failure::UNNECESSARY_CUSTOM_COVERAGE);
         }
 
