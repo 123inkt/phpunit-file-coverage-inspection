@@ -40,6 +40,15 @@ class RendererHelperTest extends TestCase
         static::assertSame('Custom file coverage is configured at 30%. Current coverage is at 70%. Improve coverage for this class.', $message);
     }
 
+    public function testRenderReasonCustomCoverageTooHigh(): void
+    {
+        $metric  = new FileMetric('foobar', 0, 50, [], []);
+        $failure = new Failure($metric, 70, Failure::CUSTOM_COVERAGE_TOO_HIGH, 5);
+
+        $message = RendererHelper::renderReason($this->config, $failure);
+        static::assertSame('Custom file coverage is configured at 70%. Current coverage is at 50%. Edit the phpfci baseline for this class.', $message);
+    }
+
     public function testRenderReasonMissingMethodCoverage(): void
     {
         $metric  = new FileMetric('foobar', 0, 70, [new MethodMetric('coveredMethod', 100, 80), new MethodMetric('uncoveredMethod', 105, 0)], []);
