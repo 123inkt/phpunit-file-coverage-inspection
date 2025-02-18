@@ -23,13 +23,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class BaselineCommand extends Command
 {
-    public function __construct(string $name = null)
-    {
-        parent::__construct($name);
-        $this->configFactory = new ConfigFactory();
-        $this->schemaPath    = dirname(__DIR__, 2) . '/resources/phpfci.xsd';
-    }
-
     protected function configure(): void
     {
         $this->setName("baseline")
