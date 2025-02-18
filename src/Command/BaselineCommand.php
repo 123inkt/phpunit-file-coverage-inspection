@@ -28,7 +28,7 @@ class BaselineCommand extends Command
         $this->setName("baseline")
             ->setDescription("Generate phpfci.xml based on a given coverage.xml")
             ->addArgument('coverage', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Path to phpunit\'s coverage.xml')
-            ->addOption('config', 'c', InputOption::VALUE_REQUIRED, 'Path to write the configuration file')
+            ->addOption('config', '', InputOption::VALUE_REQUIRED, 'Path to write the configuration file')
             ->addOption('threshold', '', InputOption::VALUE_REQUIRED, 'Minimum coverage threshold, defaults to 100', 100)
             ->addOption('baseDir', '', InputOption::VALUE_REQUIRED, 'Base directory from where to determine the relative config paths');
     }

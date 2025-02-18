@@ -20,12 +20,6 @@ class BaselineCommandTest extends TestCase
     /** @var vfsStreamDirectory */
     private $fileSystem;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->fileSystem = vfsStream::setup('output');
-    }
-
     /**
      * @throws Exception
      */
@@ -39,7 +33,7 @@ class BaselineCommandTest extends TestCase
 
         // prepare command
         $command = new BaselineCommand();
-        $input   = new ArgvInput(['phpfci', '--baseDir', $baseDir, $coveragePath, $output]);
+        $input   = new ArgvInput(['phpfci', $coveragePath, '--baseDir', $baseDir, '--config', $output]);
         $output  = new BufferedOutput();
 
         // run test case
@@ -52,5 +46,11 @@ class BaselineCommandTest extends TestCase
         $result     = $resultFile->getContent();
 
         static::assertSame($expected, $result);
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->fileSystem = vfsStream::setup('output');
     }
 }
