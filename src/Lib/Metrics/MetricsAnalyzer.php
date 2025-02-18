@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Lib\Metrics;
 
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\AbstractInspection;
-use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\BelowCustomCoverageInspection;
+use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\DifferentCustomCoverageInspection;
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\BelowGlobalCoverageInspection;
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\CustomCoverageAboveGlobalInspection;
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\UncoveredMethodsInspection;
@@ -31,10 +31,10 @@ class MetricsAnalyzer
         $this->config  = $config;
 
         $this->inspections = [
-            new BelowCustomCoverageInspection($config),
+            new CustomCoverageAboveGlobalInspection($config),
+            new DifferentCustomCoverageInspection($config),
             new BelowGlobalCoverageInspection($config),
-            new UncoveredMethodsInspection($config),
-            new CustomCoverageAboveGlobalInspection($config)
+            new UncoveredMethodsInspection($config)
         ];
     }
 
