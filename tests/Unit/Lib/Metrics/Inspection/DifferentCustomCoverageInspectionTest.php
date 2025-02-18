@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace DigitalRevolution\CodeCoverageInspection\Tests\Unit\Lib\Metrics\Inspection;
 
 use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\AbstractInspection;
-use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\BelowCustomCoverageInspection;
+use DigitalRevolution\CodeCoverageInspection\Lib\Metrics\Inspection\DifferentCustomCoverageInspection;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\InspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Config\PathInspectionConfig;
 use DigitalRevolution\CodeCoverageInspection\Model\Metric\Failure;
@@ -12,16 +12,16 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(BelowCustomCoverageInspection::class)]
+#[CoversClass(DifferentCustomCoverageInspection::class)]
 #[CoversClass(AbstractInspection::class)]
-class BelowCustomCoverageInspectionTest extends TestCase
+class DifferentCustomCoverageInspectionTest extends TestCase
 {
-    private BelowCustomCoverageInspection $inspection;
+    private DifferentCustomCoverageInspection $inspection;
 
     protected function setUp(): void
     {
         $config           = new InspectionConfig('/tmp/', 80);
-        $this->inspection = new BelowCustomCoverageInspection($config);
+        $this->inspection = new DifferentCustomCoverageInspection($config);
     }
 
     public function testInspectNoCustomCoverageShouldPass(): void
@@ -43,10 +43,24 @@ class BelowCustomCoverageInspectionTest extends TestCase
         static::assertSame(40, $failure->getMinimumCoverage());
     }
 
-    public function testInspectCoverageAboveCustomCoverageShouldPass(): void
+    /**
+     * Custom coverage 40%
+     */
+    public function testInspectCoverageAboveCustomCoverageShouldFail(): void
     {
-        $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '/tmp/b', 40);
-        $metric     = new FileMetric('/tmp/a/', 0, 60, [], []);
+        $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '/tmp/b', 20);
+        $metric     = new FileMetric('/tmp/a/', 0, 40, [], []);
+
+        $failure = $this->inspection->inspect($fileConfig, $metric);
+        static::assertNotNull($failure);
+        static::assertSame(Failure::CUSTOM_COVERAGE_TOO_HIGH, $failure->getReason());
+        static::assertSame(20, $failure->getMinimumCoverage());
+    }
+
+    public function testInspectCoverageCustomCoverageShouldPass(): void
+    {
+        $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '/tmp/b', 50);
+        $metric     = new FileMetric('/tmp/a/', 0, 50.8, [], []);
 
         static::assertNull($this->inspection->inspect($fileConfig, $metric));
     }
