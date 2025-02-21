@@ -57,7 +57,8 @@ File: `phpfci.xml`
 or generate a config file based on existing coverage results
 
 ```shell script
-php vendor/bin/phpfci baseline --baseDir /home/ci/workspace coverage.xml --config ./phpfci.xml
+php vendor/bin/phpfci baseline coverage.xml --config ./phpfci.xml --baseDir /home/ci/workspace
+php vendor/bin/phpfci baseline coverage1.xml coverage2.xml --config ./phpfci.xml --baseDir /home/ci/workspace
 ```
 
 The base directory will be subtracted from the filepaths in coverage.xml
