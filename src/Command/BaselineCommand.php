@@ -12,6 +12,7 @@ use DigitalRevolution\CodeCoverageInspection\Renderer\ConfigFileRenderer;
 use RuntimeException;
 use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -25,15 +26,15 @@ class BaselineCommand extends Command
     {
         $this->setName("baseline")
             ->setDescription("Generate phpfci.xml based on a given coverage.xml")
-            ->addArgument('coverage', InputOption::VALUE_REQUIRED, 'Path to phpunit\'s coverage.xml')
-            ->addArgument('config', InputOption::VALUE_REQUIRED, 'Path to write the configuration file')
+            ->addArgument('coverage', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Path to phpunit\'s coverage.xml')
+            ->addOption('config', '', InputOption::VALUE_REQUIRED, 'Path to write the configuration file')
             ->addOption('threshold', '', InputOption::VALUE_REQUIRED, 'Minimum coverage threshold, defaults to 100', 100)
             ->addOption('baseDir', '', InputOption::VALUE_REQUIRED, 'Base directory from where to determine the relative config paths');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $configArgument = $input->getArgument('config');
+        $configArgument = $input->getOption('config');
         if (is_array($configArgument)) {
             if (count($configArgument) === 0) {
                 throw new RuntimeException('Missing config argument');
@@ -41,10 +42,18 @@ class BaselineCommand extends Command
             $configArgument = reset($configArgument);
         }
 
-        $outputPath       = new SplFileInfo((string)$configArgument);
-        $baseDir          = $input->getOption('baseDir') ?? $outputPath->getPath();
-        $threshold        = $input->getOption('threshold');
-        $coverageFilePath = FileUtil::getExistingFile($input->getArgument('coverage'));
+        $outputPath        = new SplFileInfo((string)$configArgument);
+        $baseDir           = $input->getOption('baseDir') ?? $outputPath->getPath();
+        $threshold         = $input->getOption('threshold');
+        $coveragesFilepath = [];
+        $coverageArgument  = $input->getArgument('coverage');
+        if (is_array($coverageArgument) === false) {
+            $output->writeln('Coverage argument should be an array');
+            return Command::FAILURE;
+        }
+        foreach ($coverageArgument as $coverageFilepath) {
+            $coveragesFilepath[] = FileUtil::getExistingFile($coverageFilepath);
+        }
 
         if (is_string($baseDir) === false) {
             $output->writeln("--baseDir argument is not valid. Expecting string argument");
@@ -59,8 +68,12 @@ class BaselineCommand extends Command
         }
 
         // default to 100% coverage
-        $config  = new InspectionConfig($baseDir, (int)$threshold, false);
-        $metrics = MetricsFactory::getFileMetrics(DOMDocumentFactory::getDOMDocument($coverageFilePath));
+        $config       = new InspectionConfig($baseDir, (int)$threshold, false);
+        $domDocuments = [];
+        foreach ($coveragesFilepath as $coverageFilepath) {
+            $domDocuments[] = DOMDocumentFactory::getDOMDocument($coverageFilepath);
+        }
+        $metrics = MetricsFactory::getFilesMetrics($domDocuments);
 
         // analyzer
         $failures = (new MetricsAnalyzer($metrics, $config))->analyze();

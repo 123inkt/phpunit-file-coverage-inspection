@@ -4,7 +4,10 @@
   <error line="1" column="0" severity="error" message="Project per file coverage is configured at 80%. Current coverage is at 70%. Improve coverage for this class." source="phpunit-file-coverage-inspection"/>
  </file>
  <file name="/home/workspace/test/directory/standard-below-threshold.php">
-  <error line="1" column="0" severity="error" message="Custom file coverage is configured at 90%. Current coverage is at 80%. Improve coverage for this class." source="phpunit-file-coverage-inspection"/>
+  <error line="1" column="0" severity="error" message="Custom file coverage is configured at 90%. Current coverage is at 60%. Improve coverage for this class." source="phpunit-file-coverage-inspection"/>
+ </file>
+ <file name="/home/workspace/test/directory/standard-above-threshold.php">
+  <error line="1" column="0" severity="error" message="A custom file coverage is configured at 90%, but the current file coverage 90% exceeds the project coverage 80%. Remove `/home/workspace/test/directory/standard-above-threshold.php` from phpfci.xml custom-coverage rules." source="phpunit-file-coverage-inspection"/>
  </file>
  <file name="/home/workspace/test/case/below-threshold.php">
   <error line="1" column="0" severity="error" message="Custom file coverage is configured at 55%. Current coverage is at 50%. Improve coverage for this class." source="phpunit-file-coverage-inspection"/>

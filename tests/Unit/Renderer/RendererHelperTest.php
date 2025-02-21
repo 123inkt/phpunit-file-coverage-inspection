@@ -17,11 +17,6 @@ class RendererHelperTest extends TestCase
 {
     private InspectionConfig $config;
 
-    protected function setUp(): void
-    {
-        $this->config = new InspectionConfig('base-path', 80);
-    }
-
     public function testRenderReasonGlobalCoverageTooLow(): void
     {
         $metric  = new FileMetric('foobar', 0, 80, [], []);
@@ -38,6 +33,18 @@ class RendererHelperTest extends TestCase
 
         $message = RendererHelper::renderReason($this->config, $failure);
         static::assertSame('Custom file coverage is configured at 30%. Current coverage is at 70%. Improve coverage for this class.', $message);
+    }
+
+    public function testRenderReasonCustomCoverageTooHigh(): void
+    {
+        $metric  = new FileMetric('foobar', 0, 50, [], []);
+        $failure = new Failure($metric, 70, Failure::CUSTOM_COVERAGE_TOO_HIGH, 5);
+
+        $message = RendererHelper::renderReason($this->config, $failure);
+        static::assertSame(
+            'Custom file coverage is configured at 70%. Current coverage is at 50%. Edit the phpfci baseline for this class.',
+            $message
+        );
     }
 
     public function testRenderReasonMissingMethodCoverage(): void
@@ -69,5 +76,10 @@ class RendererHelperTest extends TestCase
 
         $this->expectException(RuntimeException::class);
         RendererHelper::renderReason($this->config, $failure);
+    }
+
+    protected function setUp(): void
+    {
+        $this->config = new InspectionConfig('base-path', 80);
     }
 }
