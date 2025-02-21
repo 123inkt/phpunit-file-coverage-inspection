@@ -10,12 +10,16 @@ use DigitalRevolution\CodeCoverageInspection\Model\Metric\FileMetric;
 /**
  * File coverage is below custom coverage
  */
-class BelowCustomCoverageInspection extends AbstractInspection
+class DifferentCustomCoverageInspection extends AbstractInspection
 {
     public function inspect(?PathInspectionConfig $fileConfig, FileMetric $metric): ?Failure
     {
-        if ($fileConfig !== null && $metric->getCoverage() < $fileConfig->getMinimumCoverage()) {
+        if ($fileConfig !== null && (int)floor($metric->getCoverage()) < $fileConfig->getMinimumCoverage()) {
             return new Failure($metric, $fileConfig->getMinimumCoverage(), Failure::CUSTOM_COVERAGE_TOO_LOW);
+        }
+
+        if ($fileConfig !== null && (int)floor($metric->getCoverage()) > $fileConfig->getMinimumCoverage()) {
+            return new Failure($metric, $fileConfig->getMinimumCoverage(), Failure::CUSTOM_COVERAGE_TOO_HIGH);
         }
 
         return null;

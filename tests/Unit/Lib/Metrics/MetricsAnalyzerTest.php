@@ -41,7 +41,7 @@ class MetricsAnalyzerTest extends TestCase
     {
         $metrics[] = new FileMetric('/a/b/c/test.php', 0, 45, [], []);
         $config    = new InspectionConfig('/a/', 80, false);
-        $config->addPathInspection(new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, 'b/c/test.php', 40));
+        $config->addPathInspection(new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, 'b/c/test.php', 45));
 
         $analyzer = new MetricsAnalyzer($metrics, $config);
         $result   = $analyzer->analyze();
@@ -66,12 +66,12 @@ class MetricsAnalyzerTest extends TestCase
         $metric  = new FileMetric('/a/b/c/test.php', 0, 90, [], []);
         $metrics = [$metric];
         $config  = new InspectionConfig('/a/', 80, false);
-        $config->addPathInspection(new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, 'b/c/test.php', 50));
+        $config->addPathInspection(new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, 'b/c/test.php', 90));
 
         $analyzer = new MetricsAnalyzer($metrics, $config);
         $result   = $analyzer->analyze();
         static::assertCount(1, $result);
-        static::assertEquals([new Failure($metric, 50, Failure::UNNECESSARY_CUSTOM_COVERAGE)], $result);
+        static::assertEquals([new Failure($metric, 90, Failure::UNNECESSARY_CUSTOM_COVERAGE)], $result);
     }
 
     public function testAnalyzeFileWithUncoveredMethodsShouldFail(): void

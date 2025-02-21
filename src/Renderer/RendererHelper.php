@@ -20,6 +20,10 @@ class RendererHelper
                 $message = "Custom file coverage is configured at %s%%. Current coverage is at %s%%. Improve coverage for this class.";
 
                 return sprintf($message, (string)$failure->getMinimumCoverage(), (string)$failure->getMetric()->getCoverage());
+            case Failure::CUSTOM_COVERAGE_TOO_HIGH:
+                $message = "Custom file coverage is configured at %s%%. Current coverage is at %s%%. Edit the phpfci baseline for this class.";
+
+                return sprintf($message, (string)$failure->getMinimumCoverage(), (string)$failure->getMetric()->getCoverage());
             case Failure::MISSING_METHOD_COVERAGE:
                 $message     = "File coverage is above %s%%, but method(s) `%s` has/have no coverage at all.";
                 $methodNames = array_filter(

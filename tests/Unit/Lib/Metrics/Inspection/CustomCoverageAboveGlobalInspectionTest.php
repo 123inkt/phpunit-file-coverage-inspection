@@ -47,13 +47,4 @@ class CustomCoverageAboveGlobalInspectionTest extends TestCase
         static::assertSame(Failure::UNNECESSARY_CUSTOM_COVERAGE, $failure->getReason());
         static::assertSame(40, $failure->getMinimumCoverage());
     }
-
-    public function testInspectCoverageCustomCoverageAboveGlobalCoverageShouldPass(): void
-    {
-        // global is 80
-        $fileConfig = new PathInspectionConfig(PathInspectionConfig::TYPE_FILE, '/tmp/b', 85);
-        $metric     = new FileMetric('/tmp/b/', 0, 83, [], []);
-
-        static::assertNull($this->inspection->inspect($fileConfig, $metric));
-    }
 }

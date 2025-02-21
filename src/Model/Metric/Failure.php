@@ -9,6 +9,7 @@ class Failure
     public const CUSTOM_COVERAGE_TOO_LOW     = 2;
     public const UNNECESSARY_CUSTOM_COVERAGE = 3;
     public const MISSING_METHOD_COVERAGE     = 4;
+    public const CUSTOM_COVERAGE_TOO_HIGH     = 5;
 
     private FileMetric $metric;
     private int $minimumCoverage;
