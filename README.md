@@ -107,6 +107,10 @@ Note: if no `--reportGitlab`, `--reportCheckstyle` or `--reportText` is set, it 
 The third required argument and `--report` has been removed, and should be replaced by:
 `--reportGitlab=<file>`, `--reportCheckstyle=<file>` or `--reportText=<file>` 
 
+# Migrating from 2 to 3
+The baseline now also support multiple coverage files, as the inspect command.
+An error is also raised if the baseline custom entry doesn't match the coverage.
+
 ## About us
 
 At 123inkt (Part of Digital Revolution B.V.), every day more than 50 development professionals are working on improving our internal ERP 
