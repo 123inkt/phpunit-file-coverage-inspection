@@ -28,7 +28,7 @@ class InspectCommand extends Command
     private ConfigFactory $configFactory;
     private string $schemaPath;
 
-    public function __construct(string $name = null)
+    public function __construct(?string $name = null)
     {
         parent::__construct($name);
         $this->configFactory = new ConfigFactory();
