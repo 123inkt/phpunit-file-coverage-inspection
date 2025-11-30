@@ -29,7 +29,7 @@
         "ext-json": "*",
         "ext-libxml": "*",
         "ext-xmlwriter": "*",
-        "symfony/console": "^6.2 || ^7.0"
+        "symfony/console": "^6.2 || ^7.0 || ^8.0"
     },
     "require-dev": {
         "digitalrevolution/accessorpair-constraint": ">= 2.1.7",
