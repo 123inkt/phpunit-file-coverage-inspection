@@ -17,8 +17,13 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 $application = new Application();
-$application->add(new InspectCommand());
-$application->add(new BaselineCommand());
+if (method_exists($application, 'add')) {
+    $application->add(new InspectCommand());
+    $application->add(new BaselineCommand());
+} else {
+    $application->addCommand(new InspectCommand());
+    $application->addCommand(new BaselineCommand());
+}
 
 try {
     exit($application->run());
