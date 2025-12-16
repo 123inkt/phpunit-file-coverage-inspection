@@ -44,6 +44,10 @@
         "mikey179/vfsstream": "^1.6.7"
     },
     "scripts": {
+        "baseline": ["@baseline:phpcs", "@baseline:phpstan", "@baseline:phpmd"],
+        "baseline:phpcs": "phpcs-baseline src tests",
+        "baseline:phpstan": "phpstan --generate-baseline",
+        "baseline:phpmd": "phpmd src,tests xml phpmd.xml --generate-baseline",
         "check": ["@check:phpstan", "@check:phpmd", "@check:phpcs"],
         "check:phpstan": "phpstan analyse",
         "check:phpmd": "phpmd src,tests text phpmd.xml.dist --suffixes php",
