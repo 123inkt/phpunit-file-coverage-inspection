@@ -15,6 +15,7 @@ class XMLUtil
     {
         $nodes = $xpath->query($query);
 
+        /** @phpstan-var DOMNode[] */
         return $nodes === false ? [] : iterator_to_array($nodes, false);
     }
 

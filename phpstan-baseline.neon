@@ -1,0 +1,73 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: src/Command/BaselineCommand.php
+
+		-
+			message: '#^Parameter \#3 \$subject of function str_replace expects array\<string\>\|string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Functional/Command/BaselineCommand/BaselineCommandTest.php
+
+		-
+			message: '#^Offset ''uri'' might not exist on array\{timed_out\: bool, blocked\: bool, eof\: bool, unread_bytes\: int, stream_type\: string, wrapper_type\: string, wrapper_data\: mixed, mode\: string, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: tests/Unit/Lib/IO/DOMDocumentFactoryTest.php
+
+		-
+			message: '#^Method DigitalRevolution\\CodeCoverageInspection\\Tests\\Unit\\Lib\\IO\\MetricsFactoryTest\:\:multiFilesDataProvider\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Unit/Lib/IO/MetricsFactoryTest.php
+
+		-
+			message: '#^Method DigitalRevolution\\CodeCoverageInspection\\Tests\\Unit\\Lib\\IO\\MetricsFactoryTest\:\:testGetFilesMetrics\(\) has parameter \$coveredStatements with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Unit/Lib/IO/MetricsFactoryTest.php
+
+		-
+			message: '#^Parameter \#4 \$methods of class DigitalRevolution\\CodeCoverageInspection\\Model\\Metric\\FileMetric constructor expects array\<string, DigitalRevolution\\CodeCoverageInspection\\Model\\Metric\\MethodMetric\>, array\<int, DigitalRevolution\\CodeCoverageInspection\\Model\\Metric\\MethodMetric\> given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/Unit/Lib/Metrics/FileMetricAnalyzerTest.php
+
+		-
+			message: '#^Parameter \#4 \$methods of class DigitalRevolution\\CodeCoverageInspection\\Model\\Metric\\FileMetric constructor expects array\<string, DigitalRevolution\\CodeCoverageInspection\\Model\\Metric\\MethodMetric\>, array\<int, DigitalRevolution\\CodeCoverageInspection\\Model\\Metric\\MethodMetric\> given\.$#'
+			identifier: argument.type
+			count: 3
+			path: tests/Unit/Lib/Metrics/Inspection/UncoveredMethodsInspectionTest.php
+
+		-
+			message: '#^Implicit array creation is not allowed \- variable \$metrics does not exist\.$#'
+			identifier: variable.implicitArray
+			count: 5
+			path: tests/Unit/Lib/Metrics/MetricsAnalyzerTest.php
+
+		-
+			message: '#^Parameter \#4 \$methods of class DigitalRevolution\\CodeCoverageInspection\\Model\\Metric\\FileMetric constructor expects array\<string, DigitalRevolution\\CodeCoverageInspection\\Model\\Metric\\MethodMetric\>, array\<int, DigitalRevolution\\CodeCoverageInspection\\Model\\Metric\\MethodMetric\> given\.$#'
+			identifier: argument.type
+			count: 3
+			path: tests/Unit/Lib/Metrics/MetricsAnalyzerTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type org\\bovigo\\vfs\\vfsStreamFile\|null is not subtype of type org\\bovigo\\vfs\\vfsStreamContent\.$#'
+			identifier: varTag.type
+			count: 1
+			path: tests/Unit/Lib/Utility/FileUtilTest.php
+
+		-
+			message: '#^Parameter \#4 \$methods of class DigitalRevolution\\CodeCoverageInspection\\Model\\Metric\\FileMetric constructor expects array\<string, DigitalRevolution\\CodeCoverageInspection\\Model\\Metric\\MethodMetric\>, array\<int, DigitalRevolution\\CodeCoverageInspection\\Model\\Metric\\MethodMetric\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Unit/Renderer/CheckStyleRendererTest.php
+
+		-
+			message: '#^Parameter \#4 \$methods of class DigitalRevolution\\CodeCoverageInspection\\Model\\Metric\\FileMetric constructor expects array\<string, DigitalRevolution\\CodeCoverageInspection\\Model\\Metric\\MethodMetric\>, array\<int, DigitalRevolution\\CodeCoverageInspection\\Model\\Metric\\MethodMetric\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Unit/Renderer/RendererHelperTest.php
