@@ -44,7 +44,7 @@ class ConfigFactory
             return $reportText;
         }
 
-        $reports = array_filter([$reportGitlab, $reportCheckstyle, $reportText]);
+        $reports = array_filter([$reportGitlab, $reportCheckstyle, $reportText], static fn ($report) => $report !== null);
         if (count($reports) === 0) {
             $reportText = 'php://stdout';
         } elseif ($reports !== array_unique($reports)) {

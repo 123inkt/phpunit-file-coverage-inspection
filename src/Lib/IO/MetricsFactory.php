@@ -63,6 +63,7 @@ class MetricsFactory
         $xpath   = new DOMXPath($document);
 
         // find all file metrics and determine coverage
+        /** @var DOMNodeList<DOMNode>|false $domMetrics */
         $domMetrics = $xpath->query('/coverage/project//file/metrics');
         if ($domMetrics === false) {
             // @codeCoverageIgnoreStart
@@ -76,6 +77,7 @@ class MetricsFactory
             $filename   = str_replace('\\', '/', (string)XMLUtil::getAttribute($parentNode, 'name'));
 
             // calculate coverage
+            /** @var DOMNodeList<DOMNode>|false $statementsNodes */
             $statementsNodes    = $xpath->query('line[@type="stmt"]', $parentNode);
             $statements         = $statementsNodes === false ? 0 : count($statementsNodes);
             $coveredStatements  = (int)XMLUtil::getAttribute($domMetric, 'coveredstatements');
@@ -98,6 +100,7 @@ class MetricsFactory
     public static function getMethodMetrics(DOMXPath $xpath, DOMNode $fileNode): array
     {
         // get all line entries
+        /** @var DOMNodeList<DOMNode>|false $methodNodes */
         $methodNodes = $xpath->query('line[@type="method"]', $fileNode);
         if ($methodNodes === false || count($methodNodes) === 0) {
             return [];

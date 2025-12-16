@@ -57,7 +57,7 @@ class FileUtil
     {
         $fileInfo = self::getFile($path);
         if ($fileInfo->isFile() === false) {
-            throw new RuntimeException('File is missing or is a directory: ' . $path);
+            throw new RuntimeException('File is missing or is a directory: ' . (is_string($path) ? $path : 'unknown'));
         }
 
         return $fileInfo;

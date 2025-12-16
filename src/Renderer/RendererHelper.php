@@ -30,7 +30,8 @@ class RendererHelper
                     array_map(
                         static fn($method): ?string => $method->getCount() === 0 ? $method->getMethodName() : null,
                         $failure->getMetric()->getMethods()
-                    )
+                    ),
+                    static fn(?string $name): bool => $name !== null
                 );
 
                 return sprintf($message, (string)$config->getMinimumCoverage(), implode(', ', $methodNames));
