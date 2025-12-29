@@ -28,9 +28,9 @@ class InspectCommand extends Command
     private ConfigFactory $configFactory;
     private string $schemaPath;
 
-    public function __construct(?string $name = null)
+    public function __construct()
     {
-        parent::__construct($name);
+        parent::__construct();
         $this->configFactory = new ConfigFactory();
         $this->schemaPath    = dirname(__DIR__, 2) . '/resources/phpfci.xsd';
     }
